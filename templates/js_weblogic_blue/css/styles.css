@@ -1,0 +1,439 @@
+/* Blue Style 001 */
+/* Copyright 2007 Casey Lee for Joomlashack.com */
+
+
+/* main background color, header background, and default text color */
+body#page_bg {
+	background: #ebebeb repeat-x center top;
+
+	color: #363636;
+}
+
+
+
+/* default font */
+html, body, form, fieldset {
+	font: 14px/140%  "Trebuchet MS", Arial, Helvetica, San Serif;
+	font-size: 12px;
+}
+
+
+/*Top Nav Link Color*/
+
+#header-top li a {
+	color: #C9CFD3;
+}
+#header-top li a:hover {
+	color: #fff;
+	
+}
+
+
+/*Header (TEXT) */
+#header-text h1, #header-text h1 a {
+	color: #f7f7f7;
+	font: normal 45px/45px "Trebuchet MS",Arial, Helvetica, San Serif;
+	letter-spacing: -3px;
+}
+/*Header (GRAPHIC) */
+/*Adjust the height below - Proceed with caution or use "text" based logo from config*/
+/*Notes: If your logo extends the default size (67px) the page.png must be re-exported as well */
+/*It is recommended to use the Fireworks source */
+
+#header-graphic {
+	background: #FFFFFF url(../images/header_logo.png) no-repeat left top;
+	height: 47px;
+}
+
+/* Defines the clickable hotspot area of the logo */
+/* You can temporarily uncomment the red border to see your zone */
+#header-graphic h1 a {
+	height: 38px;
+	width: 215px;
+	/*border: 1px solid red;*/
+	cursor: pointer;
+}
+
+
+/* Headings Typography */
+
+h1 {
+	font-size: 24px;
+	color: #333;
+}
+
+h2 {
+	font-size: 20px;
+	color: #797f83;
+}
+
+h3 {
+	font-size: 18px;
+	color: #0099CC;
+}
+
+h4 {
+	font-size: 12px;
+	color: #3d3d3d;
+}
+/* Default Link Styles */
+a {
+	color: #999;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #999;
+	text-decoration: none;
+}
+
+/* Because serifs don't look all that great. Remove this if you change to a sans-serif font */
+
+b, strong {
+	font: bold .95em "Trebuchet MS", Arial, Helvetica, Geneva, sans-serif;
+}
+
+/* Left and Right Column Typography */
+
+#leftcol h1, #rightcol h1 {
+	font-size: 18px;
+	line-height: 125%;
+}
+
+#leftcol h2, #rightcol h2 {
+	font-size: 16px;
+	line-height: 125%;
+}
+#leftcol h4, #rightcol h4 {
+	font-size: 14px;
+	line-height: 125%;
+}
+
+#leftcol .inside,
+#rightcol .inside {
+	font-size: 12px;
+	line-height: 135%;
+}
+
+#leftcol a.contentpagetitle,
+#rightcol a.contentpagetitle,
+#rightcol td.contentheading,
+#leftcol td.contentheading {
+	font-size: 22px;
+	line-height: 22px;
+}
+/* Bottom stroke */
+table#main {
+	
+	border-bottom: 5px solid #fff;
+}
+
+/* Teaser Background */
+
+#teaser-wrapper {
+	/*background: url(../images/teaser_bg.png) repeat-x center top;*/
+	background-color:#fff;
+}
+/* Secondary (inner) Teaser Background */
+#teaser {
+	padding-top: 2px;
+	background:  #FFFFFF url(../images/banner_services.jpg) no-repeat center bottom;
+
+	/*border-top: 5px solid #ccc;
+	margin-top: 3px; */
+}
+#teasertraining {
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_services.jpg) no-repeat center bottom;
+	/*border-top: 5px solid #ccc;
+	margin-top: 3px; */
+}
+#teaserpubtraining {
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_pubtraining.jpg) no-repeat center bottom;
+}
+#teasercustomtraining {
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_customtraining.jpg) no-repeat center bottom;
+}
+#teasernews {
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_news.jpg) no-repeat center bottom;
+}
+#teaseraboutus {
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_aboutus.jpg) no-repeat center bottom;
+}
+#teasercompany {
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_company.jpg) no-repeat center bottom;
+}
+#teaserpeople{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_people.jpg) no-repeat center bottom;
+}
+
+#teaservalues{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_values.jpg) no-repeat center bottom;
+}
+#teaserservices{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_services.jpg) no-repeat center bottom;
+}
+#teaserstandards{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_standard_compliance.jpg) no-repeat center bottom;
+}
+#teaserexperience{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_ets_experience.jpg) no-repeat center bottom;
+}
+#teaserapproach{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_ourapproach.jpg) no-repeat center bottom;
+}
+
+#teasercontactus{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_contactus.jpg) no-repeat center bottom;
+}
+#teaserclients{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_clients.jpg) no-repeat center bottom;
+}
+
+#teaserpartners{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_partners.jpg) no-repeat center bottom;
+}
+
+#teasertrainingsignup{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_trainingsignup.jpg) no-repeat center bottom;
+}
+
+#teaserdownloads{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_downloads.jpg) no-repeat center bottom;
+}
+#teasercareers{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_careers.jpg) no-repeat center bottom;
+}
+#teaserserviceconsulting{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_consulting.jpg) no-repeat center bottom;
+}
+#teaserserviceassessment{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_assessment.jpg) no-repeat center bottom;
+}
+#teaserservicetraining{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_consulting-training.jpg) no-repeat center bottom;
+}
+#teaserservicemanaged{
+	padding-top: 2px;
+	background: #FFFFFF url(../images/banner_managed-services.jpg) no-repeat center bottom;
+}
+/* Teaser (icon position) Typography */
+
+#teaser h3 {
+	color: #3d3d3d;
+	font-size: 28px;
+	line-height: 32px;
+}
+#teaser p {
+	color: #3d3d3d;
+	font-size: 18px;
+	line-height: 20px;
+}
+#teaser a {
+}
+/* @group Module Headings */
+
+/* Style 1 - S1/Default */
+
+div.moduletable h3, div.moduletableS1 h3 {
+	text-transform: uppercase;
+	font-size: 13px;
+	/*background: #00480e url(../images/moduleheading1.png) no-repeat left bottom;*/
+	background: #f8f8f8;
+	color: #006600;
+	line-height: 165%;
+	word-spacing: .25em;
+}
+
+/* Style 2 - S2 */
+
+div.moduletableS2 h3 {
+	text-transform: uppercase;
+	font-size: 13px;
+	background: #558a97 url(../images/moduleheading2.png) no-repeat left bottom;
+	color: #fff;
+	line-height: 165%;
+	word-spacing: .25em;
+}
+/* Style 3 - S3 */
+
+div.moduletableS3 h3 {
+	text-transform: uppercase;
+	font-size: 13px;
+	background: #ccc url(../images/moduleheading3.png) no-repeat left bottom;
+	color: #666;
+	line-height: 165%;
+	word-spacing: .25em;
+}
+/* Style 4 - S4 */
+
+div.moduletableS4 h3 {
+	text-transform: uppercase;
+	font-size: 13px;
+	background: #c0ccd3 url(../images/moduleheading4.png) no-repeat left bottom;
+	color: #333;
+	line-height: 165%;
+	word-spacing: .25em;
+}
+
+/* Style 5 - S5 */
+
+div.moduletableS5 h3 {
+	text-transform: uppercase;
+	font-size: 13px;
+	background: #558a97 url(../images/moduleheading5.png) no-repeat left bottom;
+	color: #fff;
+	line-height: 165%;
+	word-spacing: .25em;
+}
+
+/* Style 6 -bdr */
+
+
+div.moduletable-bdr {
+	background: #f4f4f4;
+	border: 1px solid #ccc;
+}
+
+/* Style 7 -nopad */
+
+div.moduletable-nopad h3 {
+	text-transform: uppercase;
+	font-size: 13px;
+	color: #333;
+	line-height: 165%;
+}
+
+/*Footer*/
+
+#footer {
+	color: #999;
+	
+	/*background: #fff url(../images/footer_bg.png) repeat-x center bottom;
+	border-bottom: 5px solid #ccc; */
+}
+#footer a {
+	color: #9ca2aa;
+	text-decoration: none;
+}
+#footer a:hover {
+	color: #006600;
+}
+#footer a, #footer p, #footer div, #footer a {
+text-decoration:none;
+}
+#footer .moduletable h3 {
+	font-family: "Trebuchet MS", Arial, Helvetica, "Sans Serif";
+}
+/* @end */
+
+/*Author Text*/
+span.small,.createdate {
+	font: normal small-caps 11px/12px Tahoma, Lucida Grande, Lucida, Verdana, sans-serif;
+	color: #666;
+	text-transform: uppercase;
+}
+/*Last Updated Text*/
+.modifydate {
+	font: normal small-caps 11px/12px Tahoma, Lucida Grande, Lucida, Verdana, sans-serif;
+	color: #666;
+	text-transform: uppercase;
+}
+/* Content Headings */
+
+a.contentpagetitle {
+	text-decoration: none;
+	color: #5e6f75;
+}
+
+a.contentpagetitle:hover {
+	color: #000;
+	text-decoration: none;
+}
+
+td.contentheading {
+	color: #0066FF;
+}
+
+.contentheading {
+	color: #0066FF;
+	/*letter-spacing: -1px;*/
+	font: bold normal 20px/20px  "Trebuchet MS", Arial, helvetica, serif;
+}
+
+.contentheading a{
+	color:#0066FF;
+}
+.componentheading {
+	font-size: 20px;
+	padding-top: 15px;
+	line-height: 30px;
+	font-weight: bold;
+	color: #0066FF;
+}
+/*Read more...*/
+a.readon {
+	font: bold 12px/20px "Trebuchet MS", Arial, Helvetica,  sans-serif;
+	text-decoration: none;
+	color: #747a7e;
+}
+
+a.readon:hover {
+	color: #84949c;
+	text-decoration:none;
+}
+/*Buttons*/
+
+input.button {
+	border: 1px outset #666;
+	background: #3d3d3d;
+	color: #fff;
+	font: bold 12px "Trebuchet MS",Arial, Helvetica, Geneva, sans-serif;
+}
+/* Category Tables */
+
+td.sectiontableheader {
+	font-family: "Trebuchet MS",Arial, Helvetica, Geneva, sans-serif;
+	color: #fff;
+	border-bottom: 1px solid #fff;
+	border-right: 1px solid #fff;
+	background: #797f83;
+	font-weight: bold;
+}
+
+td tr.sectiontableentry1 td,
+td.sectiontableentry1 {
+	background: #fefefe;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+td tr.sectiontableentry2 td,
+td.sectiontableentry2 {
+	background: #f6f6f6;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+.sectiontableentry1 a,
+.sectiontableentry2 a {
+	text-decoration: none;
+}

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install method="upgrade" type="module" version="1.5.0">
+	<name>JK-Phoca Categories Display</name>
+	<author>Nguyen Duc Phuong for joomlakurse.ch</author>
+	<creationDate>16/07/2008</creationDate>
+	<copyright>Joomkurse.ch</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>info@joomlakurse.com</authorEmail>
+	<authorUrl>www.joomkurse.ch</authorUrl>
+	<version>1.0 stable</version>
+	<description>Phoca Gallery Module - displays latest categories from Phoca Gallery component. Piclens is supported. Works only with Phoca Gallery installed.</description>
+	
+	<files>
+		<filename module="mod_jvphoca">mod_jvphoca.php</filename>
+		<filename module="mod_jvphoca">rss.php</filename>
+		<filename module="mod_jvphoca">index.html</filename>
+		<filename module="mod_jvphoca">assets/jv_phoca.css</filename>
+		<filename module="mod_jvphoca">assets/jv_phoca_ie.css</filename>
+		<filename module="mod_jvphoca">assets/icon-view.gif</filename>
+		<filename module="mod_jvphoca">assets/index.html</filename>
+		<filename module="mod_jvphoca">assets/logo.png</filename>
+		<filename module="mod_jvphoca">tmpl/default.php</filename>
+		<filename module="mod_jvphoca">tmpl/index.html</filename>
+	</files>
+	
+	<languages>
+		<language tag="en-GB">en-GB.mod_jvphoca.ini</language>
+	</languages>
+
+	<params>
+		
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		
+		<param name="cat_limit" default="3" size="10" type="text" label="Number of Categories" description="How many Categories should be displayed?" />
+		<param name="pix_randomize" default="1" type="list" label="Randomize category picture" description="Every Category has a randomized preview picture if yes. If no the first picture is showed">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="show_number" default="0" type="list" label="Show number of pictures" description="Shows how many pics are there in a category">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="show_title" default="1" type="list" label="Show title of category" description="Show the title of the category">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="playbutton" default="1" type="radio" label="Show Play button" description="Display the play button for each box">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="piclens" default="1" type="list" label="Ad piclens slideshow" description="If yes the piclens slideshow starts / If no the regular lightbox shows up.">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="overview" default="0" type="list" label="Show overview link" description="If yes the module shows a link to a overview page of the categories">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+		<param name="overview_text" default="Show all categories" size="40" type="text" label="Overview text" description="The text for overview link" />
+		<param name="link_to" default="1" type="list" label="Link category picture to" description="Where should category picture link to?">
+			<option value="0">Nothing</option>
+			<option value="1">Slideshow</option>
+			<option value="2">Overview</option>
+		</param>
+		<param name="layout" default="0" type="list" label="Layout of module" description="Horizontal or Vertical?">
+			<option value="0">Horizontal</option>
+			<option value="1">Vertical</option>
+		</param>
+	</params>
+</install>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<install version="1.5" type="template">
+    <name>js_weblogic_blue</name>
+	<version>1.4</version>
+    <creationDate>10/01/07</creationDate>
+    <author>Casey Lee</author>
+    <authorEmail>support@joomlashack.com</authorEmail>
+    <authorUrl>http://www.joomlashack.com</authorUrl>
+    <copyright>Copyright 2006-2007 - joomlashack.com</copyright>
+    <license>Commercial - Single Domain License</license>
+    <description>
+			<![CDATA[
+			<h1>Weblogic</h1>
+			<img src="../templates/js_weblogic_blue/template_thumbnail.png" align="left" style="margin-right:5px;" />Thank you for purchasing Weblogic from <a href="http://www.joomlashack.com/">Joomlashack.com</a>.<br />
+			<b>Single Domain License</b>
+			]]>  	
+    </description>
+<files>
+	<filename>index.php</filename>
+	<filename>params.ini</filename>
+	<filename>template_thumbnail.png</filename>
+	<filename>templateDetails.xml</filename>
+	<folder>css/</folder>
+	<folder>images/</folder>
+	<folder>js/</folder>
+	<folder>html/</folder>
+</files>
+<positions>
+	<position>icon</position>
+	<position>menu</position>
+	<position>breadcrumb</position>
+	<position>banner</position>
+	<position>left</position>
+	<position>right</position>
+	<position>user3</position>
+	<position>user4</position>
+	<position>user6</position>
+	<position>user7</position>
+	<position>user8</position>
+</positions>
+<params>
+	<param name="headerstyle" type="list" default="text" label="Header Style" description="Header text render mehod">
+		<option value="graphic">Graphic</option>
+		<option value="text">Text</option>
+	</param>
+	<param name="headline" type="text" default="Weblogic" label="Headline Text" size="30" description="Headline Text">
+	</param>
+	<param name="menutype" type="radio" default="dropline" label="Menu Style" description="Style of top main menu">
+		<option value="dropline">Dropline</option>
+		<option value="suckerfish">Suckerfish</option>
+	</param>
+	<param name="browserwidth" type="radio" default="fixed" label="Browser Window Width" description="Fluid or Fixed width layout selection">
+	<option value="fixed">Fixed</option>
+	<option value="fluid">Fluid</option>
+	</param>
+	<param name="showpathway" type="radio" default="0" label="Pathway/Breadcrumbs" description="Select to show the Pathway/Breadcrumbs">
+	<option value="1">Yes</option>
+	<option value="0">No</option>
+	</param>
+	<param name="teaser_height" type="text" default="161px" label="Teaser Height" description="Height of div#teaser (icon position). Ex: '150px' or 'auto'"></param>
+	<param name="left_column" type="text" default="275px" label="Left Column Width" description="Width (in px) of left column. Left + Right should not exceed 475px"></param>
+	<param name="right_column" type="text" default="200px" label="Right Column Width" description="Width (in px) of right column. Left + Right should not exceed 475px"></param>
+	<param name="split_layout" type="list" default="NEWS" label="Layout style" description="Sets the order for content to be displayed">
+	<option value="NEWS">News</option>
+	<option value="BLOG">Blog</option>
+	<option value="PORTAL">Portal</option>
+	</param>
+</params>
+</install>

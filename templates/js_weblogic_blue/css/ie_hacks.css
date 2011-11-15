@@ -1,0 +1,35 @@
+table#main {margin-top:-5px;}
+
+td#leftcol div.inside, td#rightcol div.inside
+
+{
+
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+
+}
+#teaser-wrapper {
+	width: 800px;
+	background:#FFFFFF;
+	margin: 0px auto;
+	padding: 0px;
+	position:relative;
+	top: 0px;
+}
+
+#header-flag {
+	
+	width: 300px;
+	position: relative;
+	top: 22px;
+	height: 22px;
+	display:block;
+	float:left;
+
+}
+
+#header-flag img{
+	border: 1px #fff solid;
+}

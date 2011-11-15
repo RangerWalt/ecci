@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+	<name>Cool Scrolling news v.1.2</name>
+	<author>Daniele</author>
+	<creationDate>Mar 2008</creationDate>
+	<copyright></copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>danielecascone@hotmail.com</authorEmail>
+	<authorUrl>www.sitozero.it</authorUrl>
+	<version>1.2</version>
+	<description><![CDATA[
+	Scrolling News2 displays your news in a nice scrolling box.
+	To customize this module use the stylesheets in the modules/mod_scrollingnews2/css/ folder; each file is related to one label position.
+
+	Below you can set a lot of propertyes!
+	
+	Please visit: www.quizandcoffee.com]]></description>
+		
+	<description>This module shows the lastest news in a scrollable box.</description>
+
+	<files>
+		<filename module="mod_scrollingnews2">mod_scrollingnews2.php</filename>
+		<filename>dacScrollhelper.php</filename>
+		<filename>index.html</filename>
+		<filename>tmpl/default.php</filename>
+		<filename>tmpl/index.html</filename>
+		<filename>js/jquery-1.2.3.pack.js</filename>
+		<filename>js/jquery_timer.js</filename>
+		<filename>css/style_bottom.css</filename>
+		<filename>css/style_left.css</filename>
+		<filename>css/style_right.css</filename>
+		<filename>css/style_top.css</filename>						
+		<filename>css/r_botton.gif</filename>						
+		<filename>css/tabacceso.gif</filename>						
+		<filename>css/tabspento.gif</filename>						
+	</files>
+	<params>
+		<param name="count" type="text" default="5" label="Count" description="The number of items to display (default 5)" />
+		<param name="ordering" type="list" default="create_dsc" label="Ordering" description="Ordering options">
+			<option value="c_dsc">Recently Added First</option>
+			<option value="m_dsc">Recently Modified First</option>
+	  	</param>
+		<param name="user_id" type="list" default="0" label="Authors" description="A filter for the authors">
+			<option value="0">Anyone</option>
+			<option value="by_me">Added or modified by me</option>
+			<option value="not_me">Not added or modified by me</option>
+	  	</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="show_front" type="radio" default="1" label="Frontpage Items" description="PARAMFRONTPAGEITEMS">
+			<option value="1">show</option>
+			<option value="0">hide</option>
+		</param>
+		<param name="secid" type="text" default="" label="Section ID" description="PARAMSECTIONID" />
+		<param name="catid" type="text" default="" label="Category ID" description="PARAMCATEGORYID" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+		<param name="show_titolo" type="radio" default="1" label="Show News Title" description="Show titles - useful if no label il displayed">
+			<option value="1">show</option>
+			<option value="0">hide</option>
+		</param>
+		<param name="count" type="text" default="5" label="Count" description="The number of items to display (default 5)" />
+		<param name="larghezza" type="text" default="100%" label="Module Width" description="The width of the module in pixels or in perecentage (ex: 100%)  " />
+		<param name="altezza" type="text" default="200px" label="Module Height" description="The height of the module in pixels (do not write percentage)" />
+		<param name="tempo_di_visualizzazione" type="text" default="2000" label="Delay Time" description="The time (in milliseconds) for each news to be displayed " />
+		<param name="tempo_di_passaggio" type="text" default="1000" label="Animation time" description="The time (in milliseconds) from one news to the other " />
+		<param name="border_color" type="text" default="trasparent" label="Border's color" description="Use a css valid code (ex: #ffaabb or red)" />
+		<param name="img_float" type="radio" default="1" label="Force first image allignment" description="">
+			<option value="float:left;">Align to Left</option>
+			<option value="float:right;">Align to Right</option>
+			<option value="">Leave user alignment</option>			
+		</param>
+		<param name="scroll-direction" type="radio" default="vertical" label="scroll-direction" description="">
+			<option value="vertical">Vertical</option>
+			<option value="horizontal">Horizontal</option>
+		</param>
+		<param name="img_width" type="text" default="128px" label="Force first image width" description="force the dimension in pixels or percentage of the images (0 or Blank = don't force dimension)" />
+
+		<param name="scriviLabel" type="radio" default="1" label="write labels" description="">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</param>
+		<param name="labelPosition" type="radio" default="1" label="labels positioon" description="">
+			<option value="0">Top</option>			
+			<option value="1">Bottom</option>
+			<option value="2">Right</option>
+			<option value="3">Left</option>
+		</param>
+		<param name="jQuery" type="radio" default="1" label="Include JQuery lib?" description="If your site already use JQuery select No oterwise YES">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+
+	</params>
+	<params group="advanced">
+		<param name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
+			<option value="1">Use global</option>
+			<option value="0">No caching</option>
+		</param>
+		<param name="cache_time" type="text" default="900" label="Cache Time" description="The time before the module is recached" />
+	</params>
+</install>

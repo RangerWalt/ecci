@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="module" version="1.0.0">
+    <name>Multiple Random Images Module</name>
+    <author>Craig Graham</author>
+    <creationDate>Dec 2007</creationDate>
+    <copyright>(C) 2007 Craig Graham. All rights reserved.</copyright>
+    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <authorEmail>cgraham149@gmail.com</authorEmail>
+    <authorUrl>www.strukture.com</authorUrl>
+    <version>1.0.0</version>
+    <description>
+		<![CDATA[
+		<p><strong>// Multiple Random Images Module v1.0 //</strong></p>
+		<p>This module displays multiple random images from a directory of your choice. 
+			Set the folder, number of images to display, and orientation (horizontal or verticle) - and you are ready to go.</p>
+		<p>This software does not come with a warranty, guarantee or support.  It works just fine with my server configuration.  Use at your own risk.</p>
+		<p><strong>Best Practices:</strong></p>
+		<ul>
+			<li>Images File Names - use lowercase with no spaces -for example walk_in_park_01.jpg</li>
+			<li>Image Sizes - it is best to upload images already sized to your dimensions for faster load times</li>
+			<li>Styles - for custom styling, use the CSS class names and create custom styles in css template </li>
+		</ul>
+		<p><strong>Credits:</strong></p>
+		<p>Company: Strukture Media Solutions<br />
+			Developer: Craig Graham<br />
+			Website: <a href="http://www.strukture.com">http://www.strukture.com</a><br />
+			Email: <a href="mailto:cgraham149@gmail.com">cgraham149@gmail.com</a> - send comments or feedback - no support questions please.</p>
+		<p>Code leveraged from and inspired by:</p>
+		<ul>
+			<li>Joomla default Random Image Module - by stingrey</li>
+			<li>http://photomatt.net/scripts/randomimage/</li>
+			<li>http://www.desilva.biz/arrays/in_array.html</li>
+		</ul>
+		]]>
+    </description>
+    <files>
+        <filename module="mod_multi_random_images">mod_multi_random_images.php</filename>
+    </files>
+    <params>
+        <param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="A suffix to be applied to the css class of the module (moduletable), this allows individual module styling." />
+        <param name="folder" type="text" default="images/stories" label="Image Folder" description="For example - images/stories/images" />
+        <param name="count" type="text" default="1" label="Number of Images to Display" description="Enter the number of unique random images you wish to display. DO NOT enter a number that is larger than the number of images in folder." />
+        <param name="exts" type="text" default="jpg,jpeg,png,gif" label="Type of images to display" description="Enter the image file type extensions here - For example - jpg,jpeg,png,gif - comma seperated no spaces" />
+        <param name="orientation" type="list" default="horiz" label="Orientation" description="Select the orientation of the images. If you only want 1 image, this does not matter.">
+            <option value="horiz">Horizontal</option>
+            <option value="vert">Vertical</option>
+        </param>
+        <param name="div_class" type="text" default="" label="DIV Class name" description="Enter a class name for custom CSS styling purposes" />
+        <param name="img_class" type="text" default="" label="IMG Class name" description="Enter a class name for custom CSS styling purposes" />
+        <param name="img_margin" type="text" default="" label="Image Margin" description="Enter an integer and px or em to create margins between images - for example - 5px - leave blank if using CSS" />
+        <param name="img_width" type="text" default="" label="Image Width (px)" description="To force your image to a specific width (verticle orientation), enter it here. To use the default width, leave this field blank." />
+        <param name="img_height" type="text" default="" label="Image Height (px)" description="To force your image to a specific height (horizontal orientation), enter it here. To use the default height, leave this field blank." />
+    </params>
+</mosinstall>

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?> 
+  <mosinstall type="module">
+    <name>DOCList</name> 
+    <creationDate>2008-01-04</creationDate> 
+    <author>Paolo De Nictolis</author> 
+    <copyright>This module is released under the GNU/GPL v2 License</copyright> 
+    <authorEmail>borzoi@caltanet.it</authorEmail> 
+    <authorUrl>http://blogs.ugidotnet.org/ingegnere</authorUrl>
+    <version>1.0</version> 
+    <description>Creates a list of all DOCMan items in a Mambo installation. You can optionally specify a Category ID as a parameter to display just documents belonging to a single category.</description> 
+    <files>
+      <filename module="mod_docman_list">mod_docman_list.php</filename> 
+    </files>
+  	<params>
+		<param name="catid" type="text" default="" label="Category ID to list docs for" description="If specified, just documents belonging to given Category ID are listed." />
+        <param name="showlinks" type="list" default="1" label="Show links to documents" description="By default, documents titles are links to document itself. Choose 'Hide' to show a plain list.">
+			<option value="1">Show</option>
+			<option value="0">Hide</option>
+		</param>
+        <param name="showdesc" type="list" default="1" label="Show description for documents" description="By default, documents titles are displayed together with description of document themselves. Choose 'Hide' to hide descriptions.">
+			<option value="1">Show</option>
+			<option value="0">Hide</option>
+		</param>        
+	</params>
+  </mosinstall>

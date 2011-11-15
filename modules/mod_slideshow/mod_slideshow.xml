@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+	<name>Horizontal SlideShow</name>
+	<author>Ümit Kenan Gönüllü, Uğur Uygur</author>
+	<creationDate>Nov 2008</creationDate>
+	<copyright>Copyright (C) joomlatr.org</copyright>
+	<license>GNU/GPL</license>
+	<authorEmail>info@joomlatr.org</authorEmail>
+	<authorUrl>www.joomlatr.org</authorUrl>
+	<version>1.1.0</version>
+	<description>DESCSLIDESHOW</description>
+	<files>
+		<filename module="mod_slideshow">mod_slideshow.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+		<filename>scripts/script.js</filename>
+		<filename>scripts/index.html</filename>
+		<filename>images/image01.jpg</filename>
+		<filename>images/image02.jpg</filename>
+		<filename>images/image03.jpg</filename>
+		<filename>images/image04.jpg</filename>
+		<filename>images/image05.jpg</filename>
+		<filename>images/image06.jpg</filename>
+		<filename>images/image07.jpg</filename>
+		<filename>images/image08.jpg</filename>
+		<filename>images/image09.jpg</filename>
+		<filename>images/image10.jpg</filename>
+		<filename>images/index.html</filename>
+	</files>
+
+	<languages>
+		<language tag="en-GB">en-GB.mod_slideshow.ini</language>
+		<language tag="tr-TR">tr-TR.mod_slideshow.ini</language>
+		<language tag="fr-FR">fr-FR.mod_slideshow.ini</language>
+	</languages>
+
+	<params>
+		<param name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
+			<option value="0">Never</option>
+		</param>
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="linked" type="radio" default="1" label="LINKED URL" description="PARAMLINKEDURL">
+			<option value="0">No</option> 
+			<option value="1">Yes</option> 
+		</param>
+		<param name="addhttp" type="radio" default="1" label="ADD HTTP AUTOMATICALLY" description="PARAMADDHTTP">
+			<option value="0">No</option> 
+			<option value="1">Yes</option> 
+		</param>
+		<param name="stopslide" type="radio" default="1" label="STOP SLIDESHOW" description="PARAMSTOPSLIDESHOW">
+			<option value="0">No</option> 
+			<option value="1">Yes</option> 
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="height" type="text" default="82" label="HEIGHT (PX)" description="PARAMHEIGHTPX" /> 
+		<param name="width" type="text" default="180" label="WIDTH (PX)" description="PARAMWIDTHPX" /> 
+		<param name="bgcolor" type="text" default="" label="BGCOLOR" description="PARAMBGCOLOR" /> 
+		<param name="speed" type="text" default="2" label="SPEED" description="PARAMSPEED" /> 
+		<param name="space" type="text" default="2" label="SPACE" description="PARAMSPACE" /> 
+		<param name="slidesspace" type="text" default="5" label="SLIDES SPACE" description="PARAMSLIDESSPACE" /> 
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="folder" type="text" default="modules/mod_slideshow/images" label="IMAGE FOLDER" description="PARAMIMAGEFOLDER" /> 
+		<param name="images" type="textarea" default="image01.jpg,image02.jpg,image03.jpg,image04.jpg,image05.jpg,image06.jpg,image07.jpg,image08.jpg,image09.jpg,image10.jpg" label="IMAGES" description="PARAMIMAGES" cols="60" rows="4" /> 
+		<param name="titles" type="textarea" default="JoomlaTR,JoomlaTR,JoomlaTR,JoomlaTR,JoomlaTR,JoomlaTR,JoomlaTR,JoomlaTR,JoomlaTR,JoomlaTR" label="TITLES" description="PARAMTITLES" cols="60" rows="4" /> 
+		<param name="urls" type="textarea" default="www.joomlatr.org,www.joomlatr.org,www.joomlatr.org,www.joomlatr.org,www.joomlatr.org,www.joomlatr.org,www.joomlatr.org,www.joomlatr.org,www.joomlatr.org,www.joomlatr.org" label="URL" description="PARAMURL" cols="60" rows="4" /> 
+	</params>
+</install>

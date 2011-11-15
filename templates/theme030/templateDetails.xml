@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="template" version="4.5.3">
+	<name>theme030</name>
+	<creationDate>13/12/07</creationDate>
+	<author>Diana</author>
+	<copyright>Copyright  2003-2007 template-help.com. All Rights Reserved.</copyright>
+	<authorEmail>info@template-help.com</authorEmail>
+	<authorUrl>http://www.template-help.com</authorUrl>
+	<version>1.0</version>
+	<description>this template is made by template-help.com</description>
+	<files>
+		<filename>index.php</filename>
+		<filename>template_thumbnail.png</filename>
+	</files>
+	<images>
+		<filename>images/button.gif</filename>
+		<filename>images/button2.gif</filename>
+		<filename>images/c1_bl.gif</filename>
+		<filename>images/c1_br.gif</filename>
+		<filename>images/c1_tl.gif</filename>
+		<filename>images/c1_tr.gif</filename>
+		<filename>images/c_bl.gif</filename>
+		<filename>images/c_tl.gif</filename>
+		<filename>images/header_bg.jpg</filename>
+		<filename>images/header_t.gif</filename>
+		<filename>images/latestnews_bullet.gif</filename>
+		<filename>images/latestnews_gl.gif</filename>
+		<filename>images/latestnews_h3_bg.gif</filename>
+		<filename>images/loginform_h3_bg.gif</filename>
+		<filename>images/logo.gif</filename>
+		<filename>images/mainmenu_bg.gif</filename>
+		<filename>images/mainmenu_h3_bg.gif</filename>
+		<filename>images/module_bg1.gif</filename>
+		<filename>images/module_bg2.gif</filename>
+		<filename>images/pathway_bullet.gif</filename>
+		<filename>images/polls_gl.gif</filename>
+		<filename>images/polls_h3_bg.gif</filename>
+		<filename>images/readon.gif</filename>
+		<filename>images/shadow.gif</filename>
+		<filename>images/tail.gif</filename>
+		<filename>images/topmenu_separator.gif</filename>
+	</images>
+	<css>
+		<filename>css/template_css.css</filename>
+	</css>
+</mosinstall>

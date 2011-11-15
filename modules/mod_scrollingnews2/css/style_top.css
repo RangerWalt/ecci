@@ -1,0 +1,37 @@
+a.miaScroll_title{
+	font-size:1.3em;
+}
+
+  div#scroll_main.scroll_bg_color #dac_label_container td.dac_label a.miaScroll{
+	color:#aaa;
+}
+  div#scroll_main.scroll_bg_color #dac_label_container td.dac_label_sel a.miaScroll:hover{
+	text-decoration:none;	
+}
+
+
+ #dac_label_container td.dac_label{
+	background-color:#eee;
+	padding:0px 10px 0px 10px;
+	background-image:url(tabspento.gif);
+	background-repeat:repeat-x;
+	height:25px;
+	border-right:1px solid #ddd;
+}
+ #dac_label_container td.dac_label_sel{
+	background-color:#fff;
+	background-image:url(tabacceso.gif);
+	background-repeat:repeat-x;
+	padding:0px 10px 0px 10px;
+	height:25px;
+	border-right:1px solid #ddd;
+}
+
+ table#dac_label_container{
+	background-color:#f7f7f7;
+	height:100%;
+}
+
+table.scroll_bg_color,  div#scroll_main.scroll_bg_color{
+	background-color:#f7f7f7;
+}

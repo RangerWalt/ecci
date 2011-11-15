@@ -1,0 +1,15 @@
+#navbar {
+	position: static;
+	top: 0;
+	z-index: 100;
+	display: block;
+}
+
+#navbar ul {
+	position: relative;
+	z-index: 100;
+}
+
+#navbar li ul {
+	width: 843px;
+}

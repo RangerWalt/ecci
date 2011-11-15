@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5.0">
+	<name>Art Adminer</name>
+	<author>artetics.com</author>
+	<creationDate>August 2009</creationDate>
+	<copyright>Copyright (C) 2009 artetics.com. All rights reserved.</copyright>
+	<license>GPL</license>
+	<authorEmail>info@artetics.com</authorEmail>
+	<authorUrl>www.artetics.com</authorUrl>
+	<version>1.0.0</version>
+	<description><![CDATA[Art Adminer - Smart Joomla! database tool.<br /><br />&copy;&nbsp;<a href="http://www.artetics.com">Artetics.com</a> - Start Point For Your Website.]]></description>
+	<installfile>install.artadminer.php</installfile>
+	<uninstallfile>uninstall.artadminer.php</uninstallfile> 
+	<install>
+		<queries>
+			<query>
+				CREATE TABLE IF NOT EXISTS `#__art_adminer_setting` (
+				  `id` int(11) unsigned NOT NULL auto_increment,
+				  `cssfile` varchar(255) NOT NULL,
+				  `autologin` tinyint(1),
+				  PRIMARY KEY  (`id`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+			</query>
+			<query>
+				INSERT INTO `#__art_adminer_setting` (`id`, `cssfile`, `autologin`) 
+				VALUES (1, 'adminer2.css', 1)
+				ON DUPLICATE KEY UPDATE id=id;
+			</query>
+		</queries>
+	</install>
+	<uninstall>
+	</uninstall>
+	<administration>
+		<menu task="adminer">Art Adminer</menu>
+	    <submenu>
+	    	<menu task="adminer">Adminer</menu>
+	    	<menu task="settings">Settings</menu>
+	    </submenu>
+		<files folder="admin">
+			<filename>install.artadminer.php</filename>
+			<filename>uninstall.artadminer.php</filename>
+			<filename>admin.artadminer.php</filename>
+			<filename>admin.artadminer.html.php</filename>
+			<filename>controller.php</filename>
+			<filename>database/artadminer_setting.php</filename>
+			<filename>images/artetics_logo.png</filename>
+			<filename>images/edit.png</filename>
+			<filename>images/edit_unpublished.png</filename>
+			<filename>images/favicon.ico</filename>
+			<filename>images/select.png</filename>
+			<filename>adminer.php</filename>
+			<filename>css/adminer1.css</filename>
+			<filename>css/adminer2.css</filename>
+			<filename>css/adminer3.css</filename>
+		</files>
+	</administration>
+</install>
