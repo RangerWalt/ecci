@@ -1,0 +1,1221 @@
+/* @group Global Reset */
+
+body#page_bg {
+	margin: 0px;
+	padding: 0px;
+}
+
+html, body, form, fieldset {
+	margin: 0;
+	padding: 0;
+}
+
+a img {
+	border: none;
+}
+
+h1, h2, h3, h4, h5, h6, p, pre,blockquote, ul, ol, dl, address {
+	margin: 0;
+	padding: 0;
+}
+/* Clearfix */
+
+.clearfix:after {
+	clear: both;
+	display: block;
+	content: ".";
+	height: 0;
+	visibility: hidden;
+}
+
+* html > body .clearfix {
+	width: 100%;
+	display: block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+
+
+/* Firefox scrollbar hack  */
+
+html {
+	margin-bottom: 1px;
+	height: 100%!important;
+	height: auto;
+}
+
+/* Accessibility: */
+
+form label {
+	cursor: pointer;
+}
+
+/* Page Numbers in articles */
+div.pagenavcounter {visibilty:hidden;}
+
+.pagenavcounter {display:none;}
+
+
+fieldset {
+	border: none;
+}
+
+/* Form field text-scaling */
+
+input, select, textarea {
+	font-size: 100%;
+}
+
+/* Firefox outline removal */
+
+a:focus {
+	outline: none;
+}
+
+td#content ol,
+td#content ul {
+	margin-left: 20px;
+}
+
+/* @end */
+
+/* @group Typography */
+
+/* Basic Template Typography */
+
+
+
+h1 {
+	padding: 4px;
+	line-height: 145%;
+	letter-spacing: -1px;
+}
+
+h2 {
+	line-height: 145%;
+	padding: 4px;
+	letter-spacing: -1px;
+}
+
+h3 {
+	line-height: 145%;
+	padding: 4px 0px;
+	/*letter-spacing: -1px;*/
+}
+h4 {
+	font-size: 16px;
+	line-height: 145%;
+	padding: 4px;
+	color: #3d3d3d;
+}
+p {
+	padding-bottom: 10px;
+}
+
+
+
+
+/* Extra Styles */
+
+p.warn {
+    background: #FBEEF1 url(../images/warn.png) center no-repeat;
+    background-position: 15px 50%; /* x-pos y-pos */
+    text-align: left;
+    padding: 5px 20px 5px 45px;
+    border-top: 2px solid #FEABB9;
+    border-bottom: 2px solid #FEABB9;
+}
+p.alert {
+    background: #FFF7C0 url(../images/exc.png) center no-repeat;
+    background-position: 15px 50%; /* x-pos y-pos */
+    text-align: left;
+    padding: 5px 20px 5px 45px;
+    border-top: 2px solid #F7D229;
+    border-bottom: 2px solid #F7D229;
+}
+p.info {
+    background: #F8FAFC url(../images/info.png) center no-repeat;
+    background-position: 15px 50%; /* x-pos y-pos */
+    text-align: left;
+    padding: 5px 20px 5px 45px;
+    border-top: 2px solid #B5D4FE;
+    border-bottom: 2px solid #B5D4FE;
+}
+
+/*-----SPECIAL LIST STYLE (CHANGE OR ADD ANOTHER)-----*/
+
+ul.checklist li {
+	list-style: none;
+	line-height: 16px;
+	padding: 2px 0px 2px 18px;
+	background: url(../images/tick.png) no-repeat left center;
+	list-style-position: outside;
+}
+
+ul.checklist a {
+	text-decoration: underline;
+	padding: 1px;
+}
+
+ul.checklist a:hover {
+	text-decoration: none;
+	padding: 1px;
+}
+
+/*-----BLOCKQUOTE STYLE-----*/
+
+blockquote {
+	background: #e4e4e4 url(../images/quoleft.png) no-repeat 10px 10px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	font-style: italic;
+}
+
+blockquote div {
+	padding: 0 48px;
+	background: transparent url(../images/quoright.png) right bottom no-repeat;
+}
+
+div.code {
+	background: #efefef;
+	padding: 10px;
+	border: 1px solid #acacac;
+	color: #333;
+	text-decoration: none;
+	font: normal normal normal 11px "Courier New", Courier, mono;
+}
+
+/* @end */
+
+/* @group Structure */
+
+#top-wrapper {
+	width: 800px;
+	margin: 0px auto;
+	padding: 0px;
+}
+
+
+/* Top Bar */
+
+#header-flag {
+	
+	width: 300px;
+	background: #333333;
+	/*padding-right: 8px;*/
+	position: relative;
+	height: 22px;
+	display:block;
+	float:left;
+	/*left: -10px;*/
+}
+
+
+
+#header-top {
+	height: 22px;
+	width: 800px;
+	background: #333333 url(../images/topnav_arrow.png) no-repeat right center;
+	
+}
+
+#header-top ul {
+	list-style: none;
+	float: right;
+}
+
+#header-top li {
+	float: left;
+	padding-left: 16px;
+	padding-right: 7px;
+	background: url(../images/topnav_arrow.png) no-repeat left center;
+	height: 22px;
+}
+
+#header-top li a {
+	font: 11px "Trebuchet MS", Arial, Geneva, sans-serif;
+	line-height: 22px;
+	text-decoration: none;
+}
+
+#searchbar {
+	float: right;
+	margin-left: 0px;
+	display: block;
+	background:#FFFFFF;
+	height:47px;
+}
+
+#searchbar .inputbox {
+	
+	border: 1px solid #ccc;
+	background: #fff url(../images/help.png) no-repeat 98% 50%;
+	font-size: 12px;
+	line-height: 16px;
+	width: 160px;
+	height: 16px;
+	text-indent: 5px;
+}
+
+
+/* CSS for Header Text */
+
+#header-text {
+	background: url(../images/header_text.png) repeat-x left top;
+	height: 67px;
+}
+
+#header-text h1, #header-text h1 a {
+	padding-left: 5px;
+	padding-top: 10px;
+	text-decoration: none;
+}
+
+#header-text .inside {
+	padding: 0;
+	margin: 0;
+}
+
+/* CSS for Header Image */
+
+
+#header-graphic h1 {
+	text-indent: -6000em;
+	
+	padding: 0;
+	margin:0;
+	/*added to adjust position because of the added module */
+	
+}
+
+#header-graphic .inside {
+	padding: 0;
+	margin: 0;
+}
+
+/* Logo HotSpot (width x height) */
+
+#header-graphic h1 a {
+	display: block;
+	text-indent: -6000em;
+	padding: 0;
+	margin: 0;
+	
+	
+}
+
+.clear {
+	clear: both;
+}
+
+/* Teaser */
+
+#teaser-wrapper {
+	width: 800px;
+	background:#FFFFFF;
+	margin: 0px auto;
+	padding: 0px;
+	
+
+}
+#teaser {
+	width: 800px;
+	margin: 0px auto;
+	padding: 5px 0px 0px 0px;
+}
+#teaser-bottom-suckerfish,
+#teaser-bottom-dropline,
+#teaser-bottom-module-dropline,
+#teaser-bottom-module-suckerfish {
+	margin: -1px 0px 0px 0px;
+	padding: 0px;
+	height: 0px;
+	position: relative;
+	background: url(../images/teaser_bottom.png) repeat-x center top;
+}
+#teaser-bottom-module-suckerfish {
+	margin: 0px 0px 0px 0px;
+}
+#teaser-bottom-suckerfish,
+#teaser-bottom-dropline {
+	margin: 0px;
+}
+#teaser h3 {
+	letter-spacing: -2px;
+	padding: 10px 0px;
+	text-shadow: #fff 3px 1px 1px;
+}
+#teaser p {
+	letter-spacing: -1px;
+}
+
+
+
+
+#pathway {
+	height: 18px;
+	padding-left: 10px;
+	margin-top: 5px;
+	border-bottom: 1px dashed #e2e2e2;
+}
+
+span.pathway {
+	color: #333;
+	font: bold 11px/18px "Trebuchet MS",Arial, Helvetica, Geneva, sans-serif;
+}
+
+span.pathway a {
+	text-decoration: none;
+	font-weight: normal;
+	font-style: normal;
+}
+
+span.pathway a:hover {
+	text-decoration: underline;
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+
+table#main {
+	width: 800px;
+	margin: 0px auto;
+	padding: 0px;
+	background-image: url(../images/bg_wide.png);
+	background-repeat: repeat-y;
+	background-position: center top;
+	background-color: #FFFFFF;
+}
+
+td#content {
+	vertical-align: top;
+	/*padding-top: 3px;*/
+}
+
+td#leftcol {
+	vertical-align: top;
+}
+
+td#rightcol {
+	vertical-align: top;
+	background-color: #f8f8f8;
+	width:200px;
+	
+}
+
+
+td#leftcol div.inside,
+td#rightcol div.inside {
+	padding: 0px 10px 0px 15px;
+	
+}
+td#content div.inside
+{
+	padding-left: 16px;
+	padding-right: 40px;
+}
+
+
+/* @end */
+
+/* @group Modules */
+
+
+/* Style 1 - S1/Default */
+
+div.moduletable, div.moduletableS1 {
+	margin: 0px 0px 10px 0px;
+	padding: 0px 0px 5px 0px;
+	/*background: url(../images/divider_bar.png) repeat-x center bottom;*/
+	/*border-top: 1px dashed #999;*/
+}
+
+div.moduletable h3, div.moduletableS1 h3 {
+	padding: 0px 4px 2px 4px;
+	margin: 5px 0px;
+	display: inherit;
+	border-bottom: 1px dashed #e2e2e2;
+}
+
+/* Style 2 - S2 */
+
+div.moduletableS2 {
+	margin: 0px 0px 10px 0px;
+	padding: 0px 0px 15px 0px;
+	background: url(../images/divider_bar.png) repeat-x center bottom;
+}
+
+div.moduletableS2 h3 {
+	padding: 0px 4px 2px 4px;
+	margin: 5px 0px;
+	display: inherit;
+}
+
+/* Style 3 - S3 */
+
+div.moduletableS3 {
+	margin: 0px 0px 10px 0px;
+	padding: 0px 0px 15px 0px;
+	background: url(../images/divider_bar.png) repeat-x center bottom;
+}
+
+div.moduletableS3 h3 {
+	padding: 0px 4px 2px 4px;
+	margin: 5px 0px;
+	display: inherit;
+}
+
+/* Style 4 - S4 */
+
+div.moduletableS4 {
+	margin: 0px 0px 10px 0px;
+	padding: 0px 0px 15px 0px;
+	background: url(../images/divider_bar.png) repeat-x center bottom;
+}
+
+div.moduletableS4 h3 {
+	padding: 0px 4px 2px 4px;
+	margin: 5px 0px;
+	display: inherit;
+}
+
+/* Style 5 - S5 */
+
+div.moduletableS5 {
+	margin: 0px 0px 10px 0px;
+	padding: 0px 0px 15px 0px;
+	background: url(../images/divider_bar.png) repeat-x center bottom;
+}
+
+div.moduletableS5 h3 {
+	padding: 0px 4px 2px 4px;
+	margin: 5px 0px;
+	display: inherit;
+}
+
+/* Border Style -bdr */
+
+div.moduletable-bdr {
+	margin: 5px 0px;
+	padding: 5px;
+}
+
+div.moduletable-bdr table {
+	padding: 5px;
+}
+
+div.moduletable-bdr h3 {
+	text-transform: uppercase;
+	font-size: 13px;
+	color: #3d3d3d;
+	line-height: 165%;
+	padding: 0px 4px 2px 4px;
+	display: inherit;
+	letter-spacing: normal;
+}
+
+/* Border Style -nopad */
+
+div.moduletable-nopad {
+	margin: 0px;
+	padding: 5px 0px;
+}
+
+div.moduletable-nopad h3 {
+	padding: 0px 4px 2px 4px;
+	display: inherit;
+}
+
+div.moduletable-nopad p {
+	margin: 0px;
+	padding: 0px;
+}
+
+
+/* Latest News and Popular */
+
+ul.latestnews, ul.latestnewsS1, ul.latestnewsS2, ul.latestnewsS3, ul.latestnewsS4, ul.latestnewsS5,
+ul.mostread, ul.mostreadS1, ul.mostreadS2, ul.mostreadS3, ul.mostreadS4, ul.mostreadS5 {
+	list-style: none;
+}
+
+ul.latestnews li, ul.mostread li,
+ul.latestnewsS1 li, ul.mostreadS1 li,
+ul.latestnewsS2 li, ul.mostreadS2 li,
+ul.latestnewsS3 li, ul.mostreadS3 li,
+ul.latestnewsS4 li, ul.mostreadS4 li,
+ul.latestnewsS5 li, ul.mostreadS5 li {
+	padding: 2px 0px 0px 18px;
+	margin: 0px;
+	background: url(../images/arrow_bullet.png) no-repeat 0% 0%;
+	white-space: normal;
+	/*border-right: 1px dashed #999;*/
+	font-size: 11px;
+	line-height: 19px;
+}
+
+td#leftcol ul#mainlevel,
+td#rightcol ul#mainlevel,
+/*joomla 1.5*/
+td#leftcol ul.menu,
+td#rightcol ul.menu,
+td#leftcol ul.menu li,
+td#rightcol ul.menu li {
+	list-style: none;
+}
+
+/* Left/Right Main Menu */
+
+td#leftcol a.mainlevel,
+td#rightcol a.mainlevel,
+/*joomla 1.5*/
+td#leftcol ul.menu li a,
+td#rightcol ul.menu li a
+ {
+	line-height: 20px;
+	height: 20px;
+	display: block;
+	padding-left: 5px;
+	margin: 0px;
+	text-decoration: none;
+	border-bottom: 1px solid #ccc;
+	text-indent:20px;
+	/*background: url(../images/arrow.png) no-repeat 4px 6px; */
+	
+}
+
+
+td#leftcol a.mainlevel,
+td#rightcol a.mainlevel,
+/*joomla 1.5*/
+td#leftcol ul.menu li li a,
+td#rightcol ul.menu li li a
+ {
+	line-height: 20px;
+	height: 20px;
+	display: block;
+	padding-left: 5px;
+	margin: 0px;
+	text-decoration: none;
+	border-bottom: 1px solid #ccc;
+	text-indent:20px;
+	
+	
+}
+/*2nd level*/
+td#leftcol li.haschild2 a.haschild2,
+td#leftcol li.haschild2 a.haschild2:hover,
+td#leftcol li#current.haschild2.active a.haschild2,
+td#leftcol li#current.haschild2.active a.haschild2:hover,
+td#rightcol li.haschild2 a.haschild2,
+td#rightcol li.haschild2 a.haschild2:hover,
+td#rightcol li#current.haschild2.active a.haschild2,
+td#rightcol li#current.haschild2.active a.haschild2:hover
+ {
+	text-indent: 16px;
+	background: url(../images/arrow.png) no-repeat 14px 6px; 
+	}
+	
+td#leftcol li#current.haschild2 ul li a,
+td#leftcol li#current.haschild2.active a.child,
+td#leftcol li li#current.active,
+td#rightcol li#current.haschild2 ul li a,
+td#rightcol li#current.haschild2.active a.child,
+td#rightcol li li#current.active {
+	text-indent: 16px;
+	color: #006600;
+}
+
+/*end second level */
+
+
+/*3rd level*/
+td#leftcol li.haschild3 a.haschild3,
+td#leftcol li.haschild3 a.haschild2:hover,
+td#leftcol li#current.haschild3.active a.haschild3,
+td#leftcol li#current.haschild3.active a.haschild3:hover,
+td#rightcol li.haschild3 a.haschild3,
+td#rightcol li.haschild3 a.haschild3:hover,
+td#rightcol li#current.haschild3.active a.haschild3,
+td#rightcol li#current.haschild3.active a.haschild3:hover
+ {
+	text-indent: 22px;
+	background: url(../images/arrow.png) no-repeat 20px 6px; 
+	}
+	
+td#leftcol li#current.haschild3 ul li a,
+td#leftcol li#current.haschild3.active a.child,
+td#leftcol li li#current.active,
+td#rightcol li#current.haschild3 ul li a,
+td#rightcol li#current.haschild3.active a.child,
+td#rightcol li li#current.active {
+	text-indent: 22px;
+	
+}
+
+/*end 3rd level */
+
+td#leftcol li.haschild a.haschild,
+td#leftcol li.haschild a.haschild:hover,
+td#leftcol li#current.haschild.active a.haschild,
+td#leftcol li#current.haschild.active a.haschild:hover,
+td#rightcol li.haschild a.haschild,
+td#rightcol li.haschild a.haschild:hover,
+td#rightcol li#current.haschild.active a.haschild,
+td#rightcol li#current.haschild.active a.haschild:hover
+ {
+	text-indent: 8px;
+	background: url(../images/arrow.png) no-repeat 4px 6px; 
+	}
+
+td#leftcol li#current.haschild ul li a,
+td#leftcol li#current.haschild.active a.child,
+td#leftcol li li#current.active,
+td#rightcol li#current.haschild ul li a,
+td#rightcol li#current.haschild.active a.child,
+td#rightcol li li#current.active {
+	text-indent: 18px;
+	color:#006600;
+}
+
+
+td#leftcol a.mainlevel:hover,
+td#rightcol a.mainlevel:hover,
+/*joomla 1.5*/
+/*joomla 1.5*/
+td#leftcol ul.menu li a:hover,
+td#rightcol ul.menu li a:hover {
+	background-color: #f0f0f0;
+	
+	text-decoration: none;
+}
+
+td#leftcol a.sublevel,
+td#rightcol a.sublevel {
+	padding-left: 4px;
+	font-size: 12px;
+	line-height: 14px;
+	text-decoration: none;
+	height: 14px;
+}
+
+td#leftcol a.sublevel.img,
+td#rightcol a.sublevel.img {
+	
+}
+
+/*joomla 1.5 Login Module*/
+form#form-login ul {
+	list-style: none;
+}
+form#form-login ul li a {
+	list-style: none;
+	border: none;
+}
+
+
+/* Banner */
+
+div#banner {
+	margin: 6px auto 10px auto;
+	text-align: left;
+}
+
+div#banner .moduletable {
+	background-image: none;
+	padding: 0;
+	margin: 0;
+}
+
+/* @end */
+
+
+
+/* @group Footer */
+
+/* The Footer */
+
+#footer {
+	width: 800px;
+	margin: 0px auto;
+	
+}
+
+/* Footer Modules */
+
+#footer div.moduletable h3,
+#footer div.moduletableS1 h3,
+#footer div.moduletableS2 h3,
+#footer div.moduletableS3 h3,
+#footer div.moduletableS4 h3,
+#footer div.moduletableS5 h3 {
+	color: #00480e;
+	background: none;
+	border-bottom: 1px  #999;
+	padding: 0px;
+	margin: 0px;
+}
+
+#footer div.moduletable,
+#footer div.moduletableS1,
+#footer div.moduletableS2,
+#footer div.moduletableS3,
+#footer div.moduletableS4,
+#footer div.moduletableS5 {
+	background: none;
+	font-size: 12px;
+	padding: 0;
+	margin: 4px;
+}
+
+#footer li.latestnews, #footer li.mostread,
+#footer li.latestnewsS1, #footer li.mostreadS1,
+#footer li.latestnewsS2, #footer li.mostreadS2,
+#footer li.latestnewsS3, #footer li.mostreadS3,
+#footer li.latestnewsS4, #footer li.mostreadS4,
+#footer li.latestnewsS5, #footer li.mostreadS5 {
+	list-style: none;
+	background-image: none;
+	list-style-position: inside;
+	list-style-type: disc;
+}
+
+#footer ul.latestnews, #footer ul.mostread,
+#footer ul.latestnewsS1, #footer ul.mostreadS1,
+#footer ul.latestnewsS2, #footer ul.mostreadS2,
+#footer ul.latestnewsS3, #footer ul.mostreadS3,
+#footer ul.latestnewsS4, #footer ul.mostreadS4,
+#footer ul.latestnewsS5, #footer ul.mostreadS5 {
+	margin-left: -14px;
+}
+
+/* @end */
+
+/* @group Joomla Styles */
+table.contentpaneopen ul, table.contentpaneopen ol,
+table.contentpaneopenS1 ul, table.contentpaneopenS1 ol,
+table.contentpaneopenS2 ul, table.contentpaneopenS2 ol,
+table.contentpaneopenS3 ul, table.contentpaneopenS3 ol,
+table.contentpaneopenS4 ul, table.contentpaneopenS4 ol,
+table.contentpaneopenS5 ul, table.contentpaneopenS5 ol,
+.moduletable ul, .moduletable ol,
+.moduletableS1 ul, .moduletableS1 ol,
+.moduletableS2 ul, .moduletableS2 ol,
+.moduletableS3 ul, .moduletableS3 ol,
+.moduletableS4 ul, .moduletableS4 ol,
+.moduletableS5 ul, .moduletableS5 ol {
+   list-style-position: inside;
+}
+
+
+
+/* Page Navigation */
+
+.pagenav,
+.pagenav_next,
+.pagenav_prev {
+	text-align: center;
+	color: #ccc;
+	border: 1px solid #ccc;
+	padding: 2px 5px;
+	font-size: 11px;
+	font-family:"Trebuchet MS", Arial,Verdana, Helvetica, sans-serif;
+	background: #f0f0f0;
+	width: 50px;
+	font-weight: bold;
+}
+
+.pagenav:hover,
+.pagenav_next:hover,
+.pagenav_prev:hover {
+	border: 1px solid #ccc;
+	background: #f0f0f0;
+	color: #666666;
+}
+
+.pagenav_next a,
+.pagenav_prev a {
+	color: #ccc;
+	text-decoration: none;
+}
+
+.pagenav_next a:hover,
+.pagenav_prev a:hover {
+	color: #000000;
+	text-decoration: none;
+}
+
+.pagenavcounter {
+	font-weight: bold;
+}
+
+a.pagenav, a.pagenav:visited {
+	color: #666;
+}
+
+a.pagenav:hover {
+	color: #666;
+	text-decoration: underline;
+	border: 1px solid #DEDBDB;
+}
+
+/* Tables */
+
+table.contentpaneopen {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+table.blog table.contentpaneopen {
+	white-space: normal;
+	border-collapse: separate;
+}
+
+table table.contentpaneopen td, table table.contentpane td {
+	padding: 0px 4px;
+}
+
+table.contentpaneopen, table.contentpane, table.blog {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+div.blog_more {
+	border-top: 1px solid #ced6d6;
+	padding: 10px;
+}
+
+div.blog_more strong {
+	position: relative;
+	top: -5px;
+}
+
+div.blog_more ul {
+	list-style: none;
+}
+
+div.blog_more ul li {
+	
+}
+
+div.blog_more ul li a {
+	text-decoration: none;
+	display: block;
+	padding: 4px;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+div.blog_more ul li a:hover {
+	text-decoration: none;
+	display: block;
+	padding: 4px;
+	border-bottom: 1px solid #e2e2e2;
+	background-color: #efefef;
+}
+
+
+
+
+/* Category Tables */
+
+td.sectiontableheader {
+	padding: 6px 10px;
+}
+/* joomla 1.5 */
+td.sectiontableheader a {
+color: #fff;
+text-decoration: none;
+}
+
+td tr.sectiontableentry1 td,
+td.sectiontableentry1 {
+	padding: 2px;
+	/*text-indent: 5px;*/
+}
+
+td tr.sectiontableentry2 td,
+td.sectiontableentry2 {
+	padding: 2px;
+	/*text-indent: 5px;*/
+
+}
+
+li a.category {
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-variant: normal;
+	font-style: italic;
+}
+
+table.contentpane tr td ul {
+	list-style: none;
+}
+
+
+/* Polls Module */
+
+table.pollstableborder,
+table.pollstableborderS1,
+table.pollstableborderS2,
+table.pollstableborderS3,
+table.pollstableborderS4,
+table.pollstableborderS5 {
+	width: 100%;
+	text-align: left;
+	font-family: "Trebuchet MS",Arial, Helvetica, Geneva, sans-serif;
+	border-collapse: collapse;
+	border: none;
+}
+
+table.poll,
+table.pollS1,
+table.pollS2,
+table.pollS3,
+table.pollS4,
+table.pollS5 {
+	color: #3d3d3d;
+	font-size: 11px;
+}
+
+.smalldark {
+	white-space: nowrap;
+}
+
+table.pollstableborder td.sectiontableentry1,
+table.pollstableborderS1 td.sectiontableentry1S1,
+table.pollstableborderS2 td.sectiontableentry1S2,
+table.pollstableborderS3 td.sectiontableentry1S3,
+table.pollstableborderS4 td.sectiontableentry1S4,
+table.pollstableborderS5 td.sectiontableentry1S5 {
+	color: #3d3d3d;
+	background: #f4f4f4;
+	padding: 2px;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+table.pollstableborder td.sectiontableentry2,
+table.pollstableborderS1 td.sectiontableentry2S1,
+table.pollstableborderS2 td.sectiontableentry2S2,
+table.pollstableborderS3 td.sectiontableentry2S3,
+table.pollstableborderS4 td.sectiontableentry2S4,
+table.pollstableborderS5 td.sectiontableentry2S5 {
+	color: #3d3d3d;
+	background: #efefef;
+	padding: 2px;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+/* Polls Results */
+
+table.pollstableborder td.sectiontableheader {
+	padding: 8px;
+	color: #fff;
+	border: none;
+}
+
+table.pollstableborder tr.sectiontableentry1 td {
+	padding: 4px;
+	color: #3d3d3d;
+	border: none;
+}
+
+table.pollstableborder tr.sectiontableentry2 td {
+	padding: 4px;
+	color: #3d3d3d;
+	border: none;
+}
+
+/* Print-PDF-EMail */
+
+body.contentpane {
+	background: #fff;
+	margin: 25px;
+}
+
+fieldset .small {
+	font: normal normal 12px/12px "Trebuchet MS", Arial, Helvetica, Geneva, sans-serif;
+	color: #7b8484;
+	text-transform: none;
+	text-decoration: none;
+	letter-spacing: 0px;
+}
+
+.modifydate {
+}
+
+td.modifydate {
+	line-height: 30px;
+}
+
+div.mosimage {
+	border: 1px solid #dbdce0;
+	margin: 10px;
+	background: #efefef;
+}
+
+div.mosimage_caption {
+	color: #858585;
+	font: 10px/12px "Trebuchet MS", Arial, Helvetica, Geneva, sans-serif;
+	padding-bottom: 5px;
+}
+
+div.mosimage img {
+	padding: 5px;
+}
+
+/* Content Headings */
+
+a.contentpagetitle {
+	white-space: normal;
+	padding: 4px 0px 0px 0px;
+	margin-bottom: 6px;
+}
+
+a.contentpagetitle:hover {
+}
+
+td.contentheading {
+	width: 100%;
+	background: url(../images/divider_bar.png) repeat-x center bottom;
+}
+
+.contentheading {
+	white-space: normal;
+	padding: 4px 0px 0px 0px;
+	margin-bottom: 6px;
+}
+
+.componentheading {
+}
+
+a.readon {
+	float: right;
+	display: block;
+	height: 20px;
+	width: 100px;
+	padding: 0px;
+	margin: 0;
+	background: url(../images/readon_arrow.png) no-repeat left;
+	text-indent: 6px;
+}
+
+a.readon:hover {
+}
+
+td#leftcol a.readon, td#rightcol a.readon {
+	float: right;
+	display: block;
+	height: 18px;
+	width: 71px;
+	font: normal bold 11px/18px Arial, Helvetica, Geneva, sans-serif;
+	background: url(../images/module_readon.png) 50% 0%;
+	text-indent: -5000em;
+	text-decoration: none;
+}
+td#leftcol a.readon:hover, td#rightcol a.readon:hover {
+	background: url(../images/module_readon.png) 50% 100%;
+}
+td.buttonheading, .contentpaneopen td.buttonheading {
+	padding: 10px 0px 0px 0px;
+}
+
+input.button {
+	margin: 2px;
+	padding: 3px 4px;
+}
+
+input.inputbox {
+	margin: 3px;
+	padding: 2px;
+	border: 1px solid #666;
+	background: #eee;
+	color: #333;
+}
+
+div.pagenavbar a, div.pagenavbar {
+	text-decoration: none;
+	font-size: 11px;
+}
+
+table.contenttoc {
+	background-color: #efefef;
+	font-size: 12px;
+	border: 1px solid #e0e0e0;
+	margin: 5px;
+}
+
+table.contenttoc th {
+	background-color: #3d3d3d;
+	font-size: 13px;
+	color: #fff;
+	font-weight: normal;
+	font-style: normal;
+	font-variant: small-caps;
+}
+
+table.contenttoc tr td {
+	padding: 2px 10px;
+}
+table.contenttoc a.toclink {
+	font-size: 12px;
+	text-decoration: none;
+	line-height: 16px;
+}
+.bannerheader {
+	font-weight: bold;
+}
+/*joomla 1.5*/
+.banneritem_text,
+.banneritemS1,
+.banneritemS2,
+.banneritemS3,
+.banneritemS4,
+.banneritemS5,
+.banneritem-nopad,
+.banneritem-bdr {
+	font-size: 12px;
+	line-height: 16px;
+	color: #929292;
+}
+.banneritem_text a,
+.banneritemS1 a,
+.banneritemS2 a,
+.banneritemS3 a,
+.banneritemS4 a,
+.banneritemS5 a,
+.banneritem-nopad a,
+.banneritem-bdr a {
+	font-weight: bold;
+	text-decoration: none;
+	line-height: 20px;
+}
+
+/* @end */
+.copyright, .copyright a {
+	font: 10px/14px Arial, Helvetica, Geneva, sans-serif;
+	color: #000;
+	margin: 0px auto;
+	text-align: center;
+}
+
+.contactus a{
+	color:#fff;
+}
+
+
+/* MULTIPLE RANDOM IMAGES MODULE
+------------------------------------------------------------------------------------------ */
+
+.moduletablemriVertical {padding:8px;  overflow:hidden;  border:1px solid #CCC;  background:#F1F3F5;}
+.moduletablemriVertical div {float:left;  clear:both;  margin:5px 0;}
+
+.moduletablemriHorizontal {padding:8px;  overflow:hidden;  border:1px solid #CCC;  background:#F1F3F5;}
+.moduletablemriHorizontal div {float:left;  margin:5px;}
+
+

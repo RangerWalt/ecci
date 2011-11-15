@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+	<name>Docman jDMTree</name>
+	<author>Josh Prakash</author>
+	<creationDate>April 2008</creationDate>
+	<copyright>Copyright (C) 2008 youthpole.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>joshprakash@yahoo.com</authorEmail>
+	<authorUrl>www.youthpole.com</authorUrl>
+	<version>1.5.0</version>
+	<description>Docman jDMTree 1.5 - This module shows a list of defined Categories,Sub Categories and Documents in a tree for Joomla 1.5. Developed by Josh Prakash. (C) 2008 www.youthpole.com</description>
+	<files>
+		<filename module="mod_jdmtree15">mod_jdmtree15.php</filename>
+		<filename>index.html</filename>
+		<filename>jDMtree/docmantree.php</filename>
+		<filename>jDMtree/index.html</filename>
+		<filename>jDMtree/images/docmantree_collapse.gif</filename>
+		<filename>jDMtree/images/docmantree_expand.gif</filename>
+		<filename>jDMtree/images/docmantree_folder.png</filename>
+		<filename>jDMtree/images/docmantree_folder-spare.png</filename>
+		<filename>jDMtree/images/docmantree_sheet.gif</filename>
+		<filename>jDMtree/images/docmantree_cat.gif</filename>
+		<filename>jDMtree/images/index.html</filename>
+		<filename>jDMtree/images/docmantree_collapse-spare.gif</filename>
+		<filename>jDMtree/images/docmantree_expand-spare.gif</filename>
+		<filename>jDMtree/images/docmantree_collapse-spare2.gif</filename>
+		<filename>jDMtree/images/docmantree_expand-spare2.gif</filename>
+	</files>
+	<params>
+		<param name="countd" type="text" default="5" label="Document Display Count" description="The number of documents to be displayed in each category or subcategory (default 5)" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="lengthc" type="text" default="20" label="Maximum Category Length" description="Number of characters in Category Name before Truncation (default 20)" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="lengthd" type="text" default="20" label="Maximum Document Length" description="Number of characters in Document Name before Truncation (default 20)" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="orderby" type="list" default="dmlastupdateon DESC" label="Sort order" description="Sorting Order of Documents (default Last Update Date DESC)">
+  			<option value="dmlastupdateon DESC">Last Update Date DESC</option> 
+  			<option value="dmlastupdateon ASC">Last Update Date ASC</option> 
+	  		<option value="dmcounter DESC">Hits DESC</option> 
+	  		<option value="dmcounter ASC">Hits ASC</option> 
+  			<option value="dmname DESC">Document Name DESC</option> 
+  			<option value="dmname ASC">Document Name ASC</option> 
+		</param>
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+		<param name="moredesc" type="text" default="View Category" label="Category Link Label" description="Label for More button link to the category (default is View Category)" />
+		<param name="@spacer" type="spacer" default="" label="" description="" />
+	</params>
+	<params group="advanced">
+		<param name="cache" type="list" default="1" label="Caching" description="Select whether to cache the content of this module">
+			<option value="1">Use global</option>
+			<option value="0">No caching</option>
+		</param>
+		<param name="cache_time" type="text" default="900" label="Cache Time" description="The time before the module is recached" />
+	</params>
+</install>

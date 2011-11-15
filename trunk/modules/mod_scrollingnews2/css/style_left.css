@@ -1,0 +1,43 @@
+a.miaScroll_title{
+	font-size:1.3em;
+}
+td.dac_label a.miaScroll{
+	color:#aaa;
+}
+td.dac_label_sel a.miaScroll:hover{
+	text-decoration:none;	
+}
+
+
+#dac_label_container{
+	border-collapse:collapse;
+}
+#dac_label_container td.dac_label{
+	background-color:#f7f7f7;
+	padding:0px 10px 0px 10px;
+	height:33px;
+	border-left:1px solid #ddd;
+	border-right:1px solid #ddd;
+	border-bottom:1px solid #cecece;
+	border-top:1px solid #ddd;
+}
+#dac_label_container td.dac_label_sel{
+	background-color:#fff;
+	background-image:url(r_botton.gif);
+	background-repeat:repeat-x;
+	padding:0px 10px 0px 10px;
+	height:33px;
+	border-left:1px solid #ddd;
+	border-right:1px solid #ddd;
+	border-bottom:1px solid #cecece;
+	border-top:1px solid #ddd;
+}
+
+table#dac_label_container{
+	background-color:#f7f7f7;
+	height:100%;
+}
+
+table.scroll_bg_color, div#scroll_main.scroll_bg_color{
+	background-color:#f7f7f7;
+}

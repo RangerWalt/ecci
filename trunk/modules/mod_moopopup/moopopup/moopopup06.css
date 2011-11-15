@@ -1,0 +1,20 @@
+.myBox {
+	background-color: #000;
+	color:#333;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	padding:10px;
+	border:1px solid #9DBD5D;
+	background: url(images/bg6.jpg) repeat-x top  #ACBD71;
+}
+
+
+#myContent li {
+	list-style:none;
+}
+
+.myBox div {
+background:url(images/bg_head5.png);}
+.myBox div div,
+div#myContent {
+background-image:none;}

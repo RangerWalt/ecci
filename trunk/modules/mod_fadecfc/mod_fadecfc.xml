@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<mosinstall type="module" version="1.0">
+  <name>Fading Content From Category</name>
+  <author>
+  <![CDATA[
+		mediahof<br /><a href="mailto:mail@mediahof.de">Dominik Gorczyca</a><br />
+		<a href="http://www.mediahof.de/images/stories/products/downloads/?joomla=1.0&amp;ver=1.2&amp;typ=modules&amp;name=mod_fadecfc_en" target="_blank">Check for upgrades</a>
+	]]>
+	</author>
+  <creationDate>April 2008</creationDate>
+	<copyright>(C) 2008 mediahof. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <authorEmail>mail@mediahof.de</authorEmail>
+  <authorUrl>www.mediahof.de</authorUrl>
+  <version>1.2</version>
+  <description>Shows all Items of a Category with a soft crossfading effect</description>
+  <files>
+    <filename module="mod_fadecfc">mod_fadecfc.php</filename>
+  </files>
+  <params>
+    <param name="categoryid" type="text" label="Category ID" description="ID of Category, which contains the Items to be displayed." />
+    <param name="class" type="text" label="Class Suffix" description="individual class suffix of the module to be adressed in your template.css" />
+    <param name="positionLeft" type="text" label="Position left" description="Position from left (px) (0 = original moduleposition)" default="0" />
+    <param name="positionTop" type="text" label="Position top" description="Position from top (px) (0 = original moduleposition)" default="0" />
+    <param name="width" type="text" label="Width" description="Width (px)" default="250" />
+    <param name="height" type="text" label="Height" description="Height (px)" default="250" />
+    <param name="fadeSpeed" type="text" label="Speed" description="Speed of crossfading effect" default="100" />
+    <param name="fadeOutTime" type="text" label="Time" description="Duration of displaying each items (sec)" default="5" />
+    <param name="sort" type="list" default="az" label="Sort" description="alphabetic sorting by Title or numeric sorting by ID">
+      <option value="az">Title - A-Z</option>
+      <option value="za">Title - Z-A</option>
+      <option value="91">ID descending</option>
+      <option value="19">ID ascenting</option>
+      <option value="rd">random</option>
+    </param>
+    <param name="alias" type="radio" default="nein" label="Sorting by Alias" description="Sorting Content Items by Content-Title/ID or by Content-Alias">
+      <option value="nein">Content Title and ID</option>
+      <option value="ja">Content Alias</option>
+    </param>
+  </params>
+</mosinstall>

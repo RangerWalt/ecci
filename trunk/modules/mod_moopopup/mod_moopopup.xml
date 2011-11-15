@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0">
+	<name>TP Moo Pop Up</name>
+	<creationDate>August 2008</creationDate>
+	<author>Jerry Wijaya</author>
+	<copyright>http://www.templateplazza.com </copyright>
+	<authorEmail>me@jerrywijaya.com</authorEmail>
+	<authorUrl>http://www.templateplazza.com</authorUrl>
+	<version>1.1</version>
+	<description>TP Moo Pop Up for Joomla! 1.5.x - Changelog in 1.0.1 : Fixing few parameter problems in J 1.5 version - Changelog in 1.1 : Adding new pop up parameter for Registered or Non Registered user</description>
+	<files>
+		<filename module="mod_moopopup">mod_moopopup.php</filename>
+		<filename module="mod_moopopup">moopopup/index.html</filename>
+		<filename module="mod_moopopup">moopopup/mooMessageBox.js</filename>
+		<filename module="mod_moopopup">moopopup/moopopup01.css</filename>
+		<filename module="mod_moopopup">moopopup/moopopup02.css</filename>
+		<filename module="mod_moopopup">moopopup/moopopup03.css</filename>
+		<filename module="mod_moopopup">moopopup/moopopup04.css</filename>
+		<filename module="mod_moopopup">moopopup/moopopup05.css</filename>
+		<filename module="mod_moopopup">moopopup/moopopup06.css</filename>
+		<filename module="mod_moopopup">moopopup/mootools.js</filename>
+		<filename module="mod_moopopup">moopopup/images/index.html</filename>
+		<filename module="mod_moopopup">moopopup/images/bg1.jpg</filename>
+		<filename module="mod_moopopup">moopopup/images/bg2.jpg</filename>
+		<filename module="mod_moopopup">moopopup/images/bg3.jpg</filename>
+		<filename module="mod_moopopup">moopopup/images/bg4.jpg</filename>
+		<filename module="mod_moopopup">moopopup/images/bg5.jpg</filename>
+		<filename module="mod_moopopup">moopopup/images/bg6.jpg</filename>
+		<filename module="mod_moopopup">moopopup/images/bg_head.jpg</filename>
+		<filename module="mod_moopopup">moopopup/images/bg_head2.png</filename>
+		<filename module="mod_moopopup">moopopup/images/bg_head3.png</filename>
+		<filename module="mod_moopopup">moopopup/images/bg_head4.png</filename>
+		<filename module="mod_moopopup">moopopup/images/bg_head5.png</filename>
+			<filename module="mod_moopopup">moopopup/images/bg_button.gif</filename>
+		<filename module="mod_moopopup">moopopup/images/moopopup.gif</filename>
+		<filename module="mod_moopopup">moopopup/images/tplogo.png</filename>
+	</files>
+	<params>
+		<param name="mooPopUpMessage" type="textarea" default="Place Your message here. HTML tags are allowed &lt;br/&gt;Please visit us at &lt;a href=&quot;http://www.templateplazza.com&quot;&gt;Templateplazza.com  &lt;/a&gt; &lt;br/&gt;&lt;img src=&quot;modules/mod_moopopup/moopopup/images/tplogo.png&quot; /&gt;" label="Pop Up Message" rows="5" cols="30" description="Place Your message here. HTML tags are allowed" />
+		<param name="width" type="text" default="430" label="Width" description="" />
+		<param name="height" type="text" default="340" label="Height" description="" />
+		<param name="buttonTitle" type="text" default="close" label="Button Title" description="" />
+		<param name="boxTitle" type="text" default="Advertisement" label="Box Title" description="" />
+		<param name="fadeSpeed" type="text" default="500" label="Fade Speed" description="" />
+		<param name="isDrag" type="radio" default="1" label="Draggable Box" description="">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</param>
+		<param name="useCoo" type="radio" default="0" label="Set Cookie" description="">
+			<option value="1">Yes</option>
+			<option value="0">No</option>
+		</param>
+		<param name="cooTime" type="text" default="3600" label="Cookie Time" description="" />
+		<param name="mooBrowser" type="radio" default="1" label="Display Moo PopUp on" description="">
+			<option value="1">All Browser</option>
+			<option value="0">IE6 Only</option>
+		</param>
+		<param name="mooItemid" type="text" default="anywhere" label="Display Moo PopUp on specific Itemid" description="type 1,2,3 (separated by coma) or type : anywhere to display moopoup on every page" />
+		<param name="mooStyle" type="list" default="moopopup02.css" label="Select Style" description="">
+			<option value="moopopup01.css">Style 1</option>
+			<option value="moopopup02.css">Style 2</option>
+			<option value="moopopup03.css">Style 3</option>
+			<option value="moopopup04.css">Style 4</option>
+			<option value="moopopup05.css">Style 5</option>
+			<option value="moopopup06.css">Style 6</option>
+		</param>
+		<param name="mooViewer" type="list" default="both" label="Select Viewer" description="">
+			<option value="visitor">Visitor</option>
+			<option value="registered">Registered Member</option>
+			<option value="both">Both</option>
+		</param>
+	</params>
+</install>

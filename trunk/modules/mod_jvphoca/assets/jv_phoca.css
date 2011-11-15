@@ -1,0 +1,80 @@
+/*photogallery*/
+a img {
+	border:0px;
+	padding:0;
+	margin:0;
+}
+
+#jvphoca_module{
+	text-align:center;
+	margin-left: auto;
+	margin-right:auto;
+}
+
+#jvphoca_module .phocagallery-box-file {
+	position:relative;
+	width:120px;
+	height:140px;
+	border:1px solid #E8E8E8;
+	padding:5px;
+	background:#fcfcfc;
+	margin:5px;
+	text-align:center;
+	overflow:visible;
+}
+
+#jvphoca_module .phocagallery-box-file-first {
+	background:#f5f5f5;
+	width:100px;height:100px; overflow: hidden;
+	display: table; vertical-align:middle;
+}
+
+#jvphoca_module .phocagallery-box-file-second {
+	display: table-cell; vertical-align: middle;
+}
+
+#jvphoca_module .phocagallery-box-file-third {
+	text-align:center;
+}
+
+#jvphoca_module a img {
+	border:0px;padding:0;margin:0;
+}
+
+#jvphoca_module a:hover, #jvphoca_module a:active, #jvphoca_module a:focus {
+	background: none;border:0px;text-decoration:none;
+}
+
+#jvphoca_module .name {
+	margin-top:5px;
+	color:#333;
+	font-weight:bold;
+	text-align:center;
+}
+
+#jvphoca_module .detail {
+	text-align:right;
+}
+
+#jvphoca_module .phocagallery-box-file:hover, #jvphoca_module .phocagallery-box-file.hover 
+{
+	border:1px solid #135cae;padding:5px;background:#f5f5f5;text-decoration:none;
+}
+
+/*detail*/
+#jvphoca_module .phocagallery-box-file-d {
+	position:relative;
+	float:left;
+	border:1px solid #E8E8E8;
+	background:#fcfcfc;
+	text-align:center;
+	overflow:visible;
+	width:640px;
+	height:480px;
+}
+#jvphoca_module .phocagallery-box-file-first-d {
+	background:#f5f5f5;
+	width:640px;height:480px; overflow: hidden;
+	display: table; vertical-align:middle;
+}
+
