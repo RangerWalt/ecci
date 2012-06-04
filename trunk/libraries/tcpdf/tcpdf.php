@@ -4029,7 +4029,7 @@ if(!class_exists('TCPDF')) {
 			$this->_out('<</Type /Font');
 			$this->_out('/Subtype /Type0');
 			$this->_out('/BaseFont /'.$font['name'].'');
-			$this->_out('/Encoding /Identity-H'); //The horizontal identity mapping for 2-byte CIDs; may be used with CIDFonts using any Registry, Ordering, and Supplement values.
+			$this->_out('/Encoding /UTF-8'); //The horizontal identity mapping for 2-byte CIDs; may be used with CIDFonts using any Registry, Ordering, and Supplement values.
 			$this->_out('/DescendantFonts ['.($this->n + 1).' 0 R]');
 			$this->_out('/ToUnicode '.($this->n + 2).' 0 R');
 			$this->_out('>>');

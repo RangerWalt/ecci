@@ -16,7 +16,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 					<?php echo '<a href="'.JRoute::_(ContentHelperRoute::getSectionRoute($item->sectionid)).'">'; ?>
 				<?php endif; ?>
 
-				<?php echo $item->section; ?>
+				<?php echo $this->escape($item->section); ?>
 
 				<?php if ($this->params->get('link_section')) : ?>
 					<?php echo '</a>'; ?>
@@ -32,7 +32,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
 				<?php if ($this->params->get('link_category')) : ?>
 					<?php echo '<a href="'.JRoute::_(ContentHelperRoute::getCategoryRoute($item->catslug, $item->sectionid)).'">'; ?>
 				<?php endif; ?>
-				<?php echo $item->category; ?>
+				<?php echo $this->escape($item->category); ?>
 				<?php if ($this->params->get('link_category')) : ?>
 					<?php echo '</a>'; ?>
 				<?php endif; ?>
@@ -44,17 +44,17 @@ defined('_JEXEC') or die('Restricted access'); ?>
 		<h5 class="metadata">
 		<?php if ($this->params->get('show_create_date')) : ?>
 			<span class="created-date">
-				<?php echo JText::_('Created').': '.$item->created; ?>
+				<?php echo JText::_('Created') .': '.  JHTML::_( 'date', $item->created, JText::_('DATE_FORMAT_LC2')) ?>
 			</span>
 			<?php endif; ?>
 			<?php if ($this->params->get('show_author')) : ?>
 			<span class="author">
-				<?php echo JText::_('Author').': '; echo $item->created_by_alias ? $item->created_by_alias : $item->author; ?>
+				<?php echo JText::_('Author').': '; echo $this->escape($item->created_by_alias) ? $this->escape($item->created_by_alias) : $this->escape($item->author); ?>
 			</span>
 		<?php endif; ?>
 		</h5>
 		<div class="intro">
-			<?php echo substr($item->introtext, 0, 255); ?>...
+			<?php echo substr(strip_tags($item->introtext), 0, 255);  ?>...
 		</div>
 	</li>
 <?php endforeach; ?>

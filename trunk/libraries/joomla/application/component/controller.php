@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: controller.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: controller.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	Application
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -302,7 +302,7 @@ class JController extends JObject
 		$view->setLayout($viewLayout);
 
 		// Display the view
-		if ($cachable) {
+		if ($cachable && $viewType != 'feed') {
 			global $option;
 			$cache =& JFactory::getCache($option, 'view');
 			$cache->get($view, 'display');

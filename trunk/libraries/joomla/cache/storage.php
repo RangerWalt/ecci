@@ -3,7 +3,7 @@
 * @version		$Id:storage.php 6961 2007-03-15 16:06:53Z tcp $
 * @package		Joomla.Framework
 * @subpackage	Cache
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -19,7 +19,6 @@ defined('JPATH_BASE') or die();
  * Abstract cache storage handler
  *
  * @abstract
- * @author		Louis Landry <louis.landry@joomla.org>
  * @package		Joomla.Framework
  * @subpackage	Cache
  * @since		1.5
@@ -52,7 +51,7 @@ class JCacheStorage extends JObject
 
 	/**
 	 * Returns a reference to a cache storage hanlder object, only creating it
-	 * if it doesn't already exist. 
+	 * if it doesn't already exist.
 	 *
 	 * @static
 	 * @param	string	$handler	The cache storage handler to instantiate

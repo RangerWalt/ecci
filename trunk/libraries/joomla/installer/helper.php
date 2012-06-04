@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: helper.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: helper.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	Installer
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -24,7 +24,6 @@ jimport('joomla.filesystem.path');
  * Installer helper class
  *
  * @static
- * @author		Louis Landry <louis.landry@joomla.org>
  * @package		Joomla.Framework
  * @subpackage	Installer
  * @since		1.5
@@ -103,7 +102,7 @@ class JInstallerHelper
 	 *
 	 * @static
 	 * @param string $p_filename The uploaded package filename or install directory
-	 * @return boolean True on success, False on error
+	 * @return Array Two elements - extractdir and packagefile
 	 * @since 1.5
 	 */
 	function unpack($p_filename)
@@ -241,7 +240,7 @@ class JInstallerHelper
 	 * Clean up temporary uploaded package and unpacked extension
 	 *
 	 * @static
-	 * @param string $p_file Path to the uploaded package file
+	 * @param string $package Path to the uploaded package file
 	 * @param string $resultdir Path to the unpacked extension
 	 * @return boolean True on success
 	 * @since 1.5

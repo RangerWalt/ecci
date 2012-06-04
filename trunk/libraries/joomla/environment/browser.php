@@ -1,9 +1,9 @@
 <?php
 /**
-* @version      $Id: browser.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version      $Id: browser.php 14401 2010-01-26 14:10:00Z louis $
 * @package      Joomla.Framework
 * @subpackage   Environment
-* @copyright    Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright    Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license      GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -22,11 +22,7 @@ defined('JPATH_BASE') or die();
  * environment variable provided by the web server.
  *
  * This class has many influences from the lib/Browser.php code in
- * version 3 of Horde.
- *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@horde.org>
- * @author  Johan Janssens <johan.janssens@joomla.org>
+ * version 3 of Horde by Chuck Hagenbuch and Jon Parise
  *
  * @package     Joomla.Framework
  * @subpackage  Environment

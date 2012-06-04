@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: module.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: module.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	Document
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -18,7 +18,6 @@ defined('JPATH_BASE') or die();
 /**
  * JDocument Module renderer
  *
- * @author		Johan Janssens <johan.janssens@joomla.org>
  * @package		Joomla.Framework
  * @subpackage	Document
  * @since		1.5
@@ -74,7 +73,7 @@ class JDocumentRendererModule extends JDocumentRenderer
 
 		$contents = '';
 		if ($mod_params->get('cache', 0) && $conf->getValue( 'config.caching' ))
-		{
+		{	
 			$cache =& JFactory::getCache( $module->module );
 
 			$cache->setLifeTime( $mod_params->get( 'cache_time', $conf->getValue( 'config.cachetime' ) * 60 ) );

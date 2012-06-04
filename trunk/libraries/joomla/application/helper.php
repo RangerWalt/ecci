@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: helper.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: helper.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	Application
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -233,18 +233,18 @@ class JApplicationHelper
 		$data['type'] = $element ? $xml->document->attributes("type") : '';
 
 		$element = & $xml->document->creationDate[0];
-		$data['creationdate'] = $element ? $element->data() : 'Unknown';
+		$data['creationdate'] = $element ? $element->data() : JText::_('Unknown');
 
 		$element = & $xml->document->author[0];
-		$data['author'] = $element ? $element->data() : 'Unknown';
+		$data['author'] = $element ? $element->data() : JText::_('Unknown');
 
 		$element = & $xml->document->copyright[0];
 		$data['copyright'] = $element ? $element->data() : '';
 
-		$element = & $xml->document->authoremail[0];
+		$element = & $xml->document->authorEmail[0];
 		$data['authorEmail'] = $element ? $element->data() : '';
 
-		$element = & $xml->document->authorurl[0];
+		$element = & $xml->document->authorUrl[0];
 		$data['authorUrl'] = $element ? $element->data() : '';
 
 		$element = & $xml->document->version[0];
@@ -286,11 +286,11 @@ class JApplicationHelper
 		$data['type'] = $element ? $xml->document->attributes("type") : '';
 
 		$element = & $xml->document->creationDate[0];
-		$data['creationdate'] = $element ? $element->data() : 'Unknown';
+		$data['creationdate'] = $element ? $element->data() : JText::_('Unknown');
 
 		$element = & $xml->document->author[0];
 
-		$data['author'] = $element ? $element->data() : 'Unknown';
+		$data['author'] = $element ? $element->data() : JText::_('Unknown');
 
 		$element = & $xml->document->copyright[0];
 		$data['copyright'] = $element ? $element->data() : '';

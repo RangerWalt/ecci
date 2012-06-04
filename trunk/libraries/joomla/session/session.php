@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: session.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: session.php 19338 2010-11-03 14:51:55Z ian $
 * @package		Joomla.Framework
 * @subpackage	Session
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -26,7 +26,6 @@ JLoader::register('JSessionStorage', dirname(__FILE__).DS.'storage.php');
 * Based on the standart PHP session handling mechanism it provides
 * for you more advanced features such as expire timeouts.
 *
-* @author		Johan Janssens <johan.janssens@joomla.org>
 * @package		Joomla.Framework
 * @subpackage	Session
 * @since		1.5
@@ -71,6 +70,15 @@ class JSession extends JObject
 	var $_security = array( 'fix_browser' );
 
 	/**
+	* Force cookies to be SSL only
+	*
+	* @access protected
+	* @default false
+	* @var bool $force_ssl
+	*/
+	var $_force_ssl = false;
+
+	/**
 	* Constructor
 	*
 	* @access protected
@@ -101,6 +109,8 @@ class JSession extends JObject
 
 		//set options
 		$this->_setOptions( $options );
+
+		$this->_setCookieParams();
 
 		//load the session
 		$this->_start();
@@ -270,7 +280,7 @@ class JSession extends JObject
 				require_once(dirname(__FILE__).DS.'storage'.DS.$name.'.php');
 			}
 
-			if(call_user_func_array( array( trim($class), 'test' ), null)) {
+			if(call_user_func_array( array( trim($class), 'test' ), array())) {
 				$names[] = $name;
 			}
 		}
@@ -497,34 +507,7 @@ class JSession extends JObject
 			// @TODO :: generated error here
 			return false;
 		}
-
-		// save values
-		$values	= $_SESSION;
-
-		// keep session config
-		$trans	=	ini_get( 'session.use_trans_sid' );
-		if( $trans ) {
-			ini_set( 'session.use_trans_sid', 0 );
-		}
-		$cookie	=	session_get_cookie_params();
-
-		// create new session id
-		$id	=	$this->_createId( strlen( $this->getId() ) );
-
-		// kill session
-		session_destroy();
-
-		// re-register the session store after a session has been destroyed, to avoid PHP bug
-		$this->_store->register();
-
-		// restore config
-		ini_set( 'session.use_trans_sid', $trans );
-		session_set_cookie_params( $cookie['lifetime'], $cookie['path'], $cookie['domain'], $cookie['secure'] );
-
-		// restart session with new id
-		session_id( $id );
-		session_start();
-
+		session_regenerate_id();
 		return true;
 	}
 
@@ -562,6 +545,19 @@ class JSession extends JObject
 
 		$id	= md5( uniqid($id, true));
 		return $id;
+	}
+
+	 /**
+	 * Set session cookie parameters
+	 *
+	 * @access private
+	 */
+	function _setCookieParams() {
+		$cookie	=	session_get_cookie_params();
+		if($this->_force_ssl) {
+			$cookie['secure'] = true;
+		}
+		session_set_cookie_params( $cookie['lifetime'], $cookie['path'], $cookie['domain'], $cookie['secure'] );
 	}
 
 	/**
@@ -649,6 +645,10 @@ class JSession extends JObject
 		// get security options
 		if( isset( $options['security'] ) ) {
 			$this->_security	=	explode( ',', $options['security'] );
+		}
+
+		if( isset( $options['force_ssl'] ) ) {
+			$this->_force_ssl = (bool) $options['force_ssl'];
 		}
 
 		//sync the session maxlifetime

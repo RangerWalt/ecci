@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: date.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: date.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	Utilities
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -17,8 +17,6 @@ defined('JPATH_BASE') or die();
 
 /**
  * JDate is a class that stores a date
- *
- * @author	Johan Janssens <johan.janssens@joomla.org>
  *
  * @package		Joomla.Framework
  * @subpackage	Utilities
@@ -168,7 +166,7 @@ class JDate extends JObject
 	function toRFC822($local = false)
 	{
 		$date = ($local) ? $this->_date + $this->_offset : $this->_date;
-		$date = ($this->_date !== false) ? date('D, d M Y H:i:s O', $date) : null;
+		$date = ($this->_date !== false) ? date('D, d M Y H:i:s', $date).' +0000' : null;
 		return $date;
 	}
 

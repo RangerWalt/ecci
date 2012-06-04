@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: utility.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: utility.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	Utilities
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -19,7 +19,6 @@ defined('JPATH_BASE') or die();
  * JUtility is a utility functions class
  *
  * @static
- * @author		Johan Janssens <johan.janssens@joomla.org>
  * @package 	Joomla.Framework
  * @subpackage	Utilities
  * @since	1.5

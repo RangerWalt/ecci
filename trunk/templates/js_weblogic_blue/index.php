@@ -2,6 +2,13 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted index access' );
 define( 'YOURBASEPATH', dirname(__FILE__) );
+$reg = $_SESSION["__default"]["registry"];
+$reg = $reg->_registry;
+$reg = $reg["application"]['data'];
+$lang = $reg->lang;
+$lg = &JFactory::getLanguage();
+$language = explode("-",$lg->get('tag'));
+$menu_lang = $language[0];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->language; ?>" lang="<?php echo $this->language; ?>" >
@@ -89,7 +96,7 @@ table#main {width:95%; background-image:none; border-left:1px solid #ccc;border-
 		if (window.attachEvent) window.attachEvent("onload", sfHover);
 		</script>
 <![endif]-->
-	<jdoc:include type="modules" name="menu" style="z-index:1000" />
+	<jdoc:include type="modules" name="menu_vi" style="z-index:1000" />
 		</div>
 	</div>
 </div>
@@ -221,8 +228,8 @@ echo "<div id=\"teaser-bottom-module-$menutype\"></div>";
 	<?php if ($showpathway == "true") : ?>
 	<div id="pathway"><jdoc:include type="module" name="breadcrumbs" style="none" /></div>
 	<?php endif; ?>
-	<div class="inside">
 	
+	<div class="inside">
 		<jdoc:include type="message" />
 		<jdoc:include type="component" />
 	</div>
@@ -232,9 +239,17 @@ echo "<div id=\"teaser-bottom-module-$menutype\"></div>";
 		<div class="inside"><jdoc:include type="modules" name="left" style="xhtml" /></div>
 	</td>
 <?php endif; ?>
-<?php if ($this->countModules('right')) : ?>
+<?php if ($this->countModules('right') || $this->countModules('skype')) : ?>
 	<td id="rightcol" rowspan="2" style="width:<?php echo $right_column; ?>; background-image: url(<?php echo $this->baseurl;?>/templates/<?php echo $this->template;?>/images/module_divider.png); background-repeat: repeat-y;background-position: 0px 0px;" >
-		<div class="inside"><jdoc:include type="modules" name="right" style="xhtml" /></div>
+		<div class="inside">
+                        <?php if ($this->countModules('skype')) : ?>
+                            <h3><?php echo ($menu_lang == "vi" ? "Hỗ Trợ Trực Tuyến" : "Support Online") ?></h3>
+                            <jdoc:include type="modules" name="skype" style="none" />
+                        <?php endif; ?>
+                    <div class="clear"></div>     
+                    <br />
+                    <jdoc:include type="modules" name="right" style="xhtml" />
+                </div>
 	</td>
 <?php endif; ?>
 <?php endif; ?>
@@ -308,9 +323,9 @@ echo "<div id=\"teaser-bottom-module-$menutype\"></div>";
 if ($footermodulecount == "1"){
 	$tdwidth = "100%";
 } elseif($footermodulecount == "2"){
-	$tdwidth = "50%";
+	$tdwidth = "300px";
 } elseif($footermodulecount == "3"){
-	$tdwidth = "50%";
+	$tdwidth = "200px";
 }
 ?>
 <div id="footer" style="width:100%; position:relative; float:left; left:0px; padding-bottom:10px;">

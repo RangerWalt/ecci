@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: example.php 10497 2008-07-03 16:36:12Z ircmaxell $
+ * @version		$Id: example.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla
  * @subpackage	Content
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -114,7 +114,7 @@ class plgContentExample extends JPlugin
 	 *
 	 * Method is called right before content is saved into the database.
 	 * Article object is passed by reference, so any changes will be saved!
-	 * NOTE:  Returning false will abort the save with an error.  
+	 * NOTE:  Returning false will abort the save with an error.
 	 * 	You can set the error by calling $article->setError($message)
 	 *
 	 * @param 	object		A JTableContent object
@@ -136,7 +136,7 @@ class plgContentExample extends JPlugin
 	 *
 	 * @param 	object		A JTableContent object
 	 * @param 	bool		If the content is just about to be created
-	 * @return	void		
+	 * @return	void
 	 */
 	function onAfterContentSave( &$article, $isNew )
 	{

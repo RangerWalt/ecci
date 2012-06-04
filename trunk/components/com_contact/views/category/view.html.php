@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: view.html.php 10498 2008-07-04 00:05:36Z ian $
+ * @version		$Id: view.html.php 19343 2010-11-03 18:12:02Z ian $
  * @package		Joomla
  * @subpackage	Contact
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -36,10 +36,23 @@ class ContactViewCategory extends JView
 
 		// Selected Request vars
 		$categoryId			= JRequest::getVar('catid',				0,				'', 'int');
-		$limit				= JRequest::getVar('limit',				$mainframe->getCfg('list_limit'),	'', 'int');
 		$limitstart			= JRequest::getVar('limitstart',		0,				'', 'int');
 		$filter_order		= JRequest::getVar('filter_order',		'cd.ordering',	'', 'cmd');
 		$filter_order_Dir	= JRequest::getVar('filter_order_Dir',	'ASC',			'', 'word');
+
+		$pparams->def('display_num', $mainframe->getCfg('list_limit'));
+		$default_limit = $pparams->def('display_num', 20);
+
+		$limit = $mainframe->getUserStateFromRequest('com_contact.'.$this->getLayout().'.limit', 'limit', $default_limit, 'int');
+
+		// sanitize $orderBy
+		if (!in_array($filter_order, array('cd.ordering', 'cd.name', 'cd.con_position'))) {
+			$filter_order = 'cd.ordering';
+		}
+
+		if (!in_array(strtoupper($filter_order_Dir), array('ASC', 'DESC', ''))) {
+			$filter_order_Dir = 'ASC';
+		}
 
 		// query options
 		$options['aid'] 		= $user->get('aid', 0);
@@ -72,7 +85,7 @@ class ContactViewCategory extends JView
 		{
 			$contact =& $contacts[$i];
 
-			$contact->link = JRoute::_('index.php?option=com_contact&view=contact&id='.$contact->slug.'&catid='.$contact->catslug);
+			$contact->link = JRoute::_('index.php?option=com_contact&view=contact&id='.$contact->slug.'&catid='.$contact->catslug, false);
 			if ($pparams->get('show_email', 0) == 1) {
 				$contact->email_to = trim($contact->email_to);
 				if (!empty($contact->email_to) && JMailHelper::isEmailAddress($contact->email_to)) {
@@ -108,7 +121,7 @@ class ContactViewCategory extends JView
 		// because the application sets a default page title, we need to get it
 		// right from the menu item itself
 		if (is_object( $menu )) {
-			$menu_params = new JParameter( $menu->params );			
+			$menu_params = new JParameter( $menu->params );
 			if (!$menu_params->get( 'page_title')) {
 				$pparams->set('page_title',	$category->title);
 			}
@@ -135,7 +148,7 @@ class ContactViewCategory extends JView
 		$this->assignRef('category',	$category);
 		$this->assignRef('params',		$pparams);
 
-		$this->assign('action',		$uri->toString());
+		$this->assign('action',		str_replace('&', '&amp;', $uri->toString()));
 
 		parent::display($tpl);
 	}

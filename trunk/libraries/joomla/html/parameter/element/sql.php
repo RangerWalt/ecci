@@ -3,7 +3,7 @@
 * @version		$Id:sql.php 6961 2007-03-15 16:06:53Z tcp $
 * @package		Joomla.Framework
 * @subpackage	Parameter
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -18,7 +18,6 @@ defined('JPATH_BASE') or die();
 /**
  * Renders a SQL element
  *
- * @author 		Sam Moffatt <sam.moffatt@joomla.org>
  * @package 	Joomla.Framework
  * @subpackage		Parameter
  * @since		1.5
@@ -38,6 +37,8 @@ class JElementSQL extends JElement
 	{
 		$db			= & JFactory::getDBO();
 		$db->setQuery($node->attributes('query'));
-		return JHTML::_('select.genericlist',  $db->loadObjectList(), ''.$control_name.'['.$name.']', 'class="inputbox"', 'value', $name, $value, $control_name.$name);
+		$key = ($node->attributes('key_field') ? $node->attributes('key_field') : 'value');
+		$val = ($node->attributes('value_field') ? $node->attributes('value_field') : $name);
+		return JHTML::_('select.genericlist',  $db->loadObjectList(), ''.$control_name.'['.$name.']', 'class="inputbox"', $key, $val, $value, $control_name.$name);
 	}
 }

@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: document.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: document.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	Document
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -22,7 +22,6 @@ JLoader::register('JDocumentRenderer', dirname(__FILE__).DS.'renderer.php');
  * Document class, provides an easy interface to parse and display a document
  *
  * @abstract
- * @author		Johan Janssens <johan.janssens@joomla.org>
  * @package		Joomla.Framework
  * @subpackage	Document
  * @since		1.5
@@ -376,10 +375,17 @@ class JDocument extends JObject
 	function getMetaData($name, $http_equiv = false)
 	{
 		$result = '';
-		if ($http_equiv == true) {
-			$result = @$this->_metaTags['http-equiv'][$name];
+		$name = strtolower($name);
+		if($name == 'generator') { 
+			$result = $this->getGenerator();
+		} elseif($name == 'description') {
+			$result = $this->getDescription();
 		} else {
-			$result = @$this->_metaTags['standard'][$name];
+			if ($http_equiv == true) {
+				$result = @$this->_metaTags['http-equiv'][$name];
+			} else {
+				$result = @$this->_metaTags['standard'][$name];
+			}
 		}
 		return $result;
 	}
@@ -395,10 +401,17 @@ class JDocument extends JObject
 	 */
 	function setMetaData($name, $content, $http_equiv = false)
 	{
-		 if ($http_equiv == true) {
-			$this->_metaTags['http-equiv'][$name] = $content;
+		$name = strtolower($name);
+		if($name == 'generator') { 
+			$this->setGenerator($content);
+		} elseif($name == 'description') {
+			$this->setDescription($content);
 		} else {
-			$this->_metaTags['standard'][$name] = $content;
+			if ($http_equiv == true) {
+				$this->_metaTags['http-equiv'][$name] = $content;
+			} else {
+				$this->_metaTags['standard'][$name] = $content;
+			}
 		}
 	}
 

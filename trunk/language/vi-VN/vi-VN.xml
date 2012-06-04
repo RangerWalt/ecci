@@ -17,7 +17,7 @@
        <locale>vi_VN.utf8, vi_VN.UTF-8, vi_VN.UTF-8@asia, vietnamese, vi_VN</locale>
        <winCodePage>utf-8</winCodePage>
        <backwardLang>vietnamese</backwardLang>
-       <pdfFontName>freesans</pdfFontName>
+       <pdfFontName>freemono</pdfFontName>
   </metadata>
 
   <params />

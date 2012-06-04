@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: article.php 10579 2008-07-22 14:54:24Z ircmaxell $
+ * @version		$Id: article.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla
  * @subpackage	Content
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -20,7 +20,6 @@ jimport('joomla.application.component.model');
 /**
  * Content Component Article Model
  *
- * @author	Louis Landry <louis.landry@joomla.org>
  * @package		Joomla
  * @subpackage	Content
  * @since 1.5
@@ -146,16 +145,6 @@ class ContentModelArticle extends JModel
 			}
 
 			$this->_loadArticleParams();
-
-			/*
-			 * Record the hit on the article if necessary
-			 */
-			$limitstart	= JRequest::getVar('limitstart',	0, '', 'int');
-			if (!$this->_article->parameters->get('intro_only') && ($limitstart == 0))
-			{
-				$this->hit();
-			}
-
 		}
 		else
 		{
@@ -322,7 +311,21 @@ class ContentModelArticle extends JModel
 			$article->publish_down = $date->toMySQL();
 		}
 
-		$article->title = trim( JFilterOutput::ampReplace($article->title) );
+		$article->title = trim( $article->title );
+
+		// get state and created_by from existing article
+		$originalState = 0;
+		if (!$isNew)
+		{
+			$query = 'SELECT state, created_by' .
+			' FROM #__content' .
+			' WHERE id = '.(int) $article->id;
+			$this->_db->setQuery($query);
+			$originalArticle = $this->_db->loadObject();
+			$originalState = $originalArticle->state;
+			// force the created_by to the existing value
+			$article->created_by = $originalArticle->created_by;
+		}
 
 		// Publishing state hardening for Authors
 		if (!$user->authorize('com_content', 'publish', 'content', 'all'))
@@ -335,18 +338,23 @@ class ContentModelArticle extends JModel
 			else
 			{
 				// For existing items keep existing state - author is not allowed to change status
-				$query = 'SELECT state' .
-						' FROM #__content' .
-						' WHERE id = '.(int) $article->id;
 
-				$this->_db->setQuery($query);
-				$state = $this->_db->loadResult();
+				$state = $originalState;
 
 				if ($state) {
 					$article->state = 1;
 				}
 				else {
 					$article->state = 0;
+				}
+
+				// if current user is author, check that the current user is really the author
+				if (!$user->authorize('com_content', 'edit', 'content', 'all'))
+				{
+					if ($originalArticle->created_by != $user->id)
+					{
+						JError::raiseError( 403, JText::_("ALERTNOTAUTH") );
+					}
 				}
 			}
 		}
@@ -369,8 +377,14 @@ class ContentModelArticle extends JModel
 		$user	= &JFactory::getUser();
 		$gid	= $user->get( 'gid' );
 
-		$filterGroups	= (array) $config->get( 'filter_groups' );
-		if (in_array( $gid, $filterGroups ))
+		$filterGroups	= $config->get( 'filter_groups' );
+
+		// convert to array if one group selected
+		if ( (!is_array($filterGroups) && (int) $filterGroups > 0) ) { 
+			$filterGroups = array($filterGroups);
+		}
+
+		if (is_array($filterGroups) && in_array( $gid, $filterGroups ))
 		{
 			$filterType		= $config->get( 'filter_type' );
 			$filterTags		= preg_split( '#[,\s]+#', trim( $config->get( 'filter_tags' ) ) );
@@ -390,6 +404,10 @@ class ContentModelArticle extends JModel
 			}
 			$article->introtext	= $filter->clean( $article->introtext );
 			$article->fulltext	= $filter->clean( $article->fulltext );
+		} elseif(empty($filterGroups)) {
+			$filter = new JFilterInput(array(), array(), 1, 1);
+			$article->introtext = $filter->clean( $article->introtext );
+			$article->fulltext = $filter->clean( $article->fulltext );
 		}
 
 		// Make sure the article table is valid
@@ -406,7 +424,7 @@ class ContentModelArticle extends JModel
 			$this->setError($article->getError());
 			return false;
 		}
-		
+
 		// Store the article table to the database
 		if (!$article->store()) {
 			$this->setError($this->_db->getErrorMsg());
@@ -599,7 +617,7 @@ class ContentModelArticle extends JModel
 		 * we are looking for and we have access to it.
 		 */
 		$where = ' WHERE a.id = '. (int) $this->_id;
-		$where .= ' AND a.access <= '. (int) $aid;
+//		$where .= ' AND a.access <= '. (int) $aid;
 
 		if (!$user->authorize('com_content', 'edit', 'content', 'all'))
 		{

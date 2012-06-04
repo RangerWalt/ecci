@@ -3,7 +3,7 @@
  * @version		$Id:language.php 6961 2007-03-15 16:06:53Z tcp $
  * @package		Joomla.Framework
  * @subpackage	Installer
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -18,7 +18,6 @@ defined('JPATH_BASE') or die();
 /**
  * Language installer
  *
- * @author		Louis Landry <louis.landry@joomla.org>
  * @package		Joomla.Framework
  * @subpackage	Installer
  * @since		1.5
@@ -87,7 +86,7 @@ class JInstallerLanguage extends JObject
 			$basePath = $client->path;
 			$clientId = $client->id;
 			$element =& $root->getElementByPath('files');
-			
+
 			return $this->_install($cname, $basePath, $clientId, $element);
 		}
 		else
@@ -97,7 +96,7 @@ class JInstallerLanguage extends JObject
 			$basePath = JPATH_SITE;
 			$clientId = 0;
 			$element =& $root->getElementByPath('files');
-			
+
 			return $this->_install($cname, $basePath, $clientId, $element);
 		}
 	}
@@ -178,7 +177,7 @@ class JInstallerLanguage extends JObject
 		}
 
 		// Copy all the necessary font files to the common pdf_fonts directory
-		$this->parent->setPath('extension_site', $basePath.DS."language".DS.'pdf_fonts');
+		$this->parent->setPath('extension_site', JPATH_SITE.DS."language".DS.'pdf_fonts');
 		$overwrite = $this->parent->setOverwrite(true);
 		if ($this->parent->parseFiles($root->getElementByPath('fonts')) === false) {
 			// Install failed, rollback changes

@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: rss.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: rss.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	Document
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -50,21 +50,22 @@ class JDocumentRendererRSS extends JDocumentRenderer
 
 		$uri =& JFactory::getURI();
 		$url = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
-
-		$feed = "<rss version=\"2.0\">\n";
+		$syndicationURL =& JRoute::_('&format=feed&type=rss');
+		
+		$feed = "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n";
 		$feed.= "	<channel>\n";
 		$feed.= "		<title>".$data->title."</title>\n";
-		$feed.= "		<description>".$data->description."</description>\n";
-		$feed.= "		<link>".$url.$data->link."</link>\n";
+		$feed.= "		<description>".htmlspecialchars($data->description)."</description>\n";
+		$feed.= "		<link>".str_replace(' ','%20',$url.$data->link)."</link>\n";
 		$feed.= "		<lastBuildDate>".htmlspecialchars($now->toRFC822(), ENT_COMPAT, 'UTF-8')."</lastBuildDate>\n";
 		$feed.= "		<generator>".$data->getGenerator()."</generator>\n";
-
+	
 		if ($data->image!=null)
 		{
 			$feed.= "		<image>\n";
 			$feed.= "			<url>".$data->image->url."</url>\n";
 			$feed.= "			<title>".htmlspecialchars($data->image->title, ENT_COMPAT, 'UTF-8')."</title>\n";
-			$feed.= "			<link>".$data->image->link."</link>\n";
+			$feed.= "			<link>".str_replace(' ','%20',$data->image->link)."</link>\n";
 			if ($data->image->width != "") {
 				$feed.= "			<width>".$data->image->width."</width>\n";
 			}
@@ -82,8 +83,9 @@ class JDocumentRendererRSS extends JDocumentRenderer
 		if ($data->copyright!="") {
 			$feed.= "		<copyright>".htmlspecialchars($data->copyright,ENT_COMPAT, 'UTF-8')."</copyright>\n";
 		}
-		if ($data->editor!="") {
-			$feed.= "		<managingEditor>".htmlspecialchars($data->editor, ENT_COMPAT, 'UTF-8')."</managingEditor>\n";
+		if ($data->editorEmail!="") {
+			$feed.= "		<managingEditor>".htmlspecialchars($data->editorEmail, ENT_COMPAT, 'UTF-8').' ('.
+				htmlspecialchars($data->editor, ENT_COMPAT, 'UTF-8').")</managingEditor>\n";
 		}
 		if ($data->webmaster!="") {
 			$feed.= "		<webMaster>".htmlspecialchars($data->webmaster, ENT_COMPAT, 'UTF-8')."</webMaster>\n";
@@ -113,13 +115,18 @@ class JDocumentRendererRSS extends JDocumentRenderer
 
 		for ($i=0; $i<count($data->items); $i++)
 		{
+			if ((strpos($data->items[$i]->link, 'http://') === false) and (strpos($data->items[$i]->link, 'https://') === false)) {
+				$data->items[$i]->link = str_replace(' ','%20',$url.$data->items[$i]->link);
+			}
 			$feed.= "		<item>\n";
 			$feed.= "			<title>".htmlspecialchars(strip_tags($data->items[$i]->title), ENT_COMPAT, 'UTF-8')."</title>\n";
-			$feed.= "			<link>".$url.$data->items[$i]->link."</link>\n";
+			$feed.= "			<link>".str_replace(' ','%20',$data->items[$i]->link)."</link>\n";
+			$feed.= "			<guid>".str_replace(' ','%20',$data->items[$i]->link)."</guid>\n";
 			$feed.= "			<description><![CDATA[".$this->_relToAbs($data->items[$i]->description)."]]></description>\n";
 
-			if ($data->items[$i]->author!="") {
-				$feed.= "			<author>".htmlspecialchars($data->items[$i]->author, ENT_COMPAT, 'UTF-8')."</author>\n";
+			if ($data->items[$i]->authorEmail!="") {
+				$feed.= "			<author>".htmlspecialchars($data->items[$i]->authorEmail . ' (' . 
+										$data->items[$i]->author . ')', ENT_COMPAT, 'UTF-8')."</author>\n";
 			}
 			/*
 			// on hold
@@ -167,7 +174,7 @@ class JDocumentRendererRSS extends JDocumentRenderer
 	function _relToAbs($text)
 	{
 		$base = JURI::base();
-  		$text = preg_replace("/(href|src)=\"(?!http|ftp|https)([^\"]*)\"/", "$1=\"$base\$2\"", $text);
+  		$text = preg_replace("/(href|src)=\"(?!http|ftp|https|mailto)([^\"]*)\"/", "$1=\"$base\$2\"", $text);
 
 		return $text;
 	}

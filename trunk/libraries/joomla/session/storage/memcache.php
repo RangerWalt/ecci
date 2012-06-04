@@ -3,7 +3,7 @@
 * @version		$Id:eaccelerator.php 6961 2007-03-15 16:06:53Z tcp $
 * @package		Joomla.Framework
 * @subpackage	Session
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -20,8 +20,6 @@ defined('JPATH_BASE') or die();
  *
  * -- Inspired in both design and implementation by the Horde memcache handler --
  *
- * @author		Louis Landry <louis.landry@joomla.org>
- * @author		Mitch Pirtle
  * @package		Joomla.Framework
  * @subpackage	Session
  * @since		1.5

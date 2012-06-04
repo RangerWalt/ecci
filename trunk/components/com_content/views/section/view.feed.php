@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: view.feed.php 10579 2008-07-22 14:54:24Z ircmaxell $
+ * @version		$Id: view.feed.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla
  * @subpackage	Content
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -32,7 +32,9 @@ class ContentViewSection extends JView
 		global $mainframe;
 		$doc =& JFactory::getDocument();
 		$params =& $mainframe->getParams();
-
+		$feedEmail = (@$mainframe->getCfg('feed_email')) ? $mainframe->getCfg('feed_email') : 'author';
+		$siteEmail = $mainframe->getCfg('mailfrom');
+		
 		// Get some data from the model
 		JRequest::setVar('limit', $mainframe->getCfg('feed_limit'));
 
@@ -55,19 +57,24 @@ class ContentViewSection extends JView
 			// strip html from feed item description text
 			$description	= ($params->get('feed_summary', 0) ? $row->introtext.$row->fulltext : $row->introtext);
 			$author			= $row->created_by_alias ? $row->created_by_alias : $row->author;
-			@$date = ( $row->created ? date( 'r', strtotime($row->created) ) : '' );
 
 			// load individual item creator class
 			$item = new JFeedItem();
 			$item->title 		= $title;
 			$item->link 		= $link;
 			$item->description 	= $description;
-			$item->date			= $date;
+			$item->date			= $row->created;
 			$item->category   	= $row->category;
+			$item->author		= $author;
+			if ($feedEmail == 'site') {
+				$item->authorEmail = $siteEmail;
+			}
+			else {
+				$item->authorEmail = $row->author_email;
+			}
 
 			// loads item info into rss array
 			$doc->addItem( $item );
 		}
 	}
 }
-?>

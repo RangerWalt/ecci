@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: php.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: php.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	Registry
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -18,7 +18,6 @@ defined('JPATH_BASE') or die();
 /**
  * PHP class format handler for JRegistry
  *
- * @author 		Louis Landry <louis.landry@joomla.org>
  * @package 	Joomla.Framework
  * @subpackage		Registry
  * @since		1.5
@@ -42,7 +41,7 @@ class JRegistryFormatPHP extends JRegistryFormat {
 		foreach (get_object_vars( $object ) as $k => $v)
 		{
 			if (is_scalar($v)) {
-				$vars .= "\tvar $". $k . " = '" . addslashes($v) . "';\n";
+				$vars .= "\tvar $". $k . " = '" . addcslashes($v, '\\\'') . "';\n";
 			} elseif (is_array($v)) {
 				$vars .= "\tvar $". $k . " = " . $this->_getArrayString($v) . ";\n";
 			}

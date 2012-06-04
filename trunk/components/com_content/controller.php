@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: controller.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: controller.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla
  * @subpackage	Content
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -44,7 +44,12 @@ class ContentController extends JController
 
 		// View caching logic -- simple... are we logged in?
 		$user = &JFactory::getUser();
-		if ($user->get('id')) {
+		$view = JRequest::getVar('view');
+		$viewcache = JRequest::getVar('viewcache',1,'POST','INT');
+
+		if ($user->get('id') ||
+			($view == 'category' && JRequest::getVar('layout') != 'blog' && $viewcache == 0) ||
+			 $view == 'archive' && $viewcache == 0) {
 			parent::display(false);
 		} else {
 			parent::display(true);
@@ -235,10 +240,13 @@ class ContentController extends JController
 		{
 			$msg = $isNew ? JText::_('THANK_SUB') : JText::_('Item successfully saved.');
 		}
-
-
-		$link = JRequest::getString('referer', JURI::base(), 'post');
-		$this->setRedirect($link, $msg);
+		
+		$referer = JRequest::getString('ret',  base64_encode(JURI::base()), 'get');
+		$referer = base64_decode($referer);
+		if (!JURI::isInternal($referer)) {
+			$referer = '';
+		}
+		$this->setRedirect($referer, $msg);		
 	}
 
 	/**
@@ -262,7 +270,11 @@ class ContentController extends JController
 		}
 
 		// If the task was edit or cancel, we go back to the content item
-		$referer = JRequest::getString('referer', JURI::base(), 'post');
+		$referer = JRequest::getString('ret', base64_encode(JURI::base()), 'get');
+		$referer = base64_decode($referer);
+		if (!JURI::isInternal($referer)) {
+			$referer = '';
+		}
 		$this->setRedirect($referer);
 	}
 
@@ -282,6 +294,11 @@ class ContentController extends JController
 		$model = & $this->getModel('Article' );
 
 		$model->setId($id);
+		
+		if(!JURI::isInternal($url)) {
+			$url = JRoute::_('index.php?option=com_content&view=article&id='.$id);
+		}
+
 		if ($model->storeVote($rating)) {
 			$this->setRedirect($url, JText::_('Thanks for rating!'));
 		} else {

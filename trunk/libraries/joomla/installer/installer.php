@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: installer.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: installer.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	Installer
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -23,7 +23,6 @@ jimport('joomla.filesystem.path');
 /**
  * Joomla base installer class
  *
- * @author		Louis Landry <louis.landry@joomla.org>
  * @package		Joomla.Framework
  * @subpackage	Installer
  * @since		1.5
@@ -715,10 +714,6 @@ class JInstaller extends JObject
 
 				// If the language folder is not present, then the core pack hasn't been installed... ignore
 				if (!JFolder::exists(dirname($path['dest']))) {
-					$appl	 = &JFactory::getApplication();
-					$name	 = JText::_($appl->getName());
-					$warning = JText::sprintf('INSTALLER LANG NOT INSTALLED', $file->data(), $name, $file->attributes('tag') );
-					JError::raiseNotice(200, 'JInstaller::install: '.$warning);
 					continue;
 				}
 			} else {
@@ -780,7 +775,7 @@ class JInstaller extends JObject
 
 		/*
 		 * Here we set the folder we are going to copy the files to.
-		 * 	Default 'media' Files are copied to the JPATH_BASE/images folder
+		 * 	Default 'media' Files are copied to the JPATH_BASE/media folder
 		 */
 		$folder = ($element->attributes('destination')) ? DS.$element->attributes('destination') : null;
 		$destination = JPath::clean(JPATH_ROOT.DS.'media'.$folder);
@@ -805,7 +800,7 @@ class JInstaller extends JObject
 		{
 			$path['src']	= $source.DS.$file->data();
 			$path['dest']	= $destination.DS.$file->data();
-			
+
 			// Is this path a file or folder?
 			$path['type']	= ( $file->name() == 'folder') ? 'folder' : 'file';
 

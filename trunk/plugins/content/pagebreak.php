@@ -1,8 +1,8 @@
 <?php
 /**
-* @version		$Id: pagebreak.php 10576 2008-07-21 12:50:09Z ircmaxell $
+* @version		$Id: pagebreak.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -42,12 +42,14 @@ function plgContentPagebreak( &$row, &$params, $page=0 )
 	$print   = JRequest::getBool('print');
 	$showall = JRequest::getBool('showall');
 
+	JPlugin::loadLanguage( 'plg_content_pagebreak' );
+
 	if (!$pluginParams->get('enabled', 1)) {
 		$print = true;
 	}
 
 	if ($print) {
-		$row->text = preg_replace( $regex, '<BR/>', $row->text );
+		$row->text = preg_replace( $regex, '<br />', $row->text );
 		return true;
 	}
 
@@ -57,7 +59,7 @@ function plgContentPagebreak( &$row, &$params, $page=0 )
 	}
 
 	$db		=& JFactory::getDBO();
-	$full 	= JRequest::getBool('fullview');
+    $view  = JRequest::getCmd('view');
 
 	if(!$page) {
 		$page = 0;
@@ -65,7 +67,7 @@ function plgContentPagebreak( &$row, &$params, $page=0 )
 
 
 	// check whether plugin has been unpublished
-	if (!JPluginHelper::isEnabled('content', 'pagebreak') || $params->get( 'intro_only' )|| $params->get( 'popup' ) || $full) {
+	if (!JPluginHelper::isEnabled('content', 'pagebreak') || $params->get( 'intro_only' )|| $params->get( 'popup' ) || $view != 'article') {
 		$row->text = preg_replace( $regex, '', $row->text );
 		return;
 	}
@@ -84,7 +86,7 @@ function plgContentPagebreak( &$row, &$params, $page=0 )
 		} else {
 			$row->toc = '';
 		}
-		$row->text = preg_replace( $regex, '<BR/>', $row->text );
+		$row->text = preg_replace( $regex, '<br/>', $row->text );
 		return true;
 	}
 
@@ -93,7 +95,9 @@ function plgContentPagebreak( &$row, &$params, $page=0 )
 
 	// count the number of pages
 	$n = count( $text );
-
+	
+	$row->pagebreaktitle = $row->title;
+	
 	// we have found at least one plugin, therefore at least 2 pages
 	if ($n > 1)
 	{
@@ -109,10 +113,13 @@ function plgContentPagebreak( &$row, &$params, $page=0 )
 				$page_text = $page + 1;
 				if ( $page && @$matches[$page-1][2] )
 				{
-					$attrs = JUtility::parseAttributes($matches[$page-1][1]);
+					$attrs = JUtility::parseAttributes($matches[$page-1][0]);
 
 					if ( @$attrs['title'] ) {
-						$row->page_title = $attrs['title'];
+						$row->title = $row->title.' - '.$attrs['title'];
+					} else {
+						$thispage = $page + 1;
+						$row->title = $row->title.' - '.JText::_( 'Page' ).' '.$thispage;
 					}
 				}
 			}
@@ -163,7 +170,9 @@ function plgContentPagebreak( &$row, &$params, $page=0 )
 function plgContentCreateTOC( &$row, &$matches, &$page )
 {
 
-	$heading = $row->title;
+	if (isset($row->pagebreaktitle)) {$heading = $row->pagebreaktitle;} else {$heading = $row->title;}
+	$limitstart = JRequest::getInt('limitstart', 0);
+	$showall = JRequest::getInt('showall', 0);
 
 	// TOC Header
 	$row->toc = '
@@ -176,10 +185,11 @@ function plgContentCreateTOC( &$row, &$matches, &$page )
 	';
 
 	// TOC First Page link
+	$class = ($limitstart === 0 && $showall === 0) ? 'toclink active' : 'toclink';
 	$row->toc .= '
 	<tr>
 		<td>
-		<a href="'. JRoute::_( '&showall=&limitstart=') .'" class="toclink">'
+		<a href="'. JRoute::_( '&showall=&limitstart=') .'" class="'. $class .'">'
 		. $heading .
 		'</a>
 		</td>
@@ -215,10 +225,11 @@ function plgContentCreateTOC( &$row, &$matches, &$page )
 			$title	= JText::sprintf( 'Page #', $i );
 		}
 
+		$class = ($limitstart == $i-1) ? 'toclink active' : 'toclink';
 		$row->toc .= '
 			<tr>
 				<td>
-				<a href="'. $link .'" class="toclink">'
+				<a href="'. $link .'" class="'. $class .'">'
 				. $title .
 				'</a>
 				</td>
@@ -235,10 +246,11 @@ function plgContentCreateTOC( &$row, &$matches, &$page )
 	if ($params->get('showall') )
 	{
 		$link = JRoute::_( '&showall=1&limitstart=');
+		$class = ($showall == 1) ? 'toclink active' : 'toclink';
 		$row->toc .= '
 		<tr>
 			<td>
-				<a href="'. $link .'" class="toclink">'
+				<a href="'. $link .'" class="'. $class .'">'
 				. JText::_( 'All Pages' ) .
 				'</a>
 			</td>

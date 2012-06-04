@@ -78,8 +78,6 @@ class JCacheStorageJfdb extends JCacheStorage
 			$conf = JFactory::getConfig();
 			$cachebase = $conf->getValue('config.cache_path',JPATH_ROOT.DS.'cache');
 			$cachepath = $cachebase.DS."joomfish-cache";
-                        var_dump($cachebase);
-                        exit;
 			if (!JFolder::exists($cachepath)){
 				JFolder::create($cachepath);
 			}

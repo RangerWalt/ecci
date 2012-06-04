@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: admin.content.html.php 10571 2008-07-21 01:27:35Z pasamio $
+* @version		$Id: admin.content.html.php 17299 2010-05-27 16:06:54Z ian $
 * @package		Joomla
 * @subpackage	Content
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -41,7 +41,7 @@ class ContentView
 		$now	=& JFactory::getDate();
 
 		//Ordering allowed ?
-		$ordering = ($lists['order'] == 'section_name' || $lists['order'] == 'cc.name');
+		$ordering = ($lists['order'] == 'section_name' || $lists['order'] == 'cc.title' || $lists['order'] == 'c.ordering');
 		JHTML::_('behavior.tooltip');
 		?>
 		<form action="index.php?option=com_content" method="post" name="adminForm">
@@ -50,7 +50,7 @@ class ContentView
 				<tr>
 					<td width="100%">
 						<?php echo JText::_( 'Filter' ); ?>:
-						<input type="text" name="search" id="search" value="<?php echo $lists['search'];?>" class="text_area" onchange="document.adminForm.submit();" title="<?php echo JText::_( 'Filter by title or enter article ID' );?>"/>
+						<input type="text" name="search" id="search" value="<?php echo htmlspecialchars($lists['search']);?>" class="text_area" onchange="document.adminForm.submit();" title="<?php echo JText::_( 'Filter by title or enter article ID' );?>"/>
 						<button onclick="this.form.submit();"><?php echo JText::_( 'Go' ); ?></button>
 						<button onclick="document.getElementById('search').value='';this.form.getElementById('filter_sectionid').value='-1';this.form.getElementById('catid').value='0';this.form.getElementById('filter_authorid').value='0';this.form.getElementById('filter_state').value='';this.form.submit();"><?php echo JText::_( 'Reset' ); ?></button>
 					</td>
@@ -84,8 +84,8 @@ class ContentView
 						<?php echo JHTML::_('grid.sort',   'Front Page', 'frontpage', @$lists['order_Dir'], @$lists['order'] ); ?>
 					</th>
 					<th width="8%">
-						<?php echo JHTML::_('grid.sort',   'Order', 'section_name', @$lists['order_Dir'], @$lists['order'] ); ?>
-						<?php echo JHTML::_('grid.order',  $rows ); ?>
+						<?php echo JHTML::_('grid.sort',   'Order', 'c.ordering', @$lists['order_Dir'], @$lists['order'] ); ?>
+						<?php if ($ordering) echo JHTML::_('grid.order',  $rows ); ?>
 					</th>
 					<th width="7%">
 						<?php echo JHTML::_('grid.sort',   'Access', 'groupname', @$lists['order_Dir'], @$lists['order'] ); ?>
@@ -94,7 +94,7 @@ class ContentView
 						<?php echo JHTML::_('grid.sort',   'Section', 'section_name', @$lists['order_Dir'], @$lists['order'] ); ?>
 					</th>
 					<th  class="title" width="8%" nowrap="nowrap">
-						<?php echo JHTML::_('grid.sort',   'Category', 'cc.name', @$lists['order_Dir'], @$lists['order'] ); ?>
+						<?php echo JHTML::_('grid.sort',   'Category', 'cc.title', @$lists['order_Dir'], @$lists['order'] ); ?>
 					</th>
 					<th  class="title" width="8%" nowrap="nowrap">
 						<?php echo JHTML::_('grid.sort',   'Author', 'author', @$lists['order_Dir'], @$lists['order'] ); ?>
@@ -297,7 +297,7 @@ class ContentView
 		<tr>
 			<td align="left" width="100%">
 				<?php echo JText::_( 'Filter' ); ?>:
-				<input type="text" name="search" id="search" value="<?php echo $lists['search'];?>" class="text_area" onchange="document.adminForm.submit();" />
+				<input type="text" name="search" id="search" value="<?php echo htmlspecialchars($lists['search']);?>" class="text_area" onchange="document.adminForm.submit();" />
 				<input type="button" value="<?php echo JText::_( 'Go' ); ?>" class="button" onclick="this.form.submit();" />
 				<input type="button" value="<?php echo JText::_( 'Reset' ); ?>" class="button" onclick="getElementById('search').value='';this.form.submit();" />
 			</td>
@@ -801,7 +801,7 @@ class ContentView
 				</label>
 			</td>
 			<td>
-				<input class="inputbox" type="text" name="alias" id="alias" size="40" maxlength="255" value="<?php echo $row->alias; ?>" />
+				<input class="inputbox" type="text" name="alias" id="alias" size="40" maxlength="255" value="<?php echo $row->alias; ?>" title="<?php echo JText::_( 'ALIASTIP' ); ?>" />
 			</td>
 			<td>
 				<label>

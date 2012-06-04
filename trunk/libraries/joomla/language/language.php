@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: language.php 10457 2008-06-27 05:52:12Z eddieajau $
+* @version		$Id: language.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	Language
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -81,7 +81,7 @@ class JLanguage extends JObject
 	var $_paths	= array();
 
 	/**
-	 * Transaltions
+	 * Translations
 	 *
 	 * @var		array
 	 * @access	protected
@@ -145,7 +145,7 @@ class JLanguage extends JObject
 	*/
 	function _($string, $jsSafe = false)
 	{
-		//$key = str_replace( ' ', '_', strtoupper( trim( $string ) ) );echo '<br>'.$key;
+		//$key = str_replace( ' ', '_', strtoupper( trim( $string ) ) );echo '<br />'.$key;
 		$key = strtoupper($string);
 		$key = substr($key, 0, 1) == '_' ? substr($key, 1) : $key;
 
@@ -286,6 +286,9 @@ class JLanguage extends JObject
 
 		$path = JLanguage::getLanguagePath( $basePath, $lang);
 
+		if ( !strlen( $extension ) ) {
+			$extension = 'joomla';
+		}
 		$filename = ( $extension == 'joomla' ) ?  $lang : $lang . '.' . $extension ;
 		$filename = $path.DS.$filename.'.ini';
 
@@ -308,7 +311,7 @@ class JLanguage extends JObject
 				$filename	= ( $extension == 'joomla' ) ?  $this->_default : $this->_default . '.' . $extension ;
 				$filename	= $path.DS.$filename.'.ini';
 
-				$result = $this->_load( $filename, $extension );
+				$result = $this->_load( $filename, $extension, false );
 			}
 
 		}
@@ -316,7 +319,6 @@ class JLanguage extends JObject
 		return $result;
 
 	}
-
 	/**
 	* Loads a language file
 	*
@@ -329,19 +331,26 @@ class JLanguage extends JObject
 	* @see		JLanguage::load()
 	* @since	1.5
 	*/
-	function _load( $filename, $extension = 'unknown' )
+	function _load( $filename, $extension = 'unknown', $overwrite = true )
 	{
 		$result	= false;
 
 		if ($content = @file_get_contents( $filename ))
 		{
+
+			//Take off BOM if present in the ini file
+			if ( $content[0] == "\xEF" && $content[1] == "\xBB" && $content[2] == "\xBF" )
+            {
+				$content = substr( $content, 3 );
+		  	}
+
 			$registry	= new JRegistry();
 			$registry->loadINI($content);
 			$newStrings	= $registry->toArray( );
 
 			if ( is_array( $newStrings) )
 			{
-				$this->_strings = array_merge( $this->_strings, $newStrings);
+				$this->_strings = $overwrite ? array_merge( $this->_strings, $newStrings) : array_merge( $newStrings, $this->_strings);
 				$result = true;
 			}
 		}
@@ -576,7 +585,7 @@ class JLanguage extends JObject
 	* Get the list of orphaned strings if being tracked
 	*
 	* @access	public
-	* @return	boolean True is in debug mode
+	* @return	array Orphaned text
 	* @since	1.5
 	*/
 	function getOrphans() {

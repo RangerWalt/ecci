@@ -10,7 +10,6 @@ function modMainMenuXMLCallback(&$node, $args)
 	$menu	= &JSite::getMenu();
 	$active	= $menu->getActive();
 	$path	= isset($active) ? array_reverse($active->tree) : null;
-
 	if (($args['end']) && ($node->attributes('level') >= $args['end']))
 	{
 		$children = &$node->children();
@@ -47,7 +46,7 @@ function modMainMenuXMLCallback(&$node, $args)
 		else if ($node->attributes('level') == 2 ) {
 			$node->addAttribute('class', 'haschild2');
 			if ($children[0]->name() == 'a' or $children[0]->name() == 'span') {
-				$children[0]->addAttribute('class', 'haschild2');
+				$children[0]->addAttribute('class', 'haschild2 item_' . $node->attributes('id'));
 			}
 			
 		

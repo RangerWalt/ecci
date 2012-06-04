@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: atom.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: atom.php 15105 2010-02-27 14:59:11Z ian $
  * @package		Joomla.Framework
  * @subpackage	Document
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -23,8 +23,6 @@ defined('JPATH_BASE') or die();
  * Please note that just by using this class you won't automatically
  * produce valid atom files. For example, you have to specify either an editor
  * for the feed or an author for every single feed item.
- *
- * @author	Johan Janssens <johan.janssens@joomla.org>
  *
  * @package 	Joomla.Framework
  * @subpackage	Document
@@ -53,31 +51,36 @@ defined('JPATH_BASE') or die();
 		$now	=& JFactory::getDate();
 		$data	=& $this->_doc;
 
-		$feed = "<feed xmlns=\"http://www.w3.org/2005/Atom\" xml:base=\"".$data->getBase()."\"";
+		$uri =& JFactory::getURI();
+		$url = $uri->toString(array('scheme', 'user', 'pass', 'host', 'port'));
+		$syndicationURL =& JRoute::_('&format=feed&type=atom');
+
+		$feed = "<feed xmlns=\"http://www.w3.org/2005/Atom\" ";
 		if ($data->language!="") {
 			$feed.= " xml:lang=\"".$data->language."\"";
 		}
 		$feed.= ">\n";
 		$feed.= "	<title type=\"text\">".htmlspecialchars($data->title, ENT_COMPAT, 'UTF-8')."</title>\n";
 		$feed.= "	<subtitle type=\"text\">".htmlspecialchars($data->description, ENT_COMPAT, 'UTF-8')."</subtitle>\n";
-		$feed.= "	<link rel=\"alternate\" type=\"text/html\" href=\"".$data->link."\"/>\n";
-		$feed.= "	<id>".$data->link."</id>\n";
+		$feed.= "	<link rel=\"alternate\" type=\"text/html\" href=\"".$url."\"/>\n";
+		$feed.= "	<id>".str_replace(' ','%20',$data->getBase())."</id>\n";
 		$feed.= "	<updated>".htmlspecialchars($now->toISO8601(), ENT_COMPAT, 'UTF-8')."</updated>\n";
 		if ($data->editor!="") {
 			$feed.= "	<author>\n";
 			$feed.= "		<name>".$data->editor."</name>\n";
 			if ($data->editorEmail!="") {
-				$feed.= "		<email>".$data->editorEmail."</email>\n";
+				$feed.= "		<email>".htmlspecialchars($data->editorEmail, ENT_COMPAT, 'UTF-8')."</email>\n";
 			}
 			$feed.= "	</author>\n";
 		}
 		$feed.= "	<generator uri=\"http://joomla.org\" version=\"1.5\">".$data->getGenerator()."</generator>\n";
-		$feed.= "<link rel=\"self\" type=\"application/atom+xml\" href=\"". $data->syndicationURL . "\" />\n";
+		$feed.= '<link rel="self" type="application/atom+xml" href="'.str_replace(' ','%20',$url.$syndicationURL). "\" />\n";
+
 		for ($i=0;$i<count($data->items);$i++)
 		{
 			$feed.= "	<entry>\n";
 			$feed.= "		<title>".htmlspecialchars(strip_tags($data->items[$i]->title), ENT_COMPAT, 'UTF-8')."</title>\n";
-			$feed.= '		<link rel="alternate" type="text/html" href="'.$data->items[$i]->link."\"/>\n";
+			$feed.= '		<link rel="alternate" type="text/html" href="'.$url.$data->items[$i]->link."\"/>\n";
 
 			if ($data->items[$i]->date=="") {
 				$data->items[$i]->date = $now->toUnix();
@@ -85,17 +88,20 @@ defined('JPATH_BASE') or die();
 			$itemDate =& JFactory::getDate($data->items[$i]->date);
 			$feed.= "		<published>".htmlspecialchars($itemDate->toISO8601(), ENT_COMPAT, 'UTF-8')."</published>\n";
 			$feed.= "		<updated>".htmlspecialchars($itemDate->toISO8601(),ENT_COMPAT, 'UTF-8')."</updated>\n";
-			$feed.= "		<id>".htmlspecialchars($data->items[$i]->link, ENT_COMPAT, 'UTF-8')."</id>\n";
+			$feed.= "		<id>".str_replace(' ', '%20', $url.$data->items[$i]->link)."</id>\n";
 
 			if ($data->items[$i]->author!="")
 			{
 				$feed.= "		<author>\n";
 				$feed.= "			<name>".htmlspecialchars($data->items[$i]->author, ENT_COMPAT, 'UTF-8')."</name>\n";
+				if ($data->items[$i]->authorEmail!="") {
+					$feed.= "		<email>".htmlspecialchars($data->items[$i]->authorEmail, ENT_COMPAT, 'UTF-8')."</email>\n";
+				}
 				$feed.= "		</author>\n";
 			}
 			if ($data->items[$i]->description!="") {
-				$feed.= "		<summary type=\"html\">".htmlspecialchars($data->items[$i]->description, ENT_COMPAT, 'UTF-8')."</summary>\n";
-				$feed.= "		<content type=\"html\">".htmlspecialchars($data->items[$i]->description, ENT_COMPAT, 'UTF-8')."</content>\n";
+				$feed.= "		<summary type=\"html\">".htmlspecialchars($this->_relToAbs($data->items[$i]->description))."</summary>\n";
+				$feed.= "		<content type=\"html\">".htmlspecialchars($this->_relToAbs($data->items[$i]->description))."</content>\n";
 			}
 			if ($data->items[$i]->enclosure != NULL) {
 			$feed.="		<link rel=\"enclosure\" href=\"". $data->items[$i]->enclosure->url ."\" type=\"". $data->items[$i]->enclosure->type."\"  length=\"". $data->items[$i]->enclosure->length . "\" />\n";
@@ -104,5 +110,13 @@ defined('JPATH_BASE') or die();
 		}
 		$feed.= "</feed>\n";
 		return $feed;
+	}
+
+	function _relToAbs($text)
+	{
+		$base = JURI::base();
+  		$text = preg_replace("/(href|src)=\"(?!http|ftp|https|mailto)([^\"]*)\"/", "$1=\"$base\$2\"", $text);
+
+		return $text;
 	}
 }

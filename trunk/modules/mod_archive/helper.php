@@ -1,8 +1,8 @@
 <?php
 /**
-* @version		$Id: helper.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: helper.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -25,7 +25,7 @@ class modArchiveHelper
 
 		$query = 'SELECT MONTH( created ) AS created_month, created, id, sectionid, title, YEAR(created) AS created_year' .
 			' FROM #__content' .
-			' WHERE ( state = -1 AND checked_out = 0 )' .
+			' WHERE ( state = -1 AND checked_out = 0 AND sectionid != 0)' .
 			' GROUP BY created_year DESC, created_month DESC';
 		$db->setQuery($query, 0, intval($params->get('count')));
 		$rows = $db->loadObjectList();

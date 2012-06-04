@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: string.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: string.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	Utilities
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -45,7 +45,6 @@ require_once(JPATH_LIBRARIES.DS.'phputf8'.DS.'utf8.php');
  * All functions assume the validity of utf-8 strings.
  *
  * @static
- * @author 		David Gal <david@joomla.co.il>
  * @package 	Joomla.Framework
  * @subpackage	Utilities
  * @since		1.5
@@ -286,7 +285,7 @@ class JString
 	*/
 	function strspn($str, $mask, $start = NULL, $length = NULL)
 	{
-		jimport('phputf8.native.utf8_strspn');
+		jimport('phputf8.strspn');
 		if ( $start === FALSE && $length === FALSE ) {
 			return utf8_strspn($str, $mask);
 		} else if ( $length === FALSE ) {
@@ -360,7 +359,7 @@ class JString
 	{
 		jimport('phputf8.trim');
 		if ( $charlist === FALSE ) {
-			return utf8_rltrim( $str );
+			return utf8_rtrim($str);
 		} else {
 			return utf8_rtrim( $str, $charlist );
 		}

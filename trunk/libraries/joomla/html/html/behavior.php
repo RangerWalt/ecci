@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: behavior.php 10470 2008-06-29 13:47:36Z willebil $
+* @version		$Id: behavior.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	HTML
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -11,7 +11,7 @@
 * other free or open source software licenses.
 * See COPYRIGHT.php for copyright notices and details.
 */
-
+defined('JPATH_BASE') or die();
 /**
  * Utility class for javascript behaviors
  *
@@ -48,7 +48,7 @@ class JHTMLBehavior
 		}
 
 		// TODO NOTE: Here we are checking for Konqueror - If they fix thier issue with compressed, we will need to update this
-		$konkcheck = strpos (strtolower($_SERVER['HTTP_USER_AGENT']), "konqueror");
+		$konkcheck = isset($_SERVER['HTTP_USER_AGENT']) ? strpos(strtolower($_SERVER['HTTP_USER_AGENT']), "konqueror") : null;
 
 		if ($debug || $konkcheck) {
 			JHTML::script('mootools-uncompressed.js', 'media/system/js/', false);
@@ -93,7 +93,8 @@ class JHTMLBehavior
 
 		// Setup options object
 		$opt['maxTitleChars']	= (isset($params['maxTitleChars']) && ($params['maxTitleChars'])) ? (int)$params['maxTitleChars'] : 50 ;
-		$opt['offsets']			= (isset($params['offsets'])) ? (int)$params['offsets'] : null;
+		// offsets needs an array in the format: array('x'=>20, 'y'=>30)
+		$opt['offsets']			= (isset($params['offsets']) && (is_array($params['offsets']))) ? $params['offsets'] : null;
 		$opt['showDelay']		= (isset($params['showDelay'])) ? (int)$params['showDelay'] : null;
 		$opt['hideDelay']		= (isset($params['hideDelay'])) ? (int)$params['hideDelay'] : null;
 		$opt['className']		= (isset($params['className'])) ? $params['className'] : null;

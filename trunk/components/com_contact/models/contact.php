@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: contact.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: contact.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla
  * @subpackage	Contact
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -38,7 +38,7 @@ class ContactModelContact extends JModel
 		$groupBy	= @$options['group by'];
 		$orderBy	= @$options['order by'];
 
-		$select = 'a.*, cc.title as category_name, '
+		$select = 'a.*, cc.access as category_access, cc.title as category_name, '
 		. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(\':\', a.id, a.alias) ELSE a.id END as slug, '
 		. ' CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(\':\', cc.id, cc.alias) ELSE cc.id END AS catslug ';
 		$from	= '#__contact_details AS a';
@@ -48,12 +48,6 @@ class ContactModelContact extends JModel
 		$wheres[] = 'a.id = ' . (int) $id;
 		$wheres[] = 'a.published = 1';
 		$wheres[] = 'cc.published = 1';
-
-		if ($aid !== null)
-		{
-			$wheres[] = 'a.access <= ' . (int) $aid;
-			$wheres[] = 'cc.access <= ' . (int) $aid;
-		}
 
 		/*
 		 * Query to retrieve all categories that belong under the contacts

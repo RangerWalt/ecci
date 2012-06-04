@@ -3,7 +3,7 @@
 * @version		$Id:  $
 * @package		Joomla.Framework
 * @subpackage	HTML
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -11,6 +11,11 @@
 * other free or open source software licenses.
 * See COPYRIGHT.php for copyright notices and details.
 */
+
+// no direct access
+defined('_JEXEC') or die('Restricted access');
+
+JLoader::register('JTableContent', JPATH_LIBRARIES . DS . 'joomla' . DS . 'database' . DS . 'table' . DS . 'content.php');
 
 /**
  * Utility class to fire onPrepareContent for non-article based content.
@@ -34,9 +39,10 @@ class JHTMLContent
 			$params = array();
 		}
 		/*
-		 * Create a skeleton of an article
+		 * Create a skeleton of an article. This is a bit of a hack.
 		 */
-		$article = new stdClass();
+		$nodb = null;
+		$article = new JTableContent($nodb);
 		$article->text = $text;
 		JPluginHelper::importPlugin('content');
 		$dispatcher = &JDispatcher::getInstance();
