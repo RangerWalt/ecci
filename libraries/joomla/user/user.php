@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: user.php 10456 2008-06-26 17:24:13Z willebil $
+ * @version		$Id: user.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	User
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -21,7 +21,6 @@ jimport( 'joomla.html.parameter');
 /**
  * User class.  Handles all application interaction with a user
  *
- * @author 		Louis Landry <louis.landry@joomla.org>
  * @package 	Joomla.Framework
  * @subpackage	User
  * @since		1.5
@@ -405,7 +404,7 @@ class JUser extends JObject
 			$now =& JFactory::getDate();
 			$this->set( 'registerDate', $now->toMySQL() );
 
-			// Check that username is not greater than 25 characters
+			// Check that username is not greater than 150 characters
 			$username = $this->get( 'username' );
 			if ( strlen($username) > 150 )
 			{
@@ -413,7 +412,7 @@ class JUser extends JObject
 				$this->set( 'username', $username );
 			}
 
-			// Check that password is not greater than 50 characters
+			// Check that password is not greater than 100 characters
 			$password = $this->get( 'password' );
 			if ( strlen($password) > 100 )
 			{

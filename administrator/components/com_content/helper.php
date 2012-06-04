@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: helper.php 10571 2008-07-21 01:27:35Z pasamio $
+ * @version		$Id: helper.php 18162 2010-07-16 07:00:47Z ian $
  * @package		Joomla
  * @subpackage	Content
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -48,8 +48,14 @@ class ContentHelper
 		$user	= &JFactory::getUser();
 		$gid	= $user->get( 'gid' );
 
-		$filterGroups	= (array) $config->get( 'filter_groups' );
-		if (in_array( $gid, $filterGroups ))
+		$filterGroups	=  $config->get( 'filter_groups' );
+		
+		// convert to array if one group selected
+		if ( (!is_array($filterGroups) && (int) $filterGroups > 0) ) { 
+			$filterGroups = array($filterGroups);
+		}
+
+		if (is_array($filterGroups) && in_array( $gid, $filterGroups ))
 		{
 			$filterType		= $config->get( 'filter_type' );
 			$filterTags		= preg_split( '#[,\s]+#', trim( $config->get( 'filter_tags' ) ) );
@@ -60,7 +66,7 @@ class ContentHelper
 					$filter	= new JFilterInput();
 					break;
 				case 'WL':
-					$filter	= new JFilterInput( $filterTags, $filterAttrs, 0, 0 );
+					$filter	= new JFilterInput( $filterTags, $filterAttrs, 0, 0, 0);  // turn off xss auto clean
 					break;
 				case 'BL':
 				default:
@@ -69,10 +75,61 @@ class ContentHelper
 			}
 			$row->introtext	= $filter->clean( $row->introtext );
 			$row->fulltext	= $filter->clean( $row->fulltext );
+		} elseif(empty($filterGroups) && $gid != '25') { // no default filtering for super admin (gid=25)
+			$filter = new JFilterInput( array(), array(), 1, 1 );
+			$row->introtext	= $filter->clean( $row->introtext );
+			$row->fulltext	= $filter->clean( $row->fulltext );
 		}
-
 		return true;
 	}
+
+	/**
+	* Applies the content tag filters to arbitrary text as per settings for current user group
+	* @param text The string to filter
+	* @return string The filtered string
+	*/
+	function filterText( $text )
+	{
+		// Filter settings
+		jimport( 'joomla.application.component.helper' );
+		$config	= JComponentHelper::getParams( 'com_content' );
+		$user	= &JFactory::getUser();
+		$gid	= $user->get( 'gid' );
+
+		$filterGroups	=  $config->get( 'filter_groups' );
+		
+		// convert to array if one group selected
+		if ( (!is_array($filterGroups) && (int) $filterGroups > 0) ) { 
+			$filterGroups = array($filterGroups);
+		}
+
+		if (is_array($filterGroups) && in_array( $gid, $filterGroups ))
+		{
+			$filterType		= $config->get( 'filter_type' );
+			$filterTags		= preg_split( '#[,\s]+#', trim( $config->get( 'filter_tags' ) ) );
+			$filterAttrs	= preg_split( '#[,\s]+#', trim( $config->get( 'filter_attritbutes' ) ) );
+			switch ($filterType)
+			{
+				case 'NH':
+					$filter	= new JFilterInput();
+					break;
+				case 'WL':
+					$filter	= new JFilterInput( $filterTags, $filterAttrs, 0, 0, 0);  // turn off xss auto clean
+					break;
+				case 'BL':
+				default:
+					$filter	= new JFilterInput( $filterTags, $filterAttrs, 1, 1 );
+					break;
+			}
+			$text	= $filter->clean( $text );
+		} elseif(empty($filterGroups) && $gid != '25') { // no default filtering for super admin (gid=25)
+			$filter = new JFilterInput( array(), array(), 1, 1 );
+			$text	= $filter->clean( $text );
+		}
+		return $text;
+	}
+
+
 
 	/**
 	* Function to reset Hit count of an article

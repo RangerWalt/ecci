@@ -1,8 +1,8 @@
 <?php
 /**
-* @version		$Id: methods.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: methods.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -18,7 +18,6 @@ defined('JPATH_BASE') or die();
  * Route handling class
  *
  * @static
- * @author		Johan Janssens <johan.janssens@joomla.org>
  * @package 	Joomla.Framework
  * @since		1.5
  */
@@ -56,7 +55,7 @@ class JRoute
 		$url = $uri->toString(array('path', 'query', 'fragment'));
 
 		// Replace spaces
-		$url = preg_replace('/\s/', '%20', $url);
+		$url = preg_replace('/\s/u', '%20', $url);
 
 		/*
 		 * Get the secure/unsecure URLs.

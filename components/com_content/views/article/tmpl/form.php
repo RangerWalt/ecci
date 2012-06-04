@@ -1,5 +1,20 @@
 <?php // no direct access
-defined('_JEXEC') or die('Restricted access'); ?>
+defined('_JEXEC') or die('Restricted access');
+
+$config =& JFactory::getConfig();
+$publish_up =& JFactory::getDate($this->article->publish_up);
+$publish_up->setOffset($config->getValue('config.offset'));
+$publish_up = $publish_up->toFormat();
+
+if (! isset($this->article->publish_down) || $this->article->publish_down == 'Never') {
+	$publish_down = JText::_('Never');
+} else {
+	$publish_down =& JFactory::getDate($this->article->publish_down);
+	$publish_down->setOffset($config->getValue('config.offset'));
+	$publish_down = $publish_down->toFormat();
+}
+?>
+
 <script language="javascript" type="text/javascript">
 <!--
 function setgood() {
@@ -48,7 +63,7 @@ function submitbutton(pressbutton) {
 //-->
 </script>
 <?php if ($this->params->get('show_page_title', 1)) : ?>
-<div class="componentheading<?php echo $this->params->get('pageclass_sfx')?>"><?php echo $this->escape($this->params->get('page_title')); ?></div>
+<div class="componentheading<?php echo $this->escape($this->params->get('pageclass_sfx')); ?>"><?php echo $this->escape($this->params->get('page_title')); ?></div>
 <?php endif; ?>
 <form action="<?php echo $this->action ?>" method="post" name="adminForm" onSubmit="setgood();">
 <fieldset>
@@ -131,7 +146,7 @@ echo $this->editor->display('text', $this->article->text, '100%', '400', '70', '
 		</label>
 	</td>
 	<td>
-		<input type="text" id="created_by_alias" name="created_by_alias" size="50" maxlength="100" value="<?php echo $this->article->created_by_alias; ?>" class="inputbox" />
+		<input type="text" id="created_by_alias" name="created_by_alias" size="50" maxlength="100" value="<?php echo $this->escape($this->article->created_by_alias); ?>" class="inputbox" />
 	</td>
 </tr>
 <tr>
@@ -141,7 +156,7 @@ echo $this->editor->display('text', $this->article->text, '100%', '400', '70', '
 		</label>
 	</td>
 	<td>
-	    <?php echo JHTML::_('calendar', $this->article->publish_up, 'publish_up', 'publish_up', '%Y-%m-%d %H:%M:%S', array('class'=>'inputbox', 'size'=>'25',  'maxlength'=>'19')); ?>
+	    <?php echo JHTML::_('calendar', $publish_up, 'publish_up', 'publish_up', '%Y-%m-%d %H:%M:%S', array('class'=>'inputbox', 'size'=>'25',  'maxlength'=>'19')); ?>
 	</td>
 </tr>
 <tr>
@@ -151,7 +166,7 @@ echo $this->editor->display('text', $this->article->text, '100%', '400', '70', '
 		</label>
 	</td>
 	<td>
-	    <?php echo JHTML::_('calendar', $this->article->publish_down, 'publish_down', 'publish_down', '%Y-%m-%d %H:%M:%S', array('class'=>'inputbox', 'size'=>'25',  'maxlength'=>'19')); ?>
+	    <?php echo JHTML::_('calendar', $publish_down, 'publish_down', 'publish_down', '%Y-%m-%d %H:%M:%S', array('class'=>'inputbox', 'size'=>'25',  'maxlength'=>'19')); ?>
 	</td>
 </tr>
 <tr>
@@ -207,7 +222,7 @@ echo $this->editor->display('text', $this->article->text, '100%', '400', '70', '
 <input type="hidden" name="id" value="<?php echo $this->article->id; ?>" />
 <input type="hidden" name="version" value="<?php echo $this->article->version; ?>" />
 <input type="hidden" name="created_by" value="<?php echo $this->article->created_by; ?>" />
-<input type="hidden" name="referer" value="<?php echo @$_SERVER['HTTP_REFERER']; ?>" />
+<input type="hidden" name="referer" value="<?php echo str_replace(array('"', '<', '>', "'"), '', @$_SERVER['HTTP_REFERER']); ?>" />
 <?php echo JHTML::_( 'form.token' ); ?>
 <input type="hidden" name="task" value="" />
 </form>

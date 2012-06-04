@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: view.html.php 10498 2008-07-04 00:05:36Z ian $
+ * @version		$Id: view.html.php 21040 2011-03-31 15:54:16Z dextercowley $
  * @package		Joomla
  * @subpackage	Content
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -46,11 +46,12 @@ class ContentViewArchive extends ContentView
 
 		// Request variables
 		$task 		= JRequest::getCmd('task');
-		$limit		= JRequest::getVar('limit', $params->get('display_num', 20), '', 'int');
+		$limit		= $mainframe->getUserStateFromRequest('com_content.'.$this->getLayout().'.limit', 'limit', $params->get('display_num', 20), 'int');
 		$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
 		$month		= JRequest::getInt( 'month' );
 		$year		= JRequest::getInt( 'year' );
 		$filter		= JRequest::getString( 'filter' );
+		JRequest::setVar('limit', (int) $limit);
 
 		// Get some data from the model
 		$state = & $this->get( 'state' );
@@ -72,7 +73,7 @@ class ContentViewArchive extends ContentView
 		// because the application sets a default page title, we need to get it
 		// right from the menu item itself
 		if (is_object( $menu )) {
-			$menu_params = new JParameter( $menu->params );			
+			$menu_params = new JParameter( $menu->params );
 			if (!$menu_params->get( 'page_title')) {
 				$params->set('page_title',	JText::_( 'Archives' ));
 			}
@@ -103,7 +104,7 @@ class ContentViewArchive extends ContentView
 		// Year Field
 		$years = array();
 		$years[] = JHTML::_('select.option',  null, JText::_( 'Year' ) );
-		for ($i=2000; $i <= 2010; $i++) {
+		for ($l = date('Y'), $i = $l - 10; $i <= $l; $i++) {
 			$years[] = JHTML::_('select.option',  $i, $i );
 		}
 		$form->yearField	= JHTML::_('select.genericlist',   $years, 'year', 'size="1" class="inputbox"', 'value', 'text', $year );

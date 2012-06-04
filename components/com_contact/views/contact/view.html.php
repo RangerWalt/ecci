@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: view.html.php 10571 2008-07-21 01:27:35Z pasamio $
+ * @version		$Id: view.html.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla
  * @subpackage	Contact
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -59,6 +59,18 @@ class ContactViewContact extends JView
 			JError::raiseError( 404, 'Contact not found' );
 			return;
 		}
+		
+		// check if access is registered/special
+		if (($contact->access > $user->get('aid', 0)) || ($contact->category_access > $user->get('aid', 0))) {
+			$uri		= JFactory::getURI();
+			$return		= $uri->toString();
+			
+			$url  = 'index.php?option=com_user&view=login';
+			$url .= '&return='.base64_encode($return);
+			
+			$mainframe->redirect($url, JText::_('You must login first') );
+			
+		}
 
 		$options['category_id']	= $contact->catid;
 		$options['order by']	= 'cd.default_con DESC, cd.ordering ASC';
@@ -69,7 +81,7 @@ class ContactViewContact extends JView
 		// because the application sets a default page title, we need to get it
 		// right from the menu item itself
 		if (is_object( $menu ) && isset($menu->query['view']) && $menu->query['view'] == 'contact' && isset($menu->query['id']) && $menu->query['id'] == $contact->id) {
-			$menu_params = new JParameter( $menu->params );			
+			$menu_params = new JParameter( $menu->params );
 			if (!$menu_params->get( 'page_title')) {
 				$pparams->set('page_title',	$contact->name);
 			}
@@ -109,7 +121,7 @@ class ContactViewContact extends JView
 			$contact->email_to = JHTML::_('email.cloak', $contact->email_to);
 		}
 
-		if ($contact->params->get('show_street_adress') || $contact->params->get('show_suburb') || $contact->params->get('show_state') || $contact->params->get('show_postcode') || $contact->params->get('show_country'))
+		if ($contact->params->get('show_street_address') || $contact->params->get('show_suburb') || $contact->params->get('show_state') || $contact->params->get('show_postcode') || $contact->params->get('show_country'))
 		{
 			if (!empty ($contact->address) || !empty ($contact->suburb) || !empty ($contact->state) || !empty ($contact->country) || !empty ($contact->postcode)) {
 				$contact->params->set('address_check', 1);

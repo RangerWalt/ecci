@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: list.php 10439 2008-06-21 20:34:35Z willebil $
+* @version		$Id: list.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage		HTML
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -60,7 +60,7 @@ class JHTMLList
 		$imageFiles = JFolder::files( JPATH_SITE.DS.$directory );
 		$images 	= array(  JHTML::_('select.option',  '', '- '. JText::_( 'Select Image' ) .' -' ) );
 		foreach ( $imageFiles as $file ) {
-		   if ( eregi( $extensions, $file ) ) {
+		   if ( preg_match( "#$extensions#i", $file ) ) {
 				$images[] = JHTML::_('select.option',  $file );
 			}
 		}
@@ -210,19 +210,20 @@ class JHTMLList
 	/**
 	* Select list of active sections
 	*/
-	function section( $name, $active = NULL, $javascript = NULL, $order = 'ordering', $uncategorized = true )
+	function section( $name, $active = NULL, $javascript = NULL, $order = 'ordering', $uncategorized = true, $scope = 'content' )
 	{
 		$db =& JFactory::getDBO();
 
 		$categories[] = JHTML::_('select.option',  '-1', '- '. JText::_( 'Select Section' ) .' -' );
-		
+
 		if ($uncategorized) {
 			$categories[] = JHTML::_('select.option',  '0', JText::_( 'Uncategorized' ) );
 		}
-		
+
 		$query = 'SELECT id AS value, title AS text'
 		. ' FROM #__sections'
 		. ' WHERE published = 1'
+		. ' AND scope = ' . $db->Quote($scope)
 		. ' ORDER BY ' . $order
 		;
 		$db->setQuery( $query );

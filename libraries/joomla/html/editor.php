@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: editor.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: editor.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	HTML
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -20,8 +20,6 @@ jimport('joomla.event.dispatcher');
 /**
  * JEditor class to handle WYSIWYG editors
  *
- * @author		Louis Landry <louis.landry@joomla.org>
- * @author		Johan Janssens <johan.janssens@joomla.org>
  * @package		Joomla.Framework
  * @subpackage	HTML
  * @since		1.5
@@ -41,6 +39,13 @@ class JEditor extends JObservable
 	 * @var string
 	 */
 	var $_name = null;
+	
+	/**
+	 * Editor start and end tag
+	 * Used to tell SEF plugin not to process editor contents
+	 * @var array
+	 */
+	var $_tagForSEF = array('start' => '<!-- Start Editor -->', 'end' => '<!-- End Editor -->'); 
 
 	/**
 	 * constructor
@@ -152,7 +157,7 @@ class JEditor extends JObservable
 				$return .= $result;
 			}
 		}
-		return $return;
+		return $this->_tagForSEF['start'] . $return . $this->_tagForSEF['end'];
 	}
 
 	/**
@@ -259,8 +264,9 @@ class JEditor extends JObservable
 				$plugin = new $className($this, (array)$plugin);
 			}
 
-			// Try to authenticate
-			$result[] = $plugin->onDisplay($editor);
+			// Try to authenticate -- only add to array if authentication is successful
+			$resultTest = $plugin->onDisplay($editor);
+			if ($resultTest) $result[] =  $resultTest;
 		}
 
 		return $result;

@@ -20,7 +20,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' ); ?>
 		
 		// Scan folder for images
 		$handle = opendir($abspath_folder);
-		$exts = "gif";
+		$exts = "gif,png";
 		$exts = explode(',', $exts);
 		while (($file = readdir($handle)) !== false) {
 			foreach($exts as $ext) { 
@@ -34,7 +34,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' ); ?>
 		{
 			for($i=0;$i<count($image);$i++)
 			{
-				$url[$i]="http://".$url[$i];
+				$url[$i]="http://".(isset($url[$i])?$url[$i]:"");
 			}
 		}
 		

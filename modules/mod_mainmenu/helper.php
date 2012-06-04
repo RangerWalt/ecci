@@ -72,7 +72,6 @@ class modMainMenuHelper
 	function &getXML($type, &$params, $decorator)
 	{
 		static $xmls;
-
 		if (!isset($xmls[$type])) {
 			$cache =& JFactory::getCache('mod_mainmenu');
 			$string = $cache->call(array('modMainMenuHelper', 'buildXML'), $params);
@@ -131,6 +130,7 @@ class modMainMenuHelper
 
 	function render(&$params, $callback)
 	{
+	// var_dump($params->get( 'menu_style', 'list' ));
 		switch ( $params->get( 'menu_style', 'list' ) )
 		{
 			case 'list_flat' :
@@ -154,13 +154,13 @@ class modMainMenuHelper
 			default :
 				// Include the new menu class
 				$xml = modMainMenuHelper::getXML($params->get('menutype'), $params, $callback);
+				// var_dump($xml);
 				if ($xml) {
 					$class = $params->get('class_sfx');
 					$xml->addAttribute('class', 'menu'.$class);
 					if ($tagId = $params->get('tag_id')) {
 						$xml->addAttribute('id', $tagId);
 					}
-
 					$result = JFilterOutput::ampReplace($xml->toString((bool)$params->get('show_whitespace')));
 					$result = str_replace(array('<ul/>', '<ul />'), '', $result);
 					echo $result;

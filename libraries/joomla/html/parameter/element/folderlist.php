@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: folderlist.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: folderlist.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	Parameter
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -18,7 +18,6 @@ defined('JPATH_BASE') or die();
 /**
  * Renders a filelist element
  *
- * @author 		Andrew Eddie
  * @package 	Joomla.Framework
  * @subpackage		Parameter
  * @since		1.5
@@ -64,6 +63,6 @@ class JElementFolderlist extends JElement
 			array_unshift($options, JHTML::_('select.option', '', '- '.JText::_('Use default').' -'));
 		}
 
-		return JHTML::_('select.genericlist',  $options, ''.$control_name.'['.$name.']', 'class="inputbox"', 'value', 'text', $value, "param$name");
+		return JHTML::_('select.genericlist',  $options, ''.$control_name.'['.$name.']', 'class="inputbox"', 'value', 'text', $value, $control_name.$name);
 	}
 }

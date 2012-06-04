@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: view.html.php 10572 2008-07-21 01:52:00Z pasamio $
+ * @version		$Id: view.html.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla
  * @subpackage	Content
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -30,11 +30,11 @@ class ContentViewArticle extends ContentView
 	{
 		global $mainframe;
 
-		$user		   =& JFactory::getUser();
-		$document	   =& JFactory::getDocument();
-		$dispatcher	   =& JDispatcher::getInstance();
-		$pathway	   =& $mainframe->getPathway();
-		$params 	   =& $mainframe->getParams('com_content');
+		$user		=& JFactory::getUser();
+		$document	=& JFactory::getDocument();
+		$dispatcher	=& JDispatcher::getInstance();
+		$pathway	=& $mainframe->getPathway();
+		$params		=& $mainframe->getParams('com_content');
 
 		// Initialize variables
 		$article	=& $this->get('Article');
@@ -59,6 +59,12 @@ class ContentViewArticle extends ContentView
 
 		$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
 
+		if (!$params->get('intro_only') && ($this->getLayout() == 'default') && ($limitstart == 0))
+		{
+			$model =& $this->getModel();
+			$model->hit();
+		}
+
 		// Create a user access object for the current user
 		$access = new stdClass();
 		$access->canEdit	= $user->authorize('com_content', 'edit', 'content', 'all');
@@ -66,10 +72,27 @@ class ContentViewArticle extends ContentView
 		$access->canPublish	= $user->authorize('com_content', 'publish', 'content', 'all');
 
 		// Check to see if the user has access to view the full article
-		if ($article->access <= $user->get('aid', 0)) {
+		$aid	= $user->get('aid');
+
+		if ($article->access <= $aid) {
 			$article->readmore_link = JRoute::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catslug, $article->sectionid));;
 		} else {
-			$article->readmore_link = JRoute::_("index.php?option=com_user&task=register");
+			if ( ! $aid )
+			{
+				// Redirect to login
+				$uri		= JFactory::getURI();
+				$return		= $uri->toString();
+
+				$url  = 'index.php?option=com_user&view=login';
+				$url .= '&return='.base64_encode($return);;
+
+				//$url	= JRoute::_($url, false);
+				$mainframe->redirect($url, JText::_('You must login first') );
+			}
+			else{
+				JError::raiseWarning( 403, JText::_('ALERTNOTAUTH') );
+				return;
+			}
 		}
 
 		/*
@@ -148,16 +171,19 @@ class ContentViewArticle extends ContentView
 		 * Handle display events
 		 */
 		$article->event = new stdClass();
-		$results = $dispatcher->trigger('onAfterDisplayTitle', array ($article, &$params, $limitstart));
+		$results = $dispatcher->trigger('onAfterDisplayTitle', array (&$article, &$params, $limitstart));
 		$article->event->afterDisplayTitle = trim(implode("\n", $results));
 
-		$results = $dispatcher->trigger('onBeforeDisplayContent', array (& $article, & $params, $limitstart));
+		$results = $dispatcher->trigger('onBeforeDisplayContent', array (&$article, &$params, $limitstart));
 		$article->event->beforeDisplayContent = trim(implode("\n", $results));
 
-		$results = $dispatcher->trigger('onAfterDisplayContent', array (& $article, & $params, $limitstart));
+		$results = $dispatcher->trigger('onAfterDisplayContent', array (&$article, &$params, $limitstart));
 		$article->event->afterDisplayContent = trim(implode("\n", $results));
 
 		$print = JRequest::getBool('print');
+		if ($print) {
+			$document->setMetaData('robots', 'noindex, nofollow');
+		}
 
 		$this->assignRef('article', $article);
 		$this->assignRef('params' , $params);
@@ -175,12 +201,13 @@ class ContentViewArticle extends ContentView
 		// Initialize variables
 		$document	=& JFactory::getDocument();
 		$user		=& JFactory::getUser();
-		$uri    	=& JFactory::getURI();
+		$uri		=& JFactory::getURI();
 		$params		=& $mainframe->getParams('com_content');
+
 		// Make sure you are logged in and have the necessary access rights
 		if ($user->get('gid') < 19) {
-			  JResponse::setHeader('HTTP/1.0 403',true);
-              JError::raiseWarning( 403, JText::_('ALERTNOTAUTH') ); 
+			JResponse::setHeader('HTTP/1.0 403',true);
+			  JError::raiseWarning( 403, JText::_('ALERTNOTAUTH') );
 			return;
 		}
 
@@ -190,7 +217,6 @@ class ContentViewArticle extends ContentView
 		$isNew		= ($article->id < 1);
 
 		$params->merge($aparams);
-
 
 		// At some point in the future this will come from a request object
 		$limitstart	= JRequest::getVar('limitstart', 0, '', 'int');
@@ -224,7 +250,7 @@ class ContentViewArticle extends ContentView
 		$menu  = $menus->getActive();
 		$params->set( 'page_title', $params->get( 'page_title' ) );
 		if (is_object( $menu )) {
-			$menu_params = new JParameter( $menu->params );			
+			$menu_params = new JParameter( $menu->params );
 			if (!$menu_params->get( 'page_title')) {
 				$params->set('page_title',	JText::_( 'Submit an Article' ));
 			}
@@ -243,9 +269,6 @@ class ContentViewArticle extends ContentView
 		} else {
 			$article->text = $article->introtext;
 		}
-
-		// Ensure the row data is safe html
-		JFilterOutput::objectHTMLSafe( $article);
 
 		$this->assign('action', 	$uri->toString());
 
@@ -336,7 +359,7 @@ class ContentViewArticle extends ContentView
 		$lists['catid'] = JHTML::_('select.genericlist',  $categories, 'catid', 'class="inputbox" size="1"', 'id', 'title', intval($article->catid));
 
 		// Select List: Category Ordering
-		$query = 'SELECT ordering AS value, title AS text FROM #__content WHERE catid = '.(int) $article->catid.' ORDER BY ordering';
+		$query = 'SELECT ordering AS value, title AS text FROM #__content WHERE catid = '.(int) $article->catid.' AND state > ' .(int) "-1" . ' ORDER BY ordering';
 		$lists['ordering'] = JHTML::_('list.specificordering', $article, $article->id, $query, 1);
 
 		// Radio Buttons: Should the article be published
@@ -367,4 +390,4 @@ class ContentViewArticle extends ContentView
 		parent::display($tpl);
 	}
 }
-?>
+

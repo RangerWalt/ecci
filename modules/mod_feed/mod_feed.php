@@ -1,8 +1,8 @@
 <?php
 /**
-* @version		$Id: mod_feed.php 10396 2008-06-05 19:19:55Z willebil $
+* @version		$Id: mod_feed.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -18,6 +18,7 @@ defined('_JEXEC') or die('Direct Access to this location is not allowed.');
 require_once (dirname(__FILE__).DS.'helper.php');
 
 $rssurl	= $params->get('rssurl', '');
+$rssrtl	= $params->get('rssrtl', 0);
 
 //check if cache diretory is writable as cache files will be created for the feed
 $cacheDir = JPATH_BASE.DS.'cache';

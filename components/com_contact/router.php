@@ -2,7 +2,7 @@
 /**
  * @version		$Id: router.php 7380 2007-05-06 21:26:03Z eddieajau $
  * @package		Joomla
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -48,6 +48,11 @@ function ContactBuildRoute(&$query)
 		{
 			foreach ($items as $item)
 			{
+				if (isset($item->id) && isset($query['Itemid']) 
+				    && $item->id != $query['Itemid'])
+				{
+				    continue;
+				}
 				// Check if this menu item links to this view.
 				if (isset($item->query['view']) && $item->query['view'] == 'contact'
 					&& isset($query['view']) && $query['view'] == 'contact'
@@ -69,7 +74,12 @@ function ContactBuildRoute(&$query)
 		{
 			foreach ($items as $item)
 			{
-				if (isset($query['view']) && $query['view'] == 'contact'
+				if (isset($item->id) && isset($query['Itemid']) 
+				    && $item->id != $query['Itemid'])
+				{
+				    continue;
+				}
+				if (isset($query['view']) && $query['view'] == 'contact' && !isset($item->query['catid'])
 					&& isset($item->query['view']) && $item->query['view'] == 'category')
 				{
 					// Check for an undealt with contact id.
@@ -110,12 +120,12 @@ function ContactBuildRoute(&$query)
 			}
 
 			$segments[] = $query['catid'];
-			
+
 			unset($query['view']);
 			unset($query['catid']);
 			unset($query['catalias']);
 		}
-		
+
 		// Check if a id was specified.
 		if (isset($query['id']))
 		{
@@ -161,8 +171,8 @@ function ContactParseRoute($segments)
 		if (isset($item->query['view']) && $item->query['view'] == 'contact' && isset($segments[0]))
 		{
 			// Break up the contact id into numeric and alias values.
-			if (isset($segments[0]) && strpos($segments[0], ':')) {
-				list($id, $alias) = explode(':', $segments[0], 2);
+			if (isset($segments[1]) && strpos($segments[1], ':')) {
+				list($id, $alias) = explode(':', $segments[1], 2);
 			}
 
 			// Contact view.

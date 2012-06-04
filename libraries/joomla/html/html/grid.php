@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: grid.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: grid.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	HTML
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -11,7 +11,7 @@
 * other free or open source software licenses.
 * See COPYRIGHT.php for copyright notices and details.
 */
-
+defined('JPATH_BASE') or die();
 /**
  * Utility class for creating HTML Grids
  *
@@ -161,7 +161,7 @@ class JHTMLGrid
 		{
 			$text = addslashes(htmlspecialchars($row->editor));
 
-			$date 	= JHTML::_('date',  $row->checked_out_time, '%A, %d %B %Y' );
+			$date 	= JHTML::_('date',  $row->checked_out_time, JText::_('DATE_FORMAT_LC1') );
 			$time	= JHTML::_('date',  $row->checked_out_time, '%H:%M' );
 
 			$hover = '<span class="editlinktip hasTip" title="'. JText::_( 'Checked Out' ) .'::'. $text .'<br />'. $date .'<br />'. $time .'">';

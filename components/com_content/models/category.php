@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: category.php 10616 2008-08-06 11:06:39Z hackwar $
+ * @version		$Id: category.php 19340 2010-11-03 15:00:55Z ian $
  * @package		Joomla
  * @subpackage	Content
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -20,7 +20,6 @@ jimport('joomla.application.component.model');
 /**
  * Content Component Category Model
  *
- * @author	Louis Landry <louis.landry@joomla.org>
  * @package		Joomla
  * @subpackage	Content
  * @since 1.5
@@ -323,7 +322,7 @@ class ContentModelCategory extends JModel
 		}
 
 		// Lets load the siblings if they don't already exist
-		if (empty($this->_content[$state]))
+		if (empty($this->_data[$state]))
 		{
 			// Get the pagination request variables
 			$limit		= JRequest::getVar('limit', 0, '', 'int');
@@ -331,6 +330,13 @@ class ContentModelCategory extends JModel
 
 			$query = $this->_buildQuery();
 			$Arows = $this->_getList($query, $limitstart, $limit);
+			
+			// Check for db errors
+			if ($this->_db->getErrorNum())
+			{
+				JError::raiseError(500, $this->_db->stderror());
+				return false;
+			}
 
 			// special handling required as Uncategorized content does not have a section / category id linkage
 			$i = $limitstart;
@@ -359,11 +365,11 @@ class ContentModelCategory extends JModel
 		$where		= $this->_buildContentWhere($state);
 		$orderby	= $this->_buildContentOrderBy($state);
 
-		$query = 'SELECT cc.title AS category, a.id, a.title, a.title_alias, a.introtext, a.fulltext, a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,' .
+		$query = 'SELECT cc.title AS category, a.id, a.title, a.alias, a.title_alias, a.introtext, a.fulltext, a.sectionid, a.state, a.catid, a.created, a.created_by, a.created_by_alias, a.modified, a.modified_by,' .
 			' a.checked_out, a.checked_out_time, a.publish_up, a.publish_down, a.attribs, a.hits, a.images, a.urls, a.ordering, a.metakey, a.metadesc, a.access,' .
 			' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug,'.
 			' CASE WHEN CHAR_LENGTH(cc.alias) THEN CONCAT_WS(":", cc.id, cc.alias) ELSE cc.id END as catslug,'.
-			' CHAR_LENGTH( a.`fulltext` ) AS readmore, u.name AS author, u.usertype, g.name AS groups'.$voting['select'] .
+			' CHAR_LENGTH( a.`fulltext` ) AS readmore, u.name AS author, u.usertype, g.name AS groups, u.email as author_email'.$voting['select'] .
 			' FROM #__content AS a' .
 			' LEFT JOIN #__categories AS cc ON a.catid = cc.id' .
 			' LEFT JOIN #__users AS u ON u.id = a.created_by' .
@@ -380,9 +386,17 @@ class ContentModelCategory extends JModel
 		global $mainframe;
 		// Get the page/component configuration
 		$params = &$mainframe->getParams();
+		$itemid = JRequest::getInt('id', 0) . ':' . JRequest::getInt('Itemid', 0);
+		$filter_order  = $mainframe->getUserStateFromRequest('com_content.category.list.' . $itemid . '.filter_order', 'filter_order', '', 'cmd');
+		$filter_order_Dir = $mainframe->getUserStateFromRequest('com_content.category.list.' . $itemid . '.filter_order_Dir', 'filter_order_Dir', '', 'cmd');
 
-		$filter_order		= JRequest::getCmd('filter_order');
-		$filter_order_Dir	= JRequest::getWord('filter_order_Dir');
+		if (!in_array($filter_order, array('a.title', 'author', 'a.hits', 'a.created', 'a.publish_up', 'a.publish_down', 'a.modified'))) {
+			$filter_order = '';
+		}
+
+		if (!in_array(strtoupper($filter_order_Dir), array('ASC', 'DESC'))) {
+			$filter_order_Dir = 'ASC';
+		}
 
 		$orderby = ' ORDER BY ';
 		if ($filter_order && $filter_order_Dir)
@@ -488,20 +502,22 @@ class ContentModelCategory extends JModel
 			{
 				// clean filter variable
 				$filter = JString::strtolower($filter);
+				$hitsFilter = intval($filter);
 				$filter	= $this->_db->Quote( '%'.$this->_db->getEscaped( $filter, true ).'%', false );
 
 				switch ($params->get('filter_type'))
 				{
-					case 'title' :
-						$where .= ' AND LOWER( a.title ) LIKE '.$filter;
-						break;
-
 					case 'author' :
 						$where .= ' AND ( ( LOWER( u.name ) LIKE '.$filter.' ) OR ( LOWER( a.created_by_alias ) LIKE '.$filter.' ) )';
 						break;
 
 					case 'hits' :
-						$where .= ' AND a.hits LIKE '.$filter;
+						$where .= ' AND a.hits >= '.$hitsFilter. ' ';
+						break;
+
+					case 'title' :
+					default : // default to 'title' if parameter is not valid
+						$where .= ' AND LOWER( a.title ) LIKE '.$filter;
 						break;
 				}
 			}

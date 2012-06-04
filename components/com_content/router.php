@@ -1,8 +1,8 @@
 <?php
 /**
-* @version		$Id: router.php 10588 2008-07-26 12:20:06Z ircmaxell $
+* @version		$Id: router.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -41,7 +41,7 @@ function ContentBuildRoute(&$query)
 		unset($query['catid']);
 		unset($query['id']);
 	}
-	
+
 	if (isset($view) and ($view == 'section' && !empty($query['Itemid']))) {
 		if (($mView != 'section') or ($mView == 'section' and $mId != intval($query['id']))) {
 			$segments[] = 'section';

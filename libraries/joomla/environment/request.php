@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: request.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: request.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	Environment
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -131,6 +131,7 @@ class JRequest
 		if (isset($GLOBALS['_JREQUEST'][$name]['SET.'.$hash]) && ($GLOBALS['_JREQUEST'][$name]['SET.'.$hash] === true)) {
 			// Get the variable from the input hash
 			$var = (isset($input[$name]) && $input[$name] !== null) ? $input[$name] : $default;
+			$var = JRequest::_cleanVar($var, $mask, $type);
 		}
 		elseif (!isset($GLOBALS['_JREQUEST'][$name][$sig]))
 		{

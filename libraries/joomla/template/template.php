@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: template.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: template.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	Template
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -20,7 +20,6 @@ jimport('pattemplate.patTemplate');
 /**
  * Template class, provides an easy interface to parse and display a template file
  *
- * @author 		Johan Janssens <johan.janssens@joomla.org>
  * @package 	Joomla.Framework
  * @subpackage		Template
  * @since		1.5

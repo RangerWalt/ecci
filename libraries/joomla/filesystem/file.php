@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: file.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: file.php 19177 2010-10-21 03:08:56Z ian $
  * @package		Joomla.Framework
  * @subpackage	FileSystem
  * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
@@ -21,7 +21,6 @@ jimport('joomla.filesystem.path');
  * A File handling class
  *
  * @static
- * @author		Louis Landry <louis.landry@joomla.org>
  * @package 	Joomla.Framework
  * @subpackage	FileSystem
  * @since		1.5
@@ -36,8 +35,14 @@ class JFile
 	 * @since 1.5
 	 */
 	function getExt($file) {
-		$dot = strrpos($file, '.') + 1;
-		return substr($file, $dot);
+		$chunks = explode('.', $file);
+		$chunksCount = count($chunks) - 1;
+
+		if($chunksCount > 0) {
+			return $chunks[$chunksCount];
+		}
+		
+		return false;
 	}
 
 	/**
@@ -86,7 +91,7 @@ class JFile
 
 		//Check src path
 		if (!is_readable($src)) {
-			JError::raiseWarning(21, 'JFile::copy: '.JText::_('Cannot find or read file' . ": '$src'"));
+			JError::raiseWarning(21, 'JFile::copy: ' . JText::_('Cannot find or read file') . ": '$src'");
 			return false;
 		}
 
@@ -195,7 +200,8 @@ class JFile
 
 		//Check src path
 		if (!is_readable($src) && !is_writable($src)) {
-			return JText::_('Cannot find source file');
+			JError::raiseWarning(21, 'JFile::move: ' . JText::_('Cannot find, read or write file') . ": '$src'");
+			return false;
 		}
 
 		if ($FTPOptions['enabled'] == 1) {
@@ -334,9 +340,10 @@ class JFile
 			$dest = JPath::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $dest), '/');
 
 			// Copy the file to the destination directory
-			if ($ftp->store($src, $dest)) {
-				$ftp->chmod($dest, 0777);
-				$ret = true;
+			if (is_uploaded_file($src) && $ftp->store($src, $dest))
+			{
+			            $ret = true;
+                		unlink($src);
 			} else {
 				JError::raiseWarning(21, JText::_('WARNFS_ERR02'));
 			}
@@ -374,7 +381,11 @@ class JFile
 	 * @since 1.5
 	 */
 	function getName($file) {
-		$slash = strrpos($file, DS) + 1;
-		return substr($file, $slash);
+		$slash = strrpos($file, DS);
+		if ($slash !== false) {
+			return substr($file, $slash + 1);
+		} else {
+			return $file;
+		}
 	}
 }

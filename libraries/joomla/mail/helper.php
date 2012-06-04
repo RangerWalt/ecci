@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: helper.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: helper.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	Mail
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -22,7 +22,6 @@ defined('JPATH_BASE') or die();
  * TODO: Test these methods as the regex work is first run and not tested thoroughly
  *
  * @static
- * @author 		Louis Landry <louis.landry@joomla.org>
  * @package 	Joomla.Framework
  * @subpackage	Mail
  * @since		1.5
@@ -135,7 +134,7 @@ class JMailHelper
 		}
 
 		// Check the domain
-		$domain_array	= explode(".", $domain);
+		$domain_array	= explode(".", rtrim( $domain, '.' ));
 		$regex		= '/^[A-Za-z0-9-]{0,63}$/';
 		foreach ($domain_array as $domain ) {
 

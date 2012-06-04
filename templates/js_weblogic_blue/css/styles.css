@@ -13,7 +13,7 @@ body#page_bg {
 
 /* default font */
 html, body, form, fieldset {
-	font: 14px/140%  "Trebuchet MS", Arial, Helvetica, San Serif;
+	font: 12px/140% Arial,Helvetica,San Serif;
 	font-size: 12px;
 }
 
@@ -42,7 +42,8 @@ html, body, form, fieldset {
 
 #header-graphic {
 	background: #FFFFFF url(../images/header_logo.png) no-repeat left top;
-	height: 47px;
+	height: 60px;
+	padding: 5px 0 5px 5px !important;
 }
 
 /* Defines the clickable hotspot area of the logo */
@@ -68,7 +69,7 @@ h2 {
 }
 
 h3 {
-	font-size: 18px;
+	font-size: 17px;
 	color: #0099CC;
 }
 
@@ -78,7 +79,7 @@ h4 {
 }
 /* Default Link Styles */
 a {
-	color: #999;
+	/*color: #999;*/
 	text-decoration: none;
 }
 
@@ -90,7 +91,7 @@ a:hover {
 /* Because serifs don't look all that great. Remove this if you change to a sans-serif font */
 
 b, strong {
-	font: bold .95em "Trebuchet MS", Arial, Helvetica, Geneva, sans-serif;
+	font: bold .95em Arial, Helvetica, Geneva, sans-serif;
 }
 
 /* Left and Right Column Typography */
@@ -343,7 +344,7 @@ div.moduletable-nopad h3 {
 text-decoration:none;
 }
 #footer .moduletable h3 {
-	font-family: "Trebuchet MS", Arial, Helvetica, "Sans Serif";
+	font-family: Arial, Helvetica, "Sans Serif";
 }
 /* @end */
 
@@ -378,7 +379,7 @@ td.contentheading {
 .contentheading {
 	color: #0066FF;
 	/*letter-spacing: -1px;*/
-	font: bold normal 20px/20px  "Trebuchet MS", Arial, helvetica, serif;
+	font: bold normal 20px/20px  Arial, helvetica, serif;
 }
 
 .contentheading a{
@@ -393,7 +394,7 @@ td.contentheading {
 }
 /*Read more...*/
 a.readon {
-	font: bold 12px/20px "Trebuchet MS", Arial, Helvetica,  sans-serif;
+	font: bold 12px/20px Arial, Helvetica,  sans-serif;
 	text-decoration: none;
 	color: #747a7e;
 }
@@ -436,4 +437,15 @@ td.sectiontableentry2 {
 .sectiontableentry1 a,
 .sectiontableentry2 a {
 	text-decoration: none;
+}
+
+.dv_latestnews{
+	/*background: url(/images/news.png) no-repeat top right !important;*/
+}
+.ico_news{
+	background: url(/images/news.png) no-repeat right top !important;
+}
+
+.item_1171{
+	color: red !important;
 }

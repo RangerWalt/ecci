@@ -1,8 +1,8 @@
 <?php
 /**
- * @version		$Id: content.php 10579 2008-07-22 14:54:24Z ircmaxell $
+ * @version		$Id: content.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -47,6 +47,7 @@ function plgSearchContent( $text, $phrase='', $ordering='', $areas=null )
 	$user	=& JFactory::getUser();
 
 	require_once(JPATH_SITE.DS.'components'.DS.'com_content'.DS.'helpers'.DS.'route.php');
+	require_once(JPATH_SITE.DS.'administrator'.DS.'components'.DS.'com_search'.DS.'helpers'.DS.'search.php');
 
 	$searchText = $text;
 	if (is_array( $areas )) {
@@ -80,7 +81,7 @@ function plgSearchContent( $text, $phrase='', $ordering='', $areas=null )
 			$wheres2 	= array();
 			$wheres2[] 	= 'a.title LIKE '.$text;
 			$wheres2[] 	= 'a.introtext LIKE '.$text;
-			$wheres2[] 	= 'a.`fulltext` LIKE '.$text;
+			$wheres2[] 	= 'a.fulltext LIKE '.$text;
 			$wheres2[] 	= 'a.metakey LIKE '.$text;
 			$wheres2[] 	= 'a.metadesc LIKE '.$text;
 			$where 		= '(' . implode( ') OR (', $wheres2 ) . ')';
@@ -96,7 +97,7 @@ function plgSearchContent( $text, $phrase='', $ordering='', $areas=null )
 				$wheres2 	= array();
 				$wheres2[] 	= 'a.title LIKE '.$word;
 				$wheres2[] 	= 'a.introtext LIKE '.$word;
-				$wheres2[] 	= 'a.`fulltext` LIKE '.$word;
+				$wheres2[] 	= 'a.fulltext LIKE '.$word;
 				$wheres2[] 	= 'a.metakey LIKE '.$word;
 				$wheres2[] 	= 'a.metadesc LIKE '.$word;
 				$wheres[] 	= implode( ' OR ', $wheres2 );
@@ -137,7 +138,7 @@ function plgSearchContent( $text, $phrase='', $ordering='', $areas=null )
 	{
 		$query = 'SELECT a.title AS title, a.metadesc, a.metakey,'
 		. ' a.created AS created,'
-		. ' CONCAT(a.introtext, a.`fulltext`) AS text,'
+		. ' CONCAT(a.introtext, a.fulltext) AS text,'
 		. ' CONCAT_WS( "/", u.title, b.title ) AS section,'
 		. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug,'
 		. ' CASE WHEN CHAR_LENGTH(b.alias) THEN CONCAT_WS(":", b.id, b.alias) ELSE b.id END as catslug,'
@@ -176,8 +177,8 @@ function plgSearchContent( $text, $phrase='', $ordering='', $areas=null )
 	if ( $sUncategorised && $limit > 0 )
 	{
 		$query = 'SELECT id, a.title AS title, a.created AS created, a.metadesc, a.metakey, '
-		. ' a.introtext AS text,'
-		. ' "2" as browsernav, "'. $db->Quote(JText::_('Uncategorised Content')) .'" AS section'
+		. ' CONCAT(a.introtext, a.fulltext) AS text,'
+		. ' "2" as browsernav, "'. $db->getEscaped(JText::_('Uncategorised Content')) .'" AS section'
 		. ' FROM #__content AS a'
 		. ' WHERE ('.$where.')'
 		. ' AND a.state = 1'
@@ -210,10 +211,11 @@ function plgSearchContent( $text, $phrase='', $ordering='', $areas=null )
 
 		$query = 'SELECT a.title AS title, a.metadesc, a.metakey,'
 		. ' a.created AS created,'
-		. ' a.introtext AS text,'
+		. ' CONCAT(a.introtext, a.fulltext) AS text,'
 		. ' CASE WHEN CHAR_LENGTH(a.alias) THEN CONCAT_WS(":", a.id, a.alias) ELSE a.id END as slug,'
 		. ' CASE WHEN CHAR_LENGTH(b.alias) THEN CONCAT_WS(":", b.id, b.alias) ELSE b.id END as catslug,'
 		. ' u.id AS sectionid,'
+		. ' CONCAT_WS( "/", u.title, b.title ) AS section,'
 		. ' "2" AS browsernav'
 		. ' FROM #__content AS a'
 		. ' INNER JOIN #__categories AS b ON b.id=a.catid AND b.access <= ' .$user->get( 'gid' )

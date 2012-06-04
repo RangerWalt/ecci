@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: content.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: content.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	Table
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -59,10 +59,6 @@ class JTableContent extends JTable
 	var $checked_out			= 0;
 	/** @var time */
 	var $checked_out_time		= 0;
-	/** @var datetime */
-	var $frontpage_up		= null;
-	/** @var datetime */
-	var $frontpage_down		= null;
 	/** @var datetime */
 	var $publish_up			= null;
 	/** @var datetime */
@@ -138,6 +134,27 @@ class JTableContent extends JTable
 		if(empty($this->introtext) && empty($this->fulltext)) {
 			$this->setError(JText::_('Article must have some text'));
 			return false;
+		}
+
+		// clean up keywords -- eliminate extra spaces between phrases
+		// and cr (\r) and lf (\n) characters from string
+		if(!empty($this->metakey)) { // only process if not empty
+			$bad_characters = array("\n", "\r", "\"", "<", ">"); // array of characters to remove
+			$after_clean = JString::str_ireplace($bad_characters, "", $this->metakey); // remove bad characters
+			$keys = explode(',', $after_clean); // create array using commas as delimiter
+			$clean_keys = array(); 
+			foreach($keys as $key) {
+				if(trim($key)) {  // ignore blank keywords
+					$clean_keys[] = trim($key);
+				}
+			}
+			$this->metakey = implode(", ", $clean_keys); // put array back together delimited by ", "
+		}
+		
+		// clean up description -- eliminate quotes and <> brackets
+		if(!empty($this->metadesc)) { // only process if not empty
+			$bad_characters = array("\"", "<", ">");
+			$this->metadesc = JString::str_ireplace($bad_characters, "", $this->metadesc);
 		}
 
 		return true;

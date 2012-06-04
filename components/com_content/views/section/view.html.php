@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: view.html.php 10616 2008-08-06 11:06:39Z hackwar $
+ * @version		$Id: view.html.php 15181 2010-03-04 23:06:32Z ian $
  * @package		Joomla
  * @subpackage	Content
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -78,7 +78,7 @@ class ContentViewSection extends ContentView
 		// because the application sets a default page title, we need to get it
 		// right from the menu item itself
 		if (is_object( $menu )) {
-			$menu_params = new JParameter( $menu->params );			
+			$menu_params = new JParameter( $menu->params );
 			if (!$menu_params->get( 'page_title')) {
 				$params->set('page_title',	$section->title);
 			}
@@ -104,7 +104,7 @@ class ContentViewSection extends ContentView
 		}
 
 		jimport('joomla.html.pagination');
-		$pagination = new JPagination($total, $limitstart, $limit - $links);
+		$pagination = new JPagination($total, $limitstart, $limit );
 
 		$this->assign('total',			$total);
 
@@ -160,7 +160,11 @@ class ContentViewSection extends ContentView
 			}
 			else
 			{
-				$item->readmore_link = JRoute::_("index.php?option=com_user&task=register");
+				$item->readmore_link = JRoute::_("index.php?option=com_user&view=login");
+				$returnURL = JRoute::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catslug, $item->sectionid),false);
+				$fullURL = new JURI($item->readmore_link);
+				$fullURL->setVar('return', base64_encode($returnURL));
+				$item->readmore_link = $fullURL->toString();
 				$item->readmore_register = true;
 			}
 		}

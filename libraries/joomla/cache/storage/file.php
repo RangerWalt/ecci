@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: file.php 10433 2008-06-19 18:43:59Z willebil $
+ * @version		$Id: file.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	Cache
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -18,7 +18,6 @@ defined('JPATH_BASE') or die();
 /**
  * File cache storage handler
  *
- * @author		Louis Landry <louis.landry@joomla.org>
  * @package		Joomla.Framework
  * @subpackage	Cache
  * @since		1.5
@@ -58,12 +57,12 @@ class JCacheStorageFile extends JCacheStorage
 		$this->_setExpire($id, $group);
 		if (file_exists($path)) {
 			$data = file_get_contents($path);
-			if($data) {		
+			if($data) {
 				// Remove the initial die() statement
 				$data	= preg_replace('/^.*\n/', '', $data);
 			}
 		}
-		
+
 		return $data;
 	}
 
@@ -83,11 +82,11 @@ class JCacheStorageFile extends JCacheStorage
 		$path		= $this->_getFilePath($id, $group);
 		$expirePath	= $path . '_expire';
 		$die		= '<?php die("Access Denied"); ?>'."\n";
-		
+
 		// Prepend a die string
-		
+
 		$data		= $die.$data;
-		
+
 		$fp = @fopen($path, "wb");
 		if ($fp) {
 			if ($this->_locking) {
@@ -180,13 +179,14 @@ class JCacheStorageFile extends JCacheStorage
 	 * @return boolean  True on success, false otherwise.
 	 */
 	function gc()
-	{
+	{	
+		jimport('joomla.filesystem.file');
 		$result = true;
 		// files older than lifeTime get deleted from cache
 		$files = JFolder::files($this->_root, '_expire', true, true);
 		foreach($files As $file) {
 			$time = @file_get_contents($file);
-			if ($time > $this->_now) {
+			if ($time < $this->_now) {
 				$result |= JFile::delete($file);
 				$result |= JFile::delete(str_replace('_expire', '', $file));
 			}

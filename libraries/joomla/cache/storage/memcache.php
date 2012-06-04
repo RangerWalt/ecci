@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: memcache.php 10433 2008-06-19 18:43:59Z willebil $
+ * @version		$Id: memcache.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	Cache
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -18,8 +18,6 @@ defined('JPATH_BASE') or die();
 /**
  * Memcache cache storage handler
  *
- * @author		Louis Landry <louis.landry@joomla.org>
- * @author		Mitch Pirtle
  * @package		Joomla.Framework
  * @subpackage	Cache
  * @since		1.5
@@ -64,14 +62,14 @@ class JCacheStorageMemcache extends JCacheStorage
 		// Get the site hash
 		$this->_hash = $params['hash'];
 	}
-	
+
 	/**
 	 * return memcache connection object
 	 *
 	 * @static
 	 * @access private
 	 * @return object memcache connection object
-	 */ 
+	 */
 	function &getConnection() {
 		static $db = null;
 		if(is_null($db)) {
@@ -79,7 +77,7 @@ class JCacheStorageMemcache extends JCacheStorage
 			$persistent	= (isset($params['persistent'])) ? $params['persistent'] : false;
 			// This will be an array of loveliness
 			$servers	= (isset($params['servers'])) ? $params['servers'] : array();
-	
+
 			// Create the memcache connection
 			$db = new Memcache;
 			foreach($servers AS $server) {
@@ -104,7 +102,7 @@ class JCacheStorageMemcache extends JCacheStorage
 			if (!is_array($params)) {
 				$params = unserialize(stripslashes($params));
 			}
-	
+
 			if (!$params) {
 				$params = array();
 			}

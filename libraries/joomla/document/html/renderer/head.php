@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: head.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: head.php 21074 2011-04-04 16:51:40Z dextercowley $
 * @package		Joomla.Framework
 * @subpackage	Document
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -18,7 +18,6 @@ defined('JPATH_BASE') or die();
 /**
  * JDocument head renderer
  *
- * @author		Johan Janssens <johan.janssens@joomla.org>
  * @package		Joomla.Framework
  * @subpackage	Document
  * @since		1.5
@@ -53,6 +52,10 @@ class JDocumentRendererHead extends JDocumentRenderer
 	 */
 	function fetchHead(&$document)
 	{
+		// Trigger the onBeforeCompileHead event.
+		$app = &JFactory::getApplication();
+		$app->triggerEvent('onBeforeCompileHead');
+		
 		// get line endings
 		$lnEnd = $document->_getLineEnd();
 		$tab = $document->_getTab();
@@ -75,7 +78,7 @@ class JDocumentRendererHead extends JDocumentRenderer
 				if ($type == 'http-equiv') {
 					$strHtml .= $tab.'<meta http-equiv="'.$name.'" content="'.$content.'"'.$tagEnd.$lnEnd;
 				} elseif ($type == 'standard') {
-					$strHtml .= $tab.'<meta name="'.$name.'" content="'.$content.'"'.$tagEnd.$lnEnd;
+					$strHtml .= $tab.'<meta name="'.$name.'" content="'.str_replace('"',"'",$content).'"'.$tagEnd.$lnEnd;
 				}
 			}
 		}

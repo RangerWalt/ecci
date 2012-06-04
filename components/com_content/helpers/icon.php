@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: icon.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: icon.php 21078 2011-04-04 20:52:23Z dextercowley $
  * @package		Joomla
  * @subpackage	Content
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -27,7 +27,10 @@ class JHTMLIcon
 {
 	function create($article, $params, $access, $attribs = array())
 	{
-		$url = 'index.php?task=new&id=0&sectionid='.$article->sectionid;
+		$uri =& JFactory::getURI();
+		$ret = $uri->toString();	
+	
+		$url = 'index.php?task=new&ret='.base64_encode($ret).'&id=0&sectionid='.$article->sectionid;
 
 		if ($params->get('show_icons')) {
 			$text = JHTML::_('image.site', 'new.png', '/images/M_images/', NULL, NULL, JText::_('New') );
@@ -62,14 +65,14 @@ class JHTMLIcon
 	}
 
 	function email($article, $params, $access, $attribs = array())
-	{
-		//$link	= JURI::base()."index.php?view=article&id=".$article->slug;
-		$uri     =& JURI::getInstance();
-		$base  = $uri->toString( array('scheme', 'host', 'port'));
-		$link    = $base.JRoute::_( "index.php?view=article&id=".$article->slug, false );
-		$url	= 'index.php?option=com_mailto&tmpl=component&link='.base64_encode( $link );
+        {
+                require_once(JPATH_SITE.DS.'components'.DS.'com_mailto'.DS.'helpers'.DS.'mailto.php');
+		$uri	=& JURI::getInstance();
+		$base	= $uri->toString( array('scheme', 'host', 'port'));
+                $link	= $base.JRoute::_( ContentHelperRoute::getArticleRoute($article->slug, $article->catslug, $article->sectionid) , false );
 
-		$status = 'width=400,height=300,menubar=yes,resizable=yes';
+                $url    = 'index.php?option=com_mailto&tmpl=component&link='.MailToHelper::addLink($link);
+		$status = 'width=400,height=350,menubar=yes,resizable=yes';
 
 		if ($params->get('show_icons')) 	{
 			$text = JHTML::_('image.site', 'emailButton.png', '/images/M_images/', NULL, NULL, JText::_('Email'));
@@ -87,6 +90,8 @@ class JHTMLIcon
 	function edit($article, $params, $access, $attribs = array())
 	{
 		$user =& JFactory::getUser();
+		$uri =& JFactory::getURI();
+		$ret = $uri->toString();
 
 		if ($params->get('popup')) {
 			return;
@@ -102,7 +107,7 @@ class JHTMLIcon
 
 		JHTML::_('behavior.tooltip');
 
-		$url = 'index.php?view=article&id='.$article->slug.'&task=edit';
+		$url = 'index.php?view=article&id='.$article->slug.'&task=edit&ret='.base64_encode($ret);
 		$icon = $article->state ? 'edit.png' : 'edit_unpublished.png';
 		$text = JHTML::_('image.site', $icon, '/images/M_images/', NULL, NULL, JText::_('Edit'));
 
@@ -119,7 +124,7 @@ class JHTMLIcon
 		$overlib .= '&lt;br /&gt;';
 		$overlib .= $date;
 		$overlib .= '&lt;br /&gt;';
-		$overlib .= $author;
+		$overlib .= htmlspecialchars($author, ENT_COMPAT, 'UTF-8');
 
 		$button = JHTML::_('link', JRoute::_($url), $text);
 
@@ -132,7 +137,7 @@ class JHTMLIcon
 	{
 		$url  = 'index.php?view=article';
 		$url .=  @$article->catslug ? '&catid='.$article->catslug : '';
-		$url .= '&id='.$article->slug.'&tmpl=component&print=1&page='.@ $request->limitstart;
+		$url .= '&id='.$article->slug.'&tmpl=component&print=1&layout=default&page='.@ $request->limitstart;
 
 		$status = 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no';
 
@@ -145,6 +150,7 @@ class JHTMLIcon
 
 		$attribs['title']	= JText::_( 'Print' );
 		$attribs['onclick'] = "window.open(this.href,'win2','".$status."'); return false;";
+		$attribs['rel']     = 'nofollow';
 
 		return JHTML::_('link', JRoute::_($url), $text, $attribs);
 	}

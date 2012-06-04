@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: table.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: table.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	Table
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -21,7 +21,6 @@ defined('JPATH_BASE') or die();
  * Parent classes to all tables.
  *
  * @abstract
- * @author		Andrew Eddie <eddieajau@users.sourceforge.net>
  * @package 	Joomla.Framework
  * @subpackage	Table
  * @since		1.0
@@ -385,6 +384,7 @@ class JTable extends JObject
 				JError::raiseError( 500, $err );
 			}
 		}
+		return true;
 	}
 
 	/**

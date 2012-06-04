@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: controller.php 10554 2008-07-15 17:15:19Z ircmaxell $
+ * @version		$Id: controller.php 14974 2010-02-21 14:32:22Z ian $
  * @package		Joomla
  * @subpackage	Contact
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -69,7 +69,39 @@ class ContactController extends JController
 
 		// Display the view
 		$view->assign('error', $this->getError());
-		$view->display();
+		
+		// View caching logic -- simple... are we logged in?
+		$user = &JFactory::getUser();
+		$viewnow = JRequest::getVar('view');
+		$viewcache = JRequest::getVar('viewcache','1','POST','INT');
+		
+		if ($user->get('id') || ($viewnow == 'category' && $viewcache == 0)) {
+			$view->display();
+		} else {
+
+			// Workaround for token caching
+			if ($viewName == 'contact')
+			{
+				ob_start();
+			}
+			
+			$option = JRequest::getCmd('option');
+			$cache =& JFactory::getCache($option, 'view');
+			$cache->get($view, 'display');
+			
+			// Workaround for token caching
+			if ($viewName == 'contact')
+			{
+				$contents = ob_get_contents();
+				ob_end_clean();
+				
+				$token			= JUtility::getToken();
+				$search 		= '#<input type="hidden" name="[0-9a-f]{32}" value="1" />#';
+				$replacement 	= '<input type="hidden" name="'.$token.'" value="1" />';
+
+				echo preg_replace($search, $replacement, $contents);
+			}
+		}
 	}
 
 	/**
@@ -214,12 +246,13 @@ class ContactController extends JController
 		JTable::addIncludePath(JPATH_ADMINISTRATOR.DS.'components'.DS.'com_contact'.DS.'tables');
 		$contact =& JTable::getInstance('contact', 'Table');
 		$contact->load($contactId);
+		$user =& JFactory::getUser();
 
 		// Get the contact detail parameters
-		$pparams = &$mainframe->getParams('com_contact');
+		$params = new JParameter($contact->params);
 
-		// Should we show the vcard?
-		if ($pparams->get('allow_vcard', 0))
+		// Show the Vcard if contact parameter indicates (prevents direct access)
+		if (($params->get('allow_vcard', 0)) && ($user->get('aid', 0) >= $contact->access))
 		{
 			// Parse the contact name field and build the nam information for the vcard.
 			$firstname 	= null;
@@ -266,12 +299,12 @@ class ContactController extends JController
 			$v->setNote($contact->misc);
 			$v->setURL( JURI::base(), 'WORK');
 			$v->setTitle($contact->con_position);
-			$v->setOrg($SiteName);
+			$v->setOrg(html_entity_decode($SiteName, ENT_COMPAT, 'UTF-8'));
 
 			$filename = str_replace(' ', '_', $contact->name);
 			$v->setFilename($filename);
 
-			$output = $v->getVCard($SiteName);
+			$output = $v->getVCard(html_entity_decode($SiteName, ENT_COMPAT, 'UTF-8'));
 			$filename = $v->getFileName();
 
 			// Send vCard file headers
@@ -284,7 +317,7 @@ class ContactController extends JController
 
 			print $output;
 		} else {
-			JError::raiseWarning('SOME_ERROR_CODE', 'ContactController::vCard: '.JText::_('NOTAUTH'));
+			JError::raiseWarning('SOME_ERROR_CODE', 'ContactController::vCard: '.JText::_('ALERTNOTAUTH'));
 			return false;
 		}
 	}
@@ -327,7 +360,7 @@ class ContactController extends JController
 
 		// Prevent form submission if one of the banned text is discovered in the email field
 		if(false === $this->_checkText($email, $bannedEmail )) {
-			$this->setError( JText::sprintf('MESGHASBANNEDTEXT', 'Email') );
+			$this->setError( JText::sprintf('MESGHASBANNEDTEXT', JText::_('Email')) );
 			return false;
 		}
 
@@ -338,7 +371,7 @@ class ContactController extends JController
 
 		// Prevent form submission if one of the banned text is discovered in the subject field
 		if(false === $this->_checkText($subject, $bannedSubject)) {
-			$this->setError( JText::sprintf('MESGHASBANNEDTEXT', 'Subject') );
+			$this->setError( JText::sprintf('MESGHASBANNEDTEXT',JText::_('Subject')) );
 			return false;
 		}
 
@@ -349,7 +382,7 @@ class ContactController extends JController
 
 		// Prevent form submission if one of the banned text is discovered in the text field
 		if(false === $this->_checkText( $body, $bannedText )) {
-			$this->setError( JText::sprintf('MESGHASBANNEDTEXT', 'Message') );
+			$this->setError( JText::sprintf('MESGHASBANNEDTEXT', JText::_('Message')) );
 			return false;
 		}
 
