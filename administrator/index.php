@@ -14,6 +14,8 @@
 // Set flag that this is a parent file
 define( '_JEXEC', 1 );
 
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
 define('JPATH_BASE', dirname(__FILE__) );
 
 define('DS', DIRECTORY_SEPARATOR);
